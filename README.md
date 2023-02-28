@@ -11,3 +11,10 @@ git submodule update
 tdesign-site: `npm run dev:site`
 
 tdesign-site-components: `npm run dev:components`
+
+## publish
+```bash
+# 发布 tdesign-site-components
+git tag components-x.x.x
+git push origin components-x.x.x
+```
