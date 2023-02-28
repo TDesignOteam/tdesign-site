@@ -4,10 +4,10 @@
 
 ```bash
 # 安装
-pnpm install
+npm install
 
 # 启动
-pnpm dev
+npm dev
 ```
 
 调试 `index.html` 页面
@@ -15,7 +15,7 @@ pnpm dev
 ## 构建
 
 ```bash
-pnpm build
+npm build
 ```
 
 ## 使用

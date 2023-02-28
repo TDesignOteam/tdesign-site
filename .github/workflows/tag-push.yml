@@ -1,0 +1,26 @@
+name: TAG_PUSH
+
+on: create
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.ref_type == 'tag' &&
+      startsWith(github.ref_name, 'components-')
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          registry-url: 'https://registry.npmjs.org'
+      - run: cd components && npm install
+      - run: cd components && npm run build
+      - run: cd components && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.TDESIGN_NPM_TOKEN }}
+      - run: echo '${{ github.ref }} ...  ${{ github.ref_name }}'
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
+      
