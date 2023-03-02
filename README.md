@@ -1,8 +1,8 @@
-# TDesign 站点相关代码
+# TDesign site related code
 
-### 开发
+### Dev
 
-初次开发需要初始化子仓库
+Initial development needs to initialize the submodule.
 ```
 git submodule init 
 git submodule update
@@ -12,9 +12,8 @@ tdesign-site: `npm run dev:site`
 
 tdesign-site-components: `npm run dev:components`
 
-## publish
+## Publish
 ```bash
-# 发布 tdesign-site-components
-git tag components-x.x.x
-git push origin components-x.x.x
+# publish tdesign-site-components
+After modifying components/package.json the release version will be automatically triggered by the workflow.
 ```
