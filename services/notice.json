@@ -1,0 +1,13 @@
+{
+  "all": [],
+  "site": [{
+    "title": "This is a test",
+    "type": "success",
+    "closeable": true
+  }],
+  "vue": [],
+  "react": [],
+  "vue-next": [],
+  "vue-mobile": [],
+  "miniprogram": []
+}
