@@ -1,9 +1,10 @@
 name: MAIN_PULL_REQUEST
 
 on:
-  pull_request:
+  push:
     branches: [develop, main]
-    types: [opened, synchronize, reopened]
+  pull_request_target:
+    types: [closed]
     
 jobs: 
   modify-services:
@@ -25,6 +26,7 @@ jobs:
     if: needs.modify-services.outputs.services-changed == 'true'
     steps:
       - name: upload-services
+        uses: actions/checkout@v2
         uses: actions/setup-node@v2
         with:
           node-version: 16
