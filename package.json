@@ -4,7 +4,8 @@
     "dev:components": "cd components && npm run dev",
     "dev:site": "cd site && npm run dev",
     "build:components": "cd components && npm run build",
-    "build:site": "npm run build:components && cd site && npm run build"
+    "site": "npm run build:components && cd site && npm run build",
+    "site:intranet": "npm run build:components && cd site && vite build --mode intranet"
   },
   "workspaces": ["site", "components"],
   "license": "MIT"
