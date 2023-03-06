@@ -70,7 +70,7 @@ const baseComponentsLinks = {
         name: 'Flutter', icon: flutterIcon, path: '/flutter/', npm: 'tdesign-flutter', status: 0,
       },
       {
-        name: '微信小程序', icon: wxIcon, path: '/miniprogram/', npm: 'tdesign-miniprogram', status: 4,
+        name: '微信小程序', icon: wxIcon, path: '/miniprogram/', npm: 'tdesign-miniprogram', status: 1,
       },
       {
         name: 'QQ 小程序', icon: wxIcon, path: '/qq-miniprogram/', npm: 'tdesign-qq-miniprogram', status: 2,
