@@ -35,9 +35,9 @@ jobs:
       - run: cd components && npm run build
       - run: cd components && npm publish
         env:
-        NODE_AUTH_TOKEN: ${{ secrets.TDESIGN_NPM_TOKEN }}
-    - run: echo '${{ github.ref }} ...  ${{ github.ref_name }}'
-    - if: steps.publish.outputs.type != 'none'
-      run: |
-        echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
+          NODE_AUTH_TOKEN: ${{ secrets.TDESIGN_NPM_TOKEN }}
+      - run: echo '${{ github.ref }} ...  ${{ github.ref_name }}'
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
       
