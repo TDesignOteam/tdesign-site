@@ -1,8 +1,9 @@
 {
   "all": [],
   "site": [{
-    "title": "This is a test~",
-    "type": "success",
+    "title": "📢 React for Mobile 上线啦! 了解更多",
+    "type": "primary",
+    "actionUrl": "",
     "closeable": true
   }],
   "vue": [],
