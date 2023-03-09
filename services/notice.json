@@ -1,14 +1,14 @@
 {
-  "all": [],
-  "site": [{
+  "all": {},
+  "site": {
     "title": "📢 React for Mobile 上线啦! 了解更多",
     "type": "primary",
     "actionUrl": "",
     "closeable": true
-  }],
-  "vue": [],
-  "react": [],
-  "vue-next": [],
-  "vue-mobile": [],
-  "miniprogram": []
+  },
+  "vue": {},
+  "react": {},
+  "vue-next": {},
+  "vue-mobile": {},
+  "miniprogram": {}
 }
