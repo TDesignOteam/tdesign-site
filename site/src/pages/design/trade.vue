@@ -1,4 +1,4 @@
-<template>
+d<template>
   <div class="tdesign-document">
     <div class="tdesign-source-header">
       <div class="content">
@@ -60,7 +60,7 @@
             组件现已在腾讯安全运营中心、零信任、主机安全、云防火墙、DDOS、WAF、数据安全、内容安全等云上多款基础安全以及业务安全产品中得到有效验证，并且落地使用。
           </p>
         </div>
-        <a href="https://zstack.woa.com/component-next/overview" target="_blank">
+        <a :href="safeTeamUrl" target="_blank">
           <t-button size="large" class="action">查 看</t-button>
         </a>
       </div>
@@ -87,7 +87,14 @@
 </template>
 
 <script>
+const safeTeamUrl = import.meta.env.VITE_SAFE_TEAM_URL;
+
 export default {
+  data() {
+    return {
+      safeTeamUrl
+    };
+  },
   computed: {
     footerStyle () {
       return {
