@@ -1,9 +1,9 @@
 {
   "all": {},
   "site": {
-    "title": "📢 React for Mobile 上线啦! 了解更多",
+    "title": "📢 小程序正式版 发布啦! 了解更多",
     "type": "primary",
-    "actionUrl": "",
+    "actionUrl": "https://tdesign.tencent.com/miniprogram/changelog",
     "closeable": true
   },
   "vue": {},
