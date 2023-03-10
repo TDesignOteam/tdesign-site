@@ -1,5 +1,6 @@
 :host {
   --collapse-display: none;
+  --aside-top: 64px;
 
   @media screen and (max-width: 1200px) {
     --collapse-display: flex;
@@ -9,7 +10,7 @@
 .TDesign-doc-aside {
   position: absolute;
   left: 0;
-  top: 64px;
+  top: var(--aside-top);
   height: 100vh;
   width: var(--aside-width, 260px);
   z-index: 1300;

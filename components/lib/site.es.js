@@ -1718,7 +1718,7 @@ const baseComponentsLinks$2 = {
         icon: wxIcon,
         path: "/miniprogram/",
         npm: "tdesign-miniprogram",
-        status: 4
+        status: 1
       },
       {
         name: "QQ \u5C0F\u7A0B\u5E8F",
@@ -1833,7 +1833,7 @@ const baseComponentsLinks$1 = {
         icon: wxIcon,
         path: "/miniprogram/",
         npm: "tdesign-miniprogram",
-        status: 4
+        status: 1
       },
       {
         name: "QQ \u5C0F\u7A0B\u5E8F",
@@ -1858,7 +1858,7 @@ var gplHeaderData = {
   baseComponentsLinks: baseComponentsLinks$1,
   baseComponentPrefix: baseComponentPrefix$1
 };
-var style$t = ':host{position:relative;--header-inner-max-width: 100%;--header-inner-padding: 0 24px;--search-display: block}@media screen and (max-width: 1200px){:host{--search-display: none}}.TDesign-header{height:var(--header-height);background-color:var(--bg-color-container);color:var(--text-secondary);position:relative;z-index:1400;box-shadow:var(--header-box-shadow)}.TDesign-header-inner{padding:var(--header-inner-padding);height:100%;display:flex;justify-content:space-between;align-items:center;box-sizing:border-box;max-width:var(--header-inner-max-width);margin:auto;transition:all .25s var(--anim-time-fn-easing)}.TDesign-header-left{display:flex;align-items:center}.TDesign-header .slot-search{display:var(--search-display)}.TDesign-header-nav{display:flex;align-items:center;justify-content:flex-start;column-gap:8px}.TDesign-header-nav__link{cursor:pointer;padding:4px 16px;box-sizing:border-box;height:32px;line-height:24px;color:var(--text-primary);text-decoration:none;border-radius:var(--border-radius);transition:all .1s;display:inline-block;vertical-align:middle;word-break:keep-all;flex-shrink:0}.TDesign-header-nav__link:hover{background:var(--bg-color-container-hover)}.TDesign-header-nav__link:hover .icon svg path{d:path("M3.75 10.2002L7.99274 5.7998L12.2361 10.0425")}.TDesign-header-nav__link.active{color:var(--text-primary);background:var(--bg-color-container-select)}.TDesign-header-nav__link .icon{width:16px;height:16px;display:inline-block;vertical-align:middle;margin-top:-4px;margin-left:4px}.TDesign-header-nav__link .icon svg path{transition:d .2s;stroke:currentColor}.TDesign-header-nav__git{display:inline-flex;color:var(--text-primary);border-radius:var(--border-radius);transition:all .2s linear;width:32px;height:32px;align-items:center;justify-content:center}.TDesign-header-nav__git:hover{background:var(--bg-color-container-hover)}.TDesign-header-nav__git-icon{width:24px;height:24px;display:inline-block}.TDesign-header-nav td-theme-tabs{margin-left:8px}\n';
+var style$t = ':host{position:relative;--header-inner-max-width: 100%;--header-inner-padding: 0 24px;--search-display: block}@media screen and (max-width: 1200px){:host{--search-display: none}}.TDesign-header-notice{width:100%;height:32px;padding:8px 24px;transition:all .2s;box-sizing:border-box;display:flex;align-items:center;justify-content:center;position:relative;color:#ffffffe6}.TDesign-header-notice.primary{background-color:var(--brand-main)}.TDesign-header-notice__content{cursor:pointer}.TDesign-header-notice__close{display:inline-flex;align-items:center;position:absolute;right:24px;top:8px;cursor:pointer}.TDesign-header-notice__close svg{width:16px;height:16px}.TDesign-header{height:var(--header-height);background-color:var(--bg-color-container);color:var(--text-secondary);position:relative;z-index:1400;box-shadow:var(--header-box-shadow)}.TDesign-header-inner{padding:var(--header-inner-padding);height:100%;display:flex;justify-content:space-between;align-items:center;box-sizing:border-box;max-width:var(--header-inner-max-width);margin:auto;transition:all .25s var(--anim-time-fn-easing)}.TDesign-header-left{display:flex;align-items:center}.TDesign-header .slot-search{display:var(--search-display)}.TDesign-header-nav{display:flex;align-items:center;justify-content:flex-start;column-gap:8px}.TDesign-header-nav__link{cursor:pointer;padding:4px 16px;box-sizing:border-box;height:32px;line-height:24px;color:var(--text-primary);text-decoration:none;border-radius:var(--border-radius);transition:all .1s;display:inline-block;vertical-align:middle;word-break:keep-all;flex-shrink:0}.TDesign-header-nav__link:hover{background:var(--bg-color-container-hover)}.TDesign-header-nav__link:hover .icon svg path{d:path("M3.75 10.2002L7.99274 5.7998L12.2361 10.0425")}.TDesign-header-nav__link.active{color:var(--text-primary);background:var(--bg-color-container-select)}.TDesign-header-nav__link .icon{width:16px;height:16px;display:inline-block;vertical-align:middle;margin-top:-4px;margin-left:4px}.TDesign-header-nav__link .icon svg path{transition:d .2s;stroke:currentColor}.TDesign-header-nav__git{display:inline-flex;color:var(--text-primary);border-radius:var(--border-radius);transition:all .2s linear;width:32px;height:32px;align-items:center;justify-content:center}.TDesign-header-nav__git:hover{background:var(--bg-color-container-hover)}.TDesign-header-nav__git-icon{width:24px;height:24px;display:inline-block}.TDesign-header-nav td-theme-tabs{margin-left:8px}\n';
 var portalStyle$3 = "@media screen and (max-width: 960px){:host .TDesign-base-components-link{display:none}}.TDesign-base-components-links{display:flex;flex-direction:column;padding:24px;width:784px;box-sizing:border-box;row-gap:24px}.TDesign-base-components-links__web,.TDesign-base-components-links__mobile{display:flex;flex-direction:column;row-gap:8px}.TDesign-base-components-links__list{display:flex;flex-wrap:wrap;gap:8px}.TDesign-base-components-links .title{color:var(--text-placeholder);margin:0 8px;font-size:14px;line-height:22px}.TDesign-base-components-links .link{border-radius:6px;transition:all .2s linear;color:var(--text-secondary);text-decoration:none;padding:8px;display:inline-flex;align-items:center;width:240px;box-sizing:border-box}.TDesign-base-components-links .link:not(.disabled):hover{color:var(--text-primary);background:var(--bg-color-container-hover)}.TDesign-base-components-links .link .details{display:flex;flex-direction:column}.TDesign-base-components-links .link .name{font-size:16px;line-height:24px;height:24px}.TDesign-base-components-links .link .version{font-size:14px;line-height:22px;color:var(--text-placeholder)}.TDesign-base-components-links .link .icon{max-width:40px;max-height:40px;margin-right:16px}.TDesign-base-components-links .link.active{color:var(--text-primary);background:var(--bg-color-container-select)}.TDesign-base-components-links .link.disabled{cursor:no-drop}.TDesign-base-components-links .link .disable-tag,.TDesign-base-components-links .link .alpha-tag,.TDesign-base-components-links .link .beta-tag,.TDesign-base-components-links .link .rc-tag,.TDesign-base-components-links .link .stable-tag{font-size:12px;border-radius:var(--border-radius);padding:2px 4px;margin-left:8px;vertical-align:bottom}.TDesign-base-components-links .link .disable-tag{color:var(--text-secondary);background:var(--bg-color-tag)}.TDesign-base-components-links .link .alpha-tag{color:var(--brand-main);background:var(--brand-main-light);font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace}.TDesign-base-components-links .link .beta-tag,.TDesign-base-components-links .link .rc-tag{color:var(--success-main);background:var(--success-main-light);font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace}.TDesign-base-components-links .link .stable-tag{color:#029cd4;background:rgba(2,156,212,.1);font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace}\n";
 var githubIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" clip-rule="evenodd"\n    d="M12 2.23999C6.475 2.23999 2 6.71499 2 12.24C2 16.665 4.8625 20.4025 8.8375 21.7275C9.3375 21.815 9.525 21.515 9.525 21.2525C9.525 21.015 9.5125 20.2275 9.5125 19.39C7 19.8525 6.35 18.7775 6.15 18.215C6.0375 17.9275 5.55 17.04 5.125 16.8025C4.775 16.615 4.275 16.1525 5.1125 16.14C5.9 16.1275 6.4625 16.865 6.65 17.165C7.55 18.6775 8.9875 18.2525 9.5625 17.99C9.65 17.34 9.9125 16.9025 10.2 16.6525C7.975 16.4025 5.65 15.54 5.65 11.715C5.65 10.6275 6.0375 9.72749 6.675 9.02749C6.575 8.77749 6.225 7.75249 6.775 6.37749C6.775 6.37749 7.6125 6.11499 9.525 7.40249C10.325 7.17749 11.175 7.06499 12.025 7.06499C12.875 7.06499 13.725 7.17749 14.525 7.40249C16.4375 6.10249 17.275 6.37749 17.275 6.37749C17.825 7.75249 17.475 8.77749 17.375 9.02749C18.0125 9.72749 18.4 10.615 18.4 11.715C18.4 15.5525 16.0625 16.4025 13.8375 16.6525C14.2 16.965 14.5125 17.565 14.5125 18.5025C14.5125 19.84 14.5 20.915 14.5 21.2525C14.5 21.515 14.6875 21.8275 15.1875 21.7275C17.1727 21.0573 18.8977 19.7815 20.1198 18.0795C21.3419 16.3776 21.9995 14.3352 22 12.24C22 6.71499 17.525 2.23999 12 2.23999Z"\n    fill="currentColor" />\n</svg>';
 var gitIcon = '<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">\n    <g id="\u9875\u9762-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\n        <g id="\u7EC4\u4EF6\u4EE3\u7801\u4E00\u884C\u4E00\u4E2A3" transform="translate(-1358.000000, -93.000000)" fill="currentColor" fill-rule="nonzero">\n            <g id="\u7F16\u7EC4-3" transform="translate(1358.000000, 93.000000)">\n                <g id="logo.10e09b95" transform="translate(1.000000, 2.000000)">\n                    <path d="M4.26530612,1.61632653 L12.8902041,1.61632653 L12.8902041,0 L5.18122449,0 L4.26530612,1.61632653 Z M2.18877551,5.26428571 L19.7326531,5.26428571 L18.7965306,3.64795918 L3.10469388,3.64795918 L2.18877551,5.26428571 Z M19.7685714,14.564898 L2.11244898,14.564898 L3.04632653,16.1812245 L18.8526531,16.1812245 L19.7685714,14.564898 L19.7685714,14.564898 Z" id="\u5F62\u72B6"></path>\n                    <polygon id="\u8DEF\u5F84" points="16.6885714 0 14.0822449 0 14.0822449 1.61632653 17.6381633 1.61632653"></polygon>\n                    <polygon id="\u8DEF\u5F84" points="21.9034694 10.9304082 17.2183673 10.9304082 17.2183673 12.5467347 20.987551 12.5467347 21.9034694 10.9304082"></polygon>\n                    <polygon id="\u8DEF\u5F84" points="0.949591837 12.5467347 5.76938776 12.5467347 5.76938776 10.9304082 0 10.9304082"></polygon>\n                    <polygon id="\u8DEF\u5F84" points="7.07142857 10.9304082 16.0802041 10.9304082 16.0802041 12.5467347 7.07142857 12.5467347"></polygon>\n                    <polygon id="\u8DEF\u5F84" points="17.7032653 18.1836735 6.92102041 18.1836735 6.92102041 19.8 16.7873469 19.8"></polygon>\n                    <path d="M5.13183673,19.8 L5.7155102,19.8 L5.7155102,18.1836735 L4.1822449,18.1836735 L5.13183673,19.8 L5.13183673,19.8 Z M0.0853061224,8.9122449 L9.57897959,8.9122449 L9.57897959,7.29591837 L1.00122449,7.29591837 L0.0853061224,8.9122449 Z" id="\u5F62\u72B6"></path>\n                    <polygon id="\u8DEF\u5F84" points="20.8842857 7.29591837 10.8832653 7.29591837 10.8832653 8.9122449 21.8338776 8.9122449 20.8842857 7.29591837"></polygon>\n                </g>\n            </g>\n        </g>\n    </g>\n</svg>';
@@ -1923,6 +1923,7 @@ function watchHtmlMode(callback = () => {
   observer.observe(targetNode, config);
   return observer;
 }
+var closeIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path\n    d="M16 17.8385L22.1518 23.9903L23.9903 22.1518L17.8385 16L23.9903 9.84817L22.1518 8.0097L16 14.1615L9.84812 8.00964L8.00964 9.84812L14.1615 16L8.00964 22.1518L9.84812 23.9903L16 17.8385Z"\n    fill="currentColor" />\n</svg>';
 const { headerList, baseComponentsLinks, baseComponentPrefix } = isIntranet() ? headerData : gplHeaderData;
 const allComponentsNpmUrl = [
   ...baseComponentsLinks.web.links.filter((l) => l.status).map((l) => l.npm),
@@ -1950,6 +1951,48 @@ function isActive(path) {
   if (/^https?:/.test(path))
     return location.href.includes(path);
   return location.pathname.includes(path);
+}
+function renderNotice(host) {
+  if (location.host !== "tdesign.tencent.com" && !localStorage.getItem("TDesign_notice"))
+    return html``;
+  const { notice } = host;
+  let currentSite = location.pathname.split("/")[1] || "site";
+  if (["design", "source", "about"].includes(currentSite))
+    currentSite = "site";
+  let noticeOption = notice[currentSite];
+  if (!(noticeOption == null ? void 0 : noticeOption.title))
+    noticeOption = notice["all"];
+  if (!(noticeOption == null ? void 0 : noticeOption.title))
+    return html``;
+  const closeNotice = () => {
+    if (!host.shadowRoot)
+      return;
+    host.shadowRoot.querySelector(".TDesign-header-notice").style.display = "none";
+  };
+  const handleNoticeAction = () => {
+    if (!(noticeOption == null ? void 0 : noticeOption.actionUrl))
+      return;
+    location.href = noticeOption.actionUrl;
+  };
+  const asideEl = document.querySelector("td-doc-aside");
+  if (asideEl) {
+    asideEl.style.setProperty("--aside-top", "96px");
+  }
+  return html`
+    <div class="TDesign-header-notice ${noticeOption.type}">
+      <div
+        class="TDesign-header-notice__content"
+        onclick="${handleNoticeAction}"
+      >
+        ${noticeOption.title}
+      </div>
+      ${noticeOption.closeable && html`<i
+        class="TDesign-header-notice__close"
+        innerHTML="${closeIcon}"
+        onclick="${closeNotice}"
+      ></i>`}
+    </div>
+  `;
 }
 function renderLinksPopup(host, trigger) {
   return html`
@@ -2069,6 +2112,15 @@ define$2({
   platform: "web",
   framework: "vue",
   disabledTheme: false,
+  notice: {
+    get: (_host, lastValue) => lastValue || {},
+    set: (_host, value2) => value2,
+    connect: (host, key2) => {
+      fetch("https://tdesign-site-services.surge.sh/notice.json").then((res) => res.json()).then((res) => {
+        host.notice = res;
+      }).catch(console.error);
+    }
+  },
   npmVersions: {
     get: (_host, lastValue) => lastValue || {},
     set: (_host, value2) => value2,
@@ -2103,6 +2155,7 @@ define$2({
   render: (host) => {
     const { platform, framework, disabledTheme, collapseMenu } = host;
     return html`
+      ${renderNotice(host)}
       <header class="TDesign-header">
         <div class="TDesign-header-inner">
           <div class="TDesign-header-left">
@@ -2819,7 +2872,7 @@ define$2({
       </div>
     `.css`${style$l}`
 });
-var style$k = ':host{--collapse-display: none}@media screen and (max-width: 1200px){:host{--collapse-display: flex}}.TDesign-doc-aside{position:absolute;left:0;top:64px;height:100vh;width:var(--aside-width, 260px);z-index:1300;box-sizing:border-box;padding-bottom:32px;background-color:var(--bg-color-container);color:var(--text-secondary);box-shadow:var(--aside-box-shadow);transition:transform .2s var(--anim-time-fn-easing),outline .2s var(--anim-time-fn-easing);outline:9999px solid transparent}.TDesign-doc-aside.hide{transform:translate3d(calc(-1 * var(--aside-width)),0,0)}.TDesign-doc-aside.show{transform:translateZ(0);outline-color:var(--text-disabled)}.TDesign-doc-aside.show+.TDesign-doc-aside-mask{display:block}.TDesign-doc-aside:after{content:"";width:100%;height:100px;position:absolute;left:0;bottom:-100px;background-color:var(--bg-color-container)}.TDesign-doc-aside__title{margin:8px 12px;font-size:16px;height:40px;line-height:40px;font-family:TencentSansW7}.TDesign-doc-aside__extra{max-width:calc(var(--aside-width) - 24px);position:relative;padding:0 12px;display:block}.TDesign-doc-aside-mask{content:"";position:fixed;left:0;top:0;width:100%;height:100%;z-index:600;display:none}.TDesign-doc-aside-collapse{position:fixed;left:var(--aside-width);top:160px;border-radius:0 3px 3px 0;box-shadow:2px 0 8px #00000042;width:40px;height:40px;align-items:center;justify-content:center;background-color:var(--bg-color-container);transition:all .2s var(--anim-time-fn-easing);display:var(--collapse-display)}.TDesign-doc-aside-collapse .icon svg{width:24px;height:24px;color:var(--text-primary)}.TDesign-doc-sidenav{height:100%;padding:0 0 0 12px;overflow:auto}.TDesign-doc-sidenav:hover::-webkit-scrollbar-thumb{background-color:var(--bg-color-scroll)}.TDesign-doc-sidenav::-webkit-scrollbar{width:12px;background:transparent}.TDesign-doc-sidenav::-webkit-scrollbar-thumb{border-radius:6px;border:4px solid transparent;background-clip:content-box;background-color:transparent}.TDesign-doc-sidenav-group__title{display:flex;align-items:center;font-size:12px;color:var(--text-placeholder);padding:14px 12px 4px;height:40px;box-sizing:border-box;position:relative;margin-top:8px;border-radius:var(--border-radius)}.TDesign-doc-sidenav-group__children{overflow:hidden}.TDesign-doc-sidenav-item{position:relative;margin-top:4px;max-width:calc(var(--aside-width) - 24px)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link{display:block;height:40px;padding:0 12px;line-height:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-secondary);text-decoration:none;border-radius:var(--border-radius);transition:all .2s linear}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link:hover{color:var(--text-primary);background:var(--bg-color-container-hover)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link.active{color:var(--text-anti);background-color:var(--brand-main)}\n';
+var style$k = ':host{--collapse-display: none;--aside-top: 64px}@media screen and (max-width: 1200px){:host{--collapse-display: flex}}.TDesign-doc-aside{position:absolute;left:0;top:var(--aside-top);height:100vh;width:var(--aside-width, 260px);z-index:1300;box-sizing:border-box;padding-bottom:32px;background-color:var(--bg-color-container);color:var(--text-secondary);box-shadow:var(--aside-box-shadow);transition:transform .2s var(--anim-time-fn-easing),outline .2s var(--anim-time-fn-easing);outline:9999px solid transparent}.TDesign-doc-aside.hide{transform:translate3d(calc(-1 * var(--aside-width)),0,0)}.TDesign-doc-aside.show{transform:translateZ(0);outline-color:var(--text-disabled)}.TDesign-doc-aside.show+.TDesign-doc-aside-mask{display:block}.TDesign-doc-aside:after{content:"";width:100%;height:100px;position:absolute;left:0;bottom:-100px;background-color:var(--bg-color-container)}.TDesign-doc-aside__title{margin:8px 12px;font-size:16px;height:40px;line-height:40px;font-family:TencentSansW7}.TDesign-doc-aside__extra{max-width:calc(var(--aside-width) - 24px);position:relative;padding:0 12px;display:block}.TDesign-doc-aside-mask{content:"";position:fixed;left:0;top:0;width:100%;height:100%;z-index:600;display:none}.TDesign-doc-aside-collapse{position:fixed;left:var(--aside-width);top:160px;border-radius:0 3px 3px 0;box-shadow:2px 0 8px #00000042;width:40px;height:40px;align-items:center;justify-content:center;background-color:var(--bg-color-container);transition:all .2s var(--anim-time-fn-easing);display:var(--collapse-display)}.TDesign-doc-aside-collapse .icon svg{width:24px;height:24px;color:var(--text-primary)}.TDesign-doc-sidenav{height:100%;padding:0 0 0 12px;overflow:auto}.TDesign-doc-sidenav:hover::-webkit-scrollbar-thumb{background-color:var(--bg-color-scroll)}.TDesign-doc-sidenav::-webkit-scrollbar{width:12px;background:transparent}.TDesign-doc-sidenav::-webkit-scrollbar-thumb{border-radius:6px;border:4px solid transparent;background-clip:content-box;background-color:transparent}.TDesign-doc-sidenav-group__title{display:flex;align-items:center;font-size:12px;color:var(--text-placeholder);padding:14px 12px 4px;height:40px;box-sizing:border-box;position:relative;margin-top:8px;border-radius:var(--border-radius)}.TDesign-doc-sidenav-group__children{overflow:hidden}.TDesign-doc-sidenav-item{position:relative;margin-top:4px;max-width:calc(var(--aside-width) - 24px)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link{display:block;height:40px;padding:0 12px;line-height:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-secondary);text-decoration:none;border-radius:var(--border-radius);transition:all .2s linear}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link:hover{color:var(--text-primary);background:var(--bg-color-container-hover)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link.active{color:var(--text-anti);background-color:var(--brand-main)}\n';
 var menuFoldIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3.99902 7.97265L27.9978 8.00026L28.0001 6.00026L4.00132 5.97266L3.99902 7.97265Z" fill="currentColor" />\n  <path d="M15.0002 17.0003H27.999V15.0003H15.0002V17.0003Z" fill="currentColor" />\n  <path d="M3.99902 25.9727L27.9978 26.0003L28.0001 24.0003L4.00132 23.9727L3.99902 25.9727Z" fill="currentColor" />\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9335 15.1864C12.4668 15.5864 12.4668 16.3864 11.9335 16.7864L5.60017 21.5364C4.94094 22.0308 4.00017 21.5604 4.00017 20.7364L4.00017 11.2364C4.00017 10.4124 4.94094 9.94197 5.60017 10.4364L11.9335 15.1864ZM6.00017 13.2364L9.66684 15.9864L6.00017 18.7364L6.00017 13.2364Z" fill="currentColor" />\n</svg>\n';
 var menuUnfoldIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M28.0011 24.0276L4.0023 24L4 26L27.9988 26.0276L28.0011 24.0276Z" fill="currentColor" />\n  <path d="M16.9999 15L4.00115 15L4.00115 17L16.9999 17V15Z" fill="currentColor" />\n  <path d="M28.0011 6.02761L4.0023 6L4 8L27.9988 8.02761L28.0011 6.02761Z" fill="currentColor" />\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0666 16.8139C19.5333 16.4139 19.5333 15.6139 20.0666 15.2139L26.3999 10.4639C27.0592 9.96944 27.9999 10.4398 27.9999 11.2639L27.9999 20.7639C27.9999 21.5879 27.0592 22.0583 26.3999 21.5639L20.0666 16.8139ZM25.9999 18.7639L22.3333 16.0139L25.9999 13.2639L25.9999 18.7639Z" fill="currentColor" />\n</svg>';
 const replaceStateEvent = new CustomEvent("replaceState");
@@ -2863,13 +2916,13 @@ function renderNav(nav, deep = 0) {
 function toggleCollapseAside(host) {
   if (!host.shadowRoot)
     return;
-  const aisdeClassList = host.shadowRoot.querySelector(".TDesign-doc-aside").classList;
-  if (aisdeClassList.contains("hide")) {
-    aisdeClassList.remove("hide");
-    aisdeClassList.add("show");
+  const asideClassList = host.shadowRoot.querySelector(".TDesign-doc-aside").classList;
+  if (asideClassList.contains("hide")) {
+    asideClassList.remove("hide");
+    asideClassList.add("show");
   } else {
-    aisdeClassList.remove("show");
-    aisdeClassList.add("hide");
+    asideClassList.remove("show");
+    asideClassList.add("hide");
   }
   Object.assign(host, { collapse: !host.collapse });
 }
@@ -2895,10 +2948,11 @@ define$2({
         const { shadowRoot } = host;
         const { scrollTop } = document.documentElement;
         const aside = shadowRoot.querySelector(".TDesign-doc-aside") || { style: {} };
-        if (scrollTop >= 64) {
+        const top2 = getComputedStyle(host).getPropertyValue("--aside-top") || "64px";
+        if (scrollTop >= parseFloat(top2)) {
           Object.assign(aside.style, { position: "fixed", top: "0" });
         } else {
-          Object.assign(aside.style, { position: "absolute", top: "64px" });
+          Object.assign(aside.style, { position: "absolute", top: top2 });
         }
       }
       function handleResize() {
@@ -10334,7 +10388,6 @@ var style$g = ":host{position:absolute;right:24px;top:calc(100% - 60px);z-index:
 var infoIcon = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path fill="currentColor" d="M8.5 10.5V11.5H7.5V10.5H8.5Z" />\n  <path fill="currentColor" d="M8.5 9.5V4.5H7.5V9.5H8.5Z" />\n  <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M14.5 8C14.5 4.41015 11.5899 1.5 8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8ZM2.5 8C2.5 4.96243 4.96243 2.5 8 2.5C11.0376 2.5 13.5 4.96243 13.5 8C13.5 11.0376 11.0376 13.5 8 13.5C4.96243 13.5 2.5 11.0376 2.5 8Z" />\n</svg>\n';
 var checkIcon = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path fill="currentColor" d="M5.6577 11.8701L1.80908 8.01387L2.51619 7.30677L6.00156 10.799L12.9479 3.86154L13.655 4.56865L6.44074 11.7737C6.42006 11.8082 6.39487 11.8407 6.36516 11.8704C6.16976 12.0658 5.85291 12.0657 5.6577 11.8701Z" />\n</svg>\n';
 var addIcon = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path fill="currentColor" d="M7.34998 8.64998V12.5H8.64998V8.64998H12.5V7.34998H8.64998V3.5H7.34998V7.34998H3.5V8.64998H7.34998Z" />\n</svg>\n';
-isIntranet() ? "https://git.woa.com/TDesign/" : "https://github.com/Tencent/";
 const getIssueHelper = (framework) => `https://github.com/Tencent/tdesign-${framework}/issues/new/choose`;
 const issueUrlMap = {
   vue: `https://github.com/Tencent/tdesign-vue/issues`,
@@ -14046,7 +14099,6 @@ browser.toString = renderCanvas.bind(null, function(data, _, opts) {
 var style$c = ':host{--phone-display: block;--phone-collapse-display: none;--phone-body-height: 520px}@media screen and (max-width: 960px){:host{--phone-display: none;--phone-collapse-display: flex}}.TDesign-doc-phone{width:375px;width:min(75vw,375px);border-radius:6px;border:1px solid var(--component-border);outline:9999px solid transparent;position:absolute;top:316px;right:24px;display:var(--phone-display)}.TDesign-doc-phone.hide{visibility:hidden;opacity:0}.TDesign-doc-phone.show{position:fixed;left:50%;top:50%!important;transform:translate3d(-50%,-50%,0);outline-color:var(--text-disabled);transition:transform .2s var(--anim-time-fn-easing),opacity .2s linear,visibility .2s linear;visibility:visible;opacity:1;z-index:800;display:block}.TDesign-doc-phone.show .TDesign-doc-phone__close{opacity:1;visibility:visible}.TDesign-doc-phone.show+.TDesign-doc-phone-mask{display:block}.TDesign-doc-phone__close{width:40px;height:40px;display:flex;justify-content:center;align-items:center;border:1px solid var(--component-border);border-radius:0 6px 6px 0;position:absolute;right:-42px;top:42px;background-color:var(--bg-color-container);visibility:hidden;opacity:0;transition:all .2s linear}.TDesign-doc-phone__close svg{color:var(--text-primary);width:24px;height:24px}.TDesign-doc-phone__header{height:48px;padding:8px;border-radius:6px 6px 0 0;box-sizing:border-box;background:var(--bg-color-demo)}.TDesign-doc-phone__header-icons{display:flex;height:100%}.TDesign-doc-phone__header-icons .icon{width:32px;height:32px;border-radius:var(--border-radius);transition:all .1s;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-secondary)}.TDesign-doc-phone__header-icons .icon:hover{color:var(--text-primary);background-color:var(--bg-color-demo-hover)}.TDesign-doc-phone__header-icons .icon.active{color:var(--text-primary);background-color:var(--bg-color-demo-select)}.TDesign-doc-phone__header-icons .qrcode-wrapper{display:flex;justify-content:center;align-items:center;border-radius:3px;overflow:hidden;max-width:200px;max-height:200px}.TDesign-doc-phone__body{width:100%;height:var(--phone-body-height);border-radius:0 0 6px 6px;background-color:var(--bg-color-demo)}.TDesign-doc-phone-mask{content:"";position:fixed;left:0;top:0;width:100%;height:100%;z-index:300;display:none}.TDesign-doc-phone-collapse{position:fixed;right:0;top:400px;z-index:400;border-radius:3px 0 0 3px;box-shadow:2px 0 8px #00000042;width:40px;height:40px;align-items:center;justify-content:center;background-color:var(--bg-color-container);transition:all .2s var(--anim-time-fn-easing);display:var(--phone-collapse-display)}.TDesign-doc-phone-collapse .icon svg{width:24px;height:24px;color:var(--text-primary)}\n';
 var qrcodeIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M8.75 5H5V8.75H8.75V5Z" fill="currentColor"/>\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M10 2.5C10.6904 2.5 11.25 3.05964 11.25 3.75V10C11.25 10.6904 10.6904 11.25 10 11.25H3.75C3.05964 11.25 2.5 10.6904 2.5 10V3.75C2.5 3.05964 3.05964 2.5 3.75 2.5H10ZM10 3.75H3.75V10H10V3.75Z" fill="currentColor"/>\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 3.75C17.5 3.05964 16.9404 2.5 16.25 2.5H13.75C13.0596 2.5 12.5 3.05964 12.5 3.75V6.25C12.5 6.94036 13.0596 7.5 13.75 7.5H16.25C16.9404 7.5 17.5 6.94036 17.5 6.25V3.75ZM13.75 3.75H16.25V6.25H13.75V3.75Z" fill="currentColor"/>\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.25 12.5C6.94036 12.5 7.5 13.0596 7.5 13.75V16.25C7.5 16.9404 6.94036 17.5 6.25 17.5H3.75C3.05964 17.5 2.5 16.9404 2.5 16.25V13.75C2.5 13.0596 3.05964 12.5 3.75 12.5H6.25ZM6.25 16.25V13.75H3.75V16.25H6.25Z" fill="currentColor"/>\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 13.75C17.5 13.0596 16.9404 12.5 16.25 12.5H13.75C13.0596 12.5 12.5 13.0596 12.5 13.75V16.25C12.5 16.9404 13.0596 17.5 13.75 17.5H16.25C16.9404 17.5 17.5 16.9404 17.5 16.25V13.75ZM13.75 16.25V13.75H16.25V16.25H13.75Z" fill="currentColor"/>\n  <path d="M12.5 9.35091H13.75V10.6009H12.5V9.35091Z" fill="currentColor"/>\n  <path d="M15 9.35091H17.5V10.6009H15V9.35091Z" fill="currentColor"/>\n  <path d="M10.6301 15.0165H9.38007V17.5165H10.6301V15.0165Z" fill="currentColor"/>\n  <path d="M9.38007 12.5H10.6301V13.75H9.38007V12.5Z" fill="currentColor"/>\n</svg>\n';
 var mobileIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M13 26H19V24H13V26Z" fill="currentColor" />\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.89543 7.89543 3 9 3H23C24.1046 3 25 3.89543 25 5V28C25 29.1046 24.1046 30 23 30H9C7.89543 30 7 29.1046 7 28V5ZM9 5H23V28H9L9 5Z" fill="currentColor" />\n</svg>';
-var closeIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path\n    d="M16 17.8385L22.1518 23.9903L23.9903 22.1518L17.8385 16L23.9903 9.84817L22.1518 8.0097L16 14.1615L9.84812 8.00964L8.00964 9.84812L14.1615 16L8.00964 22.1518L9.84812 23.9903L16 17.8385Z"\n    fill="currentColor" />\n</svg>';
 function toggleCollapsePhone(host) {
   if (!host.shadowRoot)
     return;

@@ -7,6 +7,7 @@ import githubIcon from "@images/github.svg?raw";
 import gitIcon from "@images/git.svg?raw";
 import fakeArrowIcon from "@images/fake-arrow.svg?raw";
 import { isIntranet } from "@utils/index";
+import closeIcon from "@images/close.svg?raw";
 
 const { headerList, baseComponentsLinks, baseComponentPrefix } = isIntranet()
   ? headerData
@@ -34,6 +35,57 @@ export function renderTag(status) {
 function isActive(path) {
   if (/^https?:/.test(path)) return location.href.includes(path);
   return location.pathname.includes(path);
+}
+
+// 渲染公告
+function renderNotice(host) {
+  if (
+    location.host !== "tdesign.tencent.com" &&
+    !localStorage.getItem("TDesign_notice")
+  )
+    return html``;
+  const { notice } = host;
+
+  let currentSite = location.pathname.split("/")[1] || "site";
+  if (["design", "source", "about"].includes(currentSite)) currentSite = "site";
+
+  let noticeOption = notice[currentSite];
+  // 无当前站点公告时，使用全站公告
+  if (!noticeOption?.title) noticeOption = notice['all'];
+  if (!noticeOption?.title) return html``;
+
+  const closeNotice = () => {
+    if (!host.shadowRoot) return;
+    host.shadowRoot.querySelector(".TDesign-header-notice").style.display = "none";
+  };
+
+  const handleNoticeAction = () => {
+    if (!noticeOption?.actionUrl) return;
+    location.href = noticeOption.actionUrl;
+  };
+
+  // 左侧栏适配
+  const asideEl = document.querySelector('td-doc-aside');
+  if (asideEl) {
+    asideEl.style.setProperty('--aside-top', '96px');
+  }
+
+  return html`
+    <div class="TDesign-header-notice ${noticeOption.type}">
+      <div
+        class="TDesign-header-notice__content"
+        onclick="${handleNoticeAction}"
+      >
+        ${noticeOption.title}
+      </div>
+      ${noticeOption.closeable &&
+      html`<i
+        class="TDesign-header-notice__close"
+        innerHTML="${closeIcon}"
+        onclick="${closeNotice}"
+      ></i>`}
+    </div>
+  `;
 }
 
 function renderLinksPopup(host, trigger) {
@@ -179,6 +231,18 @@ export default define({
   platform: "web",
   framework: "vue",
   disabledTheme: false,
+  notice: {
+    get: (_host, lastValue) => lastValue || {},
+    set: (_host, value) => value,
+    connect: (host, key) => {
+      fetch(import.meta.env.VITE_SITE_NOTICE_URL)
+        .then((res) => res.json())
+        .then((res) => {
+          host.notice = res;
+        })
+        .catch(console.error);
+    },
+  },
   npmVersions: {
     get: (_host, lastValue) => lastValue || {},
     set: (_host, value) => value,
@@ -219,6 +283,7 @@ export default define({
     const { platform, framework, disabledTheme, collapseMenu } = host;
 
     return html`
+      ${renderNotice(host)}
       <header class="TDesign-header">
         <div class="TDesign-header-inner">
           <div class="TDesign-header-left">

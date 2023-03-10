@@ -5,9 +5,6 @@ import checkIcon from "@images/check.svg?raw";
 import addIcon from "@images/add.svg?raw";
 import { isIntranet } from "@utils/index";
 
-const gitUrlPrefix = isIntranet()
-  ? "https://git.woa.com/TDesign/"
-  : "https://github.com/Tencent/";
 const getIssueHelper = (framework) =>
   `https://github.com/Tencent/tdesign-${framework}/issues/new/choose`;
 
