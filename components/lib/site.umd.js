@@ -36,18 +36,18 @@ ${oo(a,x.index)}`),N}}b.prevArgs=m}}function io({target:e,detail:t},n){let o;swi
   <path
     d="M16 17.8385L22.1518 23.9903L23.9903 22.1518L17.8385 16L23.9903 9.84817L22.1518 8.0097L16 14.1615L9.84812 8.00964L8.00964 9.84812L14.1615 16L8.00964 22.1518L9.84812 23.9903L16 17.8385Z"
     fill="currentColor" />
-</svg>`;const{headerList:vo,baseComponentsLinks:Ue,baseComponentPrefix:mi}=ve()?li:di,vi=[...Ue.web.links.filter(e=>e.status).map(e=>e.npm),...Ue.mobile.links.filter(e=>e.status).map(e=>e.npm)];function jt(e,t,n){t.preventDefault(),n.status&&(location.href=n.path)}function It(e){if(e===0)return H`<span class="disable-tag">待上线</span>`;if(e===1)return H`<span class="stable-tag">Stable</span>`;if(e===2)return H`<span class="alpha-tag">Alpha</span>`;if(e===3)return H`<span class="beta-tag">Beta</span>`;if(e===4)return H`<span class="rc-tag">Rc</span>`}function cn(e){return/^https?:/.test(e)?location.href.includes(e):location.pathname.includes(e)}function bi(e){if(location.host!=="tdesign.tencent.com"&&!localStorage.getItem("TDesign_notice"))return H``;const{notice:t}=e;let n=location.pathname.split("/")[1]||"site";["design","source","about"].includes(n)&&(n="site");let o=t[n];if(o!=null&&o.title||(o=t.all),!(o!=null&&o.title))return H``;const r=()=>{!e.shadowRoot||(e.shadowRoot.querySelector(".TDesign-header-notice").style.display="none")},i=()=>{!(o!=null&&o.actionUrl)||(location.href=o.actionUrl)},a=document.querySelector("td-doc-aside");return a&&a.style.setProperty("--aside-top","96px"),H`
+</svg>`;const{headerList:vo,baseComponentsLinks:Ue,baseComponentPrefix:mi}=ve()?li:di,vi=[...Ue.web.links.filter(e=>e.status).map(e=>e.npm),...Ue.mobile.links.filter(e=>e.status).map(e=>e.npm)];function jt(e,t,n){t.preventDefault(),n.status&&(location.href=n.path)}function It(e){if(e===0)return H`<span class="disable-tag">待上线</span>`;if(e===1)return H`<span class="stable-tag">Stable</span>`;if(e===2)return H`<span class="alpha-tag">Alpha</span>`;if(e===3)return H`<span class="beta-tag">Beta</span>`;if(e===4)return H`<span class="rc-tag">Rc</span>`}function cn(e){return/^https?:/.test(e)?location.href.includes(e):location.pathname.includes(e)}function bi(e){if(location.host!=="tdesign.tencent.com"&&!localStorage.getItem("TDesign_notice"))return H``;const{notice:t}=e;let n=location.pathname.split("/")[1]||"site";["design","source","about"].includes(n)&&(n="site");let o=t[n];if(o!=null&&o.title||(o=t.all),!(o!=null&&o.title))return H``;const r=(s="96px")=>{const c=document.querySelector("td-doc-aside");c&&(c.style.setProperty("--aside-top",s),c.shadowRoot.querySelector(".TDesign-doc-aside").style.top=s)},i=()=>{!e.shadowRoot||(e.shadowRoot.querySelector(".TDesign-header-notice").style.display="none",r("64px"))},a=()=>{!(o!=null&&o.actionUrl)||(location.href=o.actionUrl)};return r(),H`
     <div class="TDesign-header-notice ${o.type}">
       <div
         class="TDesign-header-notice__content"
-        onclick="${i}"
+        onclick="${a}"
       >
         ${o.title}
       </div>
       ${o.closeable&&H`<i
         class="TDesign-header-notice__close"
         innerHTML="${mo}"
-        onclick="${r}"
+        onclick="${i}"
       ></i>`}
     </div>
   `}function yi(e,t){return H`

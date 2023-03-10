@@ -54,9 +54,19 @@ function renderNotice(host) {
   if (!noticeOption?.title) noticeOption = notice['all'];
   if (!noticeOption?.title) return html``;
 
+  const changeAsideElTop = (top = '96px') => {
+    // 左侧栏适配
+    const asideEl = document.querySelector('td-doc-aside');
+    if (asideEl) {
+      asideEl.style.setProperty('--aside-top', top);
+      asideEl.shadowRoot.querySelector('.TDesign-doc-aside').style.top = top;
+    }
+  }
+
   const closeNotice = () => {
     if (!host.shadowRoot) return;
     host.shadowRoot.querySelector(".TDesign-header-notice").style.display = "none";
+    changeAsideElTop('64px');
   };
 
   const handleNoticeAction = () => {
@@ -64,11 +74,7 @@ function renderNotice(host) {
     location.href = noticeOption.actionUrl;
   };
 
-  // 左侧栏适配
-  const asideEl = document.querySelector('td-doc-aside');
-  if (asideEl) {
-    asideEl.style.setProperty('--aside-top', '96px');
-  }
+  changeAsideElTop();
 
   return html`
     <div class="TDesign-header-notice ${noticeOption.type}">

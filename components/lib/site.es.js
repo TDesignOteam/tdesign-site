@@ -1964,20 +1964,25 @@ function renderNotice(host) {
     noticeOption = notice["all"];
   if (!(noticeOption == null ? void 0 : noticeOption.title))
     return html``;
+  const changeAsideElTop = (top2 = "96px") => {
+    const asideEl = document.querySelector("td-doc-aside");
+    if (asideEl) {
+      asideEl.style.setProperty("--aside-top", top2);
+      asideEl.shadowRoot.querySelector(".TDesign-doc-aside").style.top = top2;
+    }
+  };
   const closeNotice = () => {
     if (!host.shadowRoot)
       return;
     host.shadowRoot.querySelector(".TDesign-header-notice").style.display = "none";
+    changeAsideElTop("64px");
   };
   const handleNoticeAction = () => {
     if (!(noticeOption == null ? void 0 : noticeOption.actionUrl))
       return;
     location.href = noticeOption.actionUrl;
   };
-  const asideEl = document.querySelector("td-doc-aside");
-  if (asideEl) {
-    asideEl.style.setProperty("--aside-top", "96px");
-  }
+  changeAsideElTop();
   return html`
     <div class="TDesign-header-notice ${noticeOption.type}">
       <div
