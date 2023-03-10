@@ -51,13 +51,13 @@ function renderNav(nav, deep = 0) {
 
 function toggleCollapseAside(host) {
   if (!host.shadowRoot) return;
-  const aisdeClassList = host.shadowRoot.querySelector('.TDesign-doc-aside').classList;
-  if (aisdeClassList.contains('hide')) {
-    aisdeClassList.remove('hide');
-    aisdeClassList.add('show');
+  const asideClassList = host.shadowRoot.querySelector('.TDesign-doc-aside').classList;
+  if (asideClassList.contains('hide')) {
+    asideClassList.remove('hide');
+    asideClassList.add('show');
   } else {
-    aisdeClassList.remove('show');
-    aisdeClassList.add('hide');
+    asideClassList.remove('show');
+    asideClassList.add('hide');
   }
   Object.assign(host, { collapse: !host.collapse });
 }
@@ -85,10 +85,12 @@ export default define({
         // 吸顶效果
         const aside = shadowRoot.querySelector('.TDesign-doc-aside') || { style: {} };
 
-        if (scrollTop >= 64) {
+        const top = getComputedStyle(host).getPropertyValue('--aside-top') || '64px';
+
+        if (scrollTop >= parseFloat(top)) {
           Object.assign(aside.style, { position: 'fixed', top: '0' });
         } else {
-          Object.assign(aside.style, { position: 'absolute', top: '64px' });
+          Object.assign(aside.style, { position: 'absolute', top });
         }
       }
 
