@@ -1,7 +1,7 @@
 {
   "all": {},
   "site": {
-    "title": "📢 小程序正式版 发布啦! 了解更多",
+    "title": "📢 TDesign 微信小程序发布 LTS 版本啦！了解更多",
     "type": "primary",
     "actionUrl": "https://tdesign.tencent.com/miniprogram/changelog",
     "closeable": true
