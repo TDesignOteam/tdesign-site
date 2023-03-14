@@ -164,7 +164,6 @@
                   <img width="20" :src="item.logo" />
                   <span>{{ item.name }}</span>
                   <span
-                    v-if="item.status !== 1"
                     :class="{
                       'content-tag': true,
                       disabled: !item.status,
@@ -598,7 +597,7 @@ export default {
         { logo: xdLogo, name: 'AdobeXD', href: '', status: 0 }
       ],
       miniSourceList: [
-        { logo: miniprogramLogo, name: '微信小程序', href: '/miniprogram/', status: 4 },
+        { logo: miniprogramLogo, name: '微信小程序', href: '/miniprogram/', status: 1 },
         { logo: qqLogo, name: 'QQ 小程序', href: '/qq-miniprogram/', status: 2 }
       ],
       codeFramework: 'vue',
