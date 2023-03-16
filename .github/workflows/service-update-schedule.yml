@@ -3,11 +3,9 @@
 name: service-update-schedule
 
 on:
-  push:
-    branches: [main]
-  # workflow_dispatch:
-  # schedule:
-  #   - cron: "0 0 * * 5"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 5"
 
 jobs:
   create-report:
