@@ -30,7 +30,7 @@
 import MarkdownIt from 'markdown-it'
 import mila from 'markdown-it-link-attributes'
 
-const REALEASE_API = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/github-contributors/release'
+const RELEASE_API = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/github-contributors/release'
 
 const titleReg = /<h[23]>\s*(Vue|React|Miniprogram|Figma|Sketch|Axure|AdobeXD|TDesign)/g
 
@@ -81,7 +81,7 @@ export default {
           return item
         })
       } else {
-        fetch(REALEASE_API)
+        fetch(RELEASE_API)
           .then((res) => res.json())
           .then((data) => {
             sessionStorage.setItem('__tdesign_release__', JSON.stringify(data))
