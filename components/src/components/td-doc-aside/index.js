@@ -22,16 +22,26 @@ function handleLinkClick(host, e, path) {
   requestAnimationFrame(() => dispatch(host, 'change', { detail: path }));
 }
 
-function renderNav(nav, deep = 0) {
+function renderNav(host, nav, deep = 0) {
+  if (Array.isArray(nav)) return nav.map((item) => renderNav(host, item, deep));
+  
   const isActive = location.pathname === nav.path || location.hash.slice(1) === nav.path;
-
-  if (Array.isArray(nav)) return nav.map((item) => renderNav(item, deep));
+  
+  const hasUpdate = () => {
+    const currentSite = location.pathname.split("/")[1];
+    if (!currentSite) return false;
+    
+    const { updateNotice } = host;
+    const { [currentSite]: siteUpdateNotice } = updateNotice;
+    if (!siteUpdateNotice) return false;
+    return siteUpdateNotice.some(item => nav.title.includes(item));
+  }
 
   if (nav.children) {
     return html`
       <div class="TDesign-doc-sidenav-group TDesign-doc-sidenav-group--deep${deep}">
         <span class="TDesign-doc-sidenav-group__title">${nav.title}</span>
-        <div class="TDesign-doc-sidenav-group__children">${renderNav(nav.children, deep + 1)}</div>
+        <div class="TDesign-doc-sidenav-group__children">${renderNav(host, nav.children, deep + 1)}</div>
       </div>
     `;
   }
@@ -44,6 +54,7 @@ function renderNav(nav, deep = 0) {
         onclick=${(host, e) => handleLinkClick(host, e, nav.path)}
       >
         ${nav.title}
+        ${hasUpdate() ? html`<span class="TDesign-doc-sidenav-link__tag">Update</span>` : null}
       </a>
     </div>
   `;
@@ -74,6 +85,18 @@ export default define({
     set: (_host, value) => value,
     connect: patchShadowDomIntoDom,
   },
+  updateNotice: {
+    get: (_host, lastValue) => lastValue || {},
+    set: (_host, value) => value,
+    connect: (host) => {
+      fetch(import.meta.env.VITE_SLIDER_NOTICE_URL)
+        .then((res) => res.json())
+        .then((res) => {
+          host.updateNotice = res;
+        })
+        .catch(console.error);
+    },
+  },  
   asideStyle: {
     get: (_host, lastValue) => lastValue || undefined,
     set: (_host, value) => value,
@@ -179,7 +202,7 @@ export default define({
         <div class="TDesign-doc-sidenav">
           ${title && html`<h2 class="TDesign-doc-aside__title">${title}</h2>`}
           <slot class="TDesign-doc-aside__extra" name="extra"></slot>
-          ${renderNav(routerList)}
+          ${renderNav(host, routerList)}
         </div>
       </aside>
       <div class="TDesign-doc-aside-mask" onclick="${toggleCollapseAside}"></div>

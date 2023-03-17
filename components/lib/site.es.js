@@ -2877,7 +2877,7 @@ define$2({
       </div>
     `.css`${style$l}`
 });
-var style$k = ':host{--collapse-display: none;--aside-top: 64px}@media screen and (max-width: 1200px){:host{--collapse-display: flex}}.TDesign-doc-aside{position:absolute;left:0;top:var(--aside-top);height:100vh;width:var(--aside-width, 260px);z-index:1300;box-sizing:border-box;padding-bottom:32px;background-color:var(--bg-color-container);color:var(--text-secondary);box-shadow:var(--aside-box-shadow);transition:transform .2s var(--anim-time-fn-easing),outline .2s var(--anim-time-fn-easing);outline:9999px solid transparent}.TDesign-doc-aside.hide{transform:translate3d(calc(-1 * var(--aside-width)),0,0)}.TDesign-doc-aside.show{transform:translateZ(0);outline-color:var(--text-disabled)}.TDesign-doc-aside.show+.TDesign-doc-aside-mask{display:block}.TDesign-doc-aside:after{content:"";width:100%;height:100px;position:absolute;left:0;bottom:-100px;background-color:var(--bg-color-container)}.TDesign-doc-aside__title{margin:8px 12px;font-size:16px;height:40px;line-height:40px;font-family:TencentSansW7}.TDesign-doc-aside__extra{max-width:calc(var(--aside-width) - 24px);position:relative;padding:0 12px;display:block}.TDesign-doc-aside-mask{content:"";position:fixed;left:0;top:0;width:100%;height:100%;z-index:600;display:none}.TDesign-doc-aside-collapse{position:fixed;left:var(--aside-width);top:160px;border-radius:0 3px 3px 0;box-shadow:2px 0 8px #00000042;width:40px;height:40px;align-items:center;justify-content:center;background-color:var(--bg-color-container);transition:all .2s var(--anim-time-fn-easing);display:var(--collapse-display)}.TDesign-doc-aside-collapse .icon svg{width:24px;height:24px;color:var(--text-primary)}.TDesign-doc-sidenav{height:100%;padding:0 0 0 12px;overflow:auto}.TDesign-doc-sidenav:hover::-webkit-scrollbar-thumb{background-color:var(--bg-color-scroll)}.TDesign-doc-sidenav::-webkit-scrollbar{width:12px;background:transparent}.TDesign-doc-sidenav::-webkit-scrollbar-thumb{border-radius:6px;border:4px solid transparent;background-clip:content-box;background-color:transparent}.TDesign-doc-sidenav-group__title{display:flex;align-items:center;font-size:12px;color:var(--text-placeholder);padding:14px 12px 4px;height:40px;box-sizing:border-box;position:relative;margin-top:8px;border-radius:var(--border-radius)}.TDesign-doc-sidenav-group__children{overflow:hidden}.TDesign-doc-sidenav-item{position:relative;margin-top:4px;max-width:calc(var(--aside-width) - 24px)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link{display:block;height:40px;padding:0 12px;line-height:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-secondary);text-decoration:none;border-radius:var(--border-radius);transition:all .2s linear}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link:hover{color:var(--text-primary);background:var(--bg-color-container-hover)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link.active{color:var(--text-anti);background-color:var(--brand-main)}\n';
+var style$k = ':host{--collapse-display: none;--aside-top: 64px}@media screen and (max-width: 1200px){:host{--collapse-display: flex}}.TDesign-doc-aside{position:absolute;left:0;top:var(--aside-top);height:100vh;width:var(--aside-width, 260px);z-index:1300;box-sizing:border-box;padding-bottom:32px;background-color:var(--bg-color-container);color:var(--text-secondary);box-shadow:var(--aside-box-shadow);transition:transform .2s var(--anim-time-fn-easing),outline .2s var(--anim-time-fn-easing);outline:9999px solid transparent}.TDesign-doc-aside.hide{transform:translate3d(calc(-1 * var(--aside-width)),0,0)}.TDesign-doc-aside.show{transform:translateZ(0);outline-color:var(--text-disabled)}.TDesign-doc-aside.show+.TDesign-doc-aside-mask{display:block}.TDesign-doc-aside:after{content:"";width:100%;height:100px;position:absolute;left:0;bottom:-100px;background-color:var(--bg-color-container)}.TDesign-doc-aside__title{margin:8px 12px;font-size:16px;height:40px;line-height:40px;font-family:TencentSansW7}.TDesign-doc-aside__extra{max-width:calc(var(--aside-width) - 24px);position:relative;padding:0 12px;display:block}.TDesign-doc-aside-mask{content:"";position:fixed;left:0;top:0;width:100%;height:100%;z-index:600;display:none}.TDesign-doc-aside-collapse{position:fixed;left:var(--aside-width);top:160px;border-radius:0 3px 3px 0;box-shadow:2px 0 8px #00000042;width:40px;height:40px;align-items:center;justify-content:center;background-color:var(--bg-color-container);transition:all .2s var(--anim-time-fn-easing);display:var(--collapse-display)}.TDesign-doc-aside-collapse .icon svg{width:24px;height:24px;color:var(--text-primary)}.TDesign-doc-sidenav{height:100%;padding:0 0 0 12px;overflow:auto}.TDesign-doc-sidenav:hover::-webkit-scrollbar-thumb{background-color:var(--bg-color-scroll)}.TDesign-doc-sidenav::-webkit-scrollbar{width:12px;background:transparent}.TDesign-doc-sidenav::-webkit-scrollbar-thumb{border-radius:6px;border:4px solid transparent;background-clip:content-box;background-color:transparent}.TDesign-doc-sidenav-group__title{display:flex;align-items:center;font-size:12px;color:var(--text-placeholder);padding:14px 12px 4px;height:40px;box-sizing:border-box;position:relative;margin-top:8px;border-radius:var(--border-radius)}.TDesign-doc-sidenav-group__children{overflow:hidden}.TDesign-doc-sidenav-item{position:relative;margin-top:4px;max-width:calc(var(--aside-width) - 24px)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link{display:block;height:40px;padding:0 12px;line-height:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-secondary);text-decoration:none;border-radius:var(--border-radius);transition:all .2s linear;gap:8px}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link:hover{color:var(--text-primary);background:var(--bg-color-container-hover)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link.active{color:var(--text-anti);background-color:var(--brand-main)}.TDesign-doc-sidenav-item .TDesign-doc-sidenav-link__tag{font-size:12px;padding:2px 4px;color:#f5ba18;border-radius:3px;background:rgba(245,186,24,.1)}\n';
 var menuFoldIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3.99902 7.97265L27.9978 8.00026L28.0001 6.00026L4.00132 5.97266L3.99902 7.97265Z" fill="currentColor" />\n  <path d="M15.0002 17.0003H27.999V15.0003H15.0002V17.0003Z" fill="currentColor" />\n  <path d="M3.99902 25.9727L27.9978 26.0003L28.0001 24.0003L4.00132 23.9727L3.99902 25.9727Z" fill="currentColor" />\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9335 15.1864C12.4668 15.5864 12.4668 16.3864 11.9335 16.7864L5.60017 21.5364C4.94094 22.0308 4.00017 21.5604 4.00017 20.7364L4.00017 11.2364C4.00017 10.4124 4.94094 9.94197 5.60017 10.4364L11.9335 15.1864ZM6.00017 13.2364L9.66684 15.9864L6.00017 18.7364L6.00017 13.2364Z" fill="currentColor" />\n</svg>\n';
 var menuUnfoldIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M28.0011 24.0276L4.0023 24L4 26L27.9988 26.0276L28.0011 24.0276Z" fill="currentColor" />\n  <path d="M16.9999 15L4.00115 15L4.00115 17L16.9999 17V15Z" fill="currentColor" />\n  <path d="M28.0011 6.02761L4.0023 6L4 8L27.9988 8.02761L28.0011 6.02761Z" fill="currentColor" />\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0666 16.8139C19.5333 16.4139 19.5333 15.6139 20.0666 15.2139L26.3999 10.4639C27.0592 9.96944 27.9999 10.4398 27.9999 11.2639L27.9999 20.7639C27.9999 21.5879 27.0592 22.0583 26.3999 21.5639L20.0666 16.8139ZM25.9999 18.7639L22.3333 16.0139L25.9999 13.2639L25.9999 18.7639Z" fill="currentColor" />\n</svg>';
 const replaceStateEvent = new CustomEvent("replaceState");
@@ -2894,15 +2894,25 @@ function handleLinkClick(host, e, path) {
   e.target.classList.toggle("active");
   requestAnimationFrame(() => dispatch$1(host, "change", { detail: path }));
 }
-function renderNav(nav, deep = 0) {
-  const isActive2 = location.pathname === nav.path || location.hash.slice(1) === nav.path;
+function renderNav(host, nav, deep = 0) {
   if (Array.isArray(nav))
-    return nav.map((item) => renderNav(item, deep));
+    return nav.map((item) => renderNav(host, item, deep));
+  const isActive2 = location.pathname === nav.path || location.hash.slice(1) === nav.path;
+  const hasUpdate = () => {
+    const currentSite = location.pathname.split("/")[1];
+    if (!currentSite)
+      return false;
+    const { updateNotice } = host;
+    const { [currentSite]: siteUpdateNotice } = updateNotice;
+    if (!siteUpdateNotice)
+      return false;
+    return siteUpdateNotice.some((item) => nav.title.includes(item));
+  };
   if (nav.children) {
     return html`
       <div class="TDesign-doc-sidenav-group TDesign-doc-sidenav-group--deep${deep}">
         <span class="TDesign-doc-sidenav-group__title">${nav.title}</span>
-        <div class="TDesign-doc-sidenav-group__children">${renderNav(nav.children, deep + 1)}</div>
+        <div class="TDesign-doc-sidenav-group__children">${renderNav(host, nav.children, deep + 1)}</div>
       </div>
     `;
   }
@@ -2911,9 +2921,10 @@ function renderNav(nav, deep = 0) {
       <a
         href="${nav.path}"
         class="TDesign-doc-sidenav-link ${isActive2 ? "active" : ""}"
-        onclick=${(host, e) => handleLinkClick(host, e, nav.path)}
+        onclick=${(host2, e) => handleLinkClick(host2, e, nav.path)}
       >
         ${nav.title}
+        ${hasUpdate() ? html`<span class="TDesign-doc-sidenav-link__tag">Update</span>` : null}
       </a>
     </div>
   `;
@@ -2942,6 +2953,15 @@ define$2({
     get: (_host, lastValue) => lastValue || false,
     set: (_host, value2) => value2,
     connect: patchShadowDomIntoDom
+  },
+  updateNotice: {
+    get: (_host, lastValue) => lastValue || {},
+    set: (_host, value2) => value2,
+    connect: (host) => {
+      fetch("https://tdesign-site-services.surge.sh/components-notice.json").then((res) => res.json()).then((res) => {
+        host.updateNotice = res;
+      }).catch(console.error);
+    }
   },
   asideStyle: {
     get: (_host, lastValue) => lastValue || void 0,
@@ -3032,7 +3052,7 @@ define$2({
         <div class="TDesign-doc-sidenav">
           ${title && html`<h2 class="TDesign-doc-aside__title">${title}</h2>`}
           <slot class="TDesign-doc-aside__extra" name="extra"></slot>
-          ${renderNav(routerList)}
+          ${renderNav(host, routerList)}
         </div>
       </aside>
       <div class="TDesign-doc-aside-mask" onclick="${toggleCollapseAside}"></div>
