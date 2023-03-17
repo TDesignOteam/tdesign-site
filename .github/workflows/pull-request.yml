@@ -29,7 +29,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
+      - run: node ./services/update-components-notice.js
+      - run: sleep 3s
       - run: |
           export DEPLOY_DOMAIN=https://tdesign-site-services.surge.sh
           npx surge --project ./services --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}
