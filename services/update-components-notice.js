@@ -24,7 +24,11 @@ function getFeatures(release) {
     const featComponents = features[0].match(/- `(\w+)`/g);
     const updateComponents = featComponents.map((item) => item.slice(3, -1));
 
-    result[title.toLowerCase()] = updateComponents;
+    let key = title.toLowerCase();
+    if (key === "vue2") key = "vue";
+    if (key === "vue3") key = "vue-next";
+
+    result[key] = updateComponents;
   });
 
   return result;
