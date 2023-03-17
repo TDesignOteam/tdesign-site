@@ -1,8 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 const RELEASE_API =
-  "https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/github-contributors/release";
+  'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/github-contributors/release';
 
 const DEFAULT_RESPONSE = { vue2: [], vue3: [], react: [], miniprogram: [] };
 
@@ -25,8 +25,8 @@ function getFeatures(release) {
     const updateComponents = featComponents.map((item) => item.slice(3, -1));
 
     let key = title.toLowerCase();
-    if (key === "vue2") key = "vue";
-    if (key === "vue3") key = "vue-next";
+    if (key === 'vue2') key = 'vue';
+    if (key === 'vue3') key = 'vue-next';
 
     result[key] = updateComponents;
   });
