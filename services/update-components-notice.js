@@ -4,7 +4,7 @@ const path = require('path');
 const RELEASE_API =
   'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/github-contributors/release';
 
-const DEFAULT_RESPONSE = { vue2: [], vue3: [], react: [], miniprogram: [] };
+const DEFAULT_RESPONSE = { vue: [], 'vue-next': [], react: [], miniprogram: [] };
 
 function getFeatures(release) {
   const result = DEFAULT_RESPONSE;
@@ -13,7 +13,8 @@ function getFeatures(release) {
   frameworks.forEach((item) => {
     // 获取框架标题
     const titleReg = /## (\w+) for/;
-    const title = item.match(titleReg)[1];
+    const title = (item.match(titleReg) || [])[1];
+    if (!title) return;
 
     // 提取 Features
     const featureReg = /### 🚀 Features([\s\S]+?)(### 🐞|详情见)/g;
