@@ -58,7 +58,9 @@ export const mobileDesignContributor = [
   'Wen1kang',
   'ong17',
   'Jayclelon',
-  'caixuan29'
+  'caixuan29',
+  'RADWIMPS426',
+  'imarchitect'
 ]
 
 export const webChartDesignContributor = [
