@@ -125,7 +125,7 @@ export default {
       },
       previewUrl: {
         web: 'https://codesign.qq.com/s/dqN2925D7qjaBXe?active-screen=xDP39qAvLNl9wlK&menu_aside=null&minimap=close',
-        mobile: 'https://codesign.qq.com/s/YDgGjYv28y9wEVQ?active-screen=DyopjDqKPk19Ve1&menu_aside=null&minimap=close',
+        mobile: 'https://codesign.qq.com/s/YDgGjYv28y9wEVQ?active-screen=GD5OjERAdXO93eA&menu_aside=null&minimap=close',
         'web-chart': 'https://codesign.qq.com/s/kv8398d7m59nKeg?active-screen=6ym7ZRGAEOYjAYE&menu_aside=null&minimap=close'
       }
     }
