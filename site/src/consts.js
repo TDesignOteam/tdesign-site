@@ -115,7 +115,7 @@ export const mobileSourceList = [
     eventLabel: 'Figma 移动端组件库',
     actionUrl: figmaMobileUrl,
     lastUpdated: '05/27/2022',
-    status: 2,
+    status: 1,
     icon: 'figma',
     actionType: 'jump',
     id: 'figma_mobile_down'
