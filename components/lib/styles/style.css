@@ -41,7 +41,7 @@
   --bg-color-container-transparent: rgba(255, 255, 255, 0.9);
   --bg-color-secondarycontainer: #f5f5f5;
   --bg-color-component: #eee;
-  --bg-color-component-transparent: rgba(238, 238, 238, 0.9);
+  --bg-color-component-transparent: rgba(238, 238, 238, 0.8);
   --bg-color-tag: #eee;
   --bg-color-tab: #eee;
   --bg-color-table: #fff;
@@ -669,8 +669,6 @@ div[name="DESIGN"] > h5 {
   line-height: 22px;
   margin: 8px 0 16px;
   font-weight: normal;
-  display: flex;
-  align-items: center;
 }
 div[name="DOC"] > h5 .tdesign-header-anchor,
 div[name="DEMO"] > h5 .tdesign-header-anchor,
