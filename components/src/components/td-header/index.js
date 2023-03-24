@@ -54,6 +54,9 @@ function renderNotice(host) {
   if (!noticeOption?.title) noticeOption = notice['all'];
   if (!noticeOption?.title) return html``;
 
+  // 已关闭公告不再提醒
+  if (localStorage.getItem("TDesign_notice_closed") === noticeOption?.title) return html``;
+
   const changeAsideElTop = (top = '96px') => {
     // 左侧栏适配
     const asideEl = document.querySelector('td-doc-aside');
@@ -67,6 +70,7 @@ function renderNotice(host) {
     if (!host.shadowRoot) return;
     host.shadowRoot.querySelector(".TDesign-header-notice").style.display = "none";
     changeAsideElTop('64px');
+    localStorage.setItem("TDesign_notice_closed", noticeOption?.title);
   };
 
   const handleNoticeAction = () => {
