@@ -1964,6 +1964,8 @@ function renderNotice(host) {
     noticeOption = notice["all"];
   if (!(noticeOption == null ? void 0 : noticeOption.title))
     return html``;
+  if (localStorage.getItem("TDesign_notice_closed") === (noticeOption == null ? void 0 : noticeOption.title))
+    return html``;
   const changeAsideElTop = (top2 = "96px") => {
     const asideEl = document.querySelector("td-doc-aside");
     if (asideEl) {
@@ -1976,6 +1978,7 @@ function renderNotice(host) {
       return;
     host.shadowRoot.querySelector(".TDesign-header-notice").style.display = "none";
     changeAsideElTop("64px");
+    localStorage.setItem("TDesign_notice_closed", noticeOption == null ? void 0 : noticeOption.title);
   };
   const handleNoticeAction = () => {
     if (!(noticeOption == null ? void 0 : noticeOption.actionUrl))
