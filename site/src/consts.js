@@ -21,7 +21,7 @@ export const webSourceList = [
     title: 'Figma 设计资源',
     eventLabel: 'Figma 桌面端组件库',
     actionUrl: figmaWebUrl,
-    lastUpdated: '12/22/2022',
+    lastUpdated: '04/08/2023',
     status: 1,
     icon: 'figma',
     actionType: 'jump',
