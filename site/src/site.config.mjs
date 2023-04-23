@@ -211,7 +211,7 @@ const siteConfig = {
           },
           {
             name: 'contributing',
-            title: '从构思到生产：一个组件的诞生',
+            title: '组件开发流程',
             path: '/about/new-component',
             meta: {
               documentTitle: '从构思到生产：一个组件的诞生 - TDesign',
