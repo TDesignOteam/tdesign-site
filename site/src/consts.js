@@ -114,7 +114,7 @@ export const mobileSourceList = [
     title: 'Figma 设计资源',
     eventLabel: 'Figma 移动端组件库',
     actionUrl: figmaMobileUrl,
-    lastUpdated: '03/17/2023',
+    lastUpdated: '04/21/2023',
     status: 1,
     icon: 'figma',
     actionType: 'jump',
