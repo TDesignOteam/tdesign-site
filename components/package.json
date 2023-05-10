@@ -12,6 +12,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "homepage": "https://github.com/TDesignOteam/tdesign-site/blob/main/components/README.md",
   "keywords": [
     "TDesign",
     "webcomponents"
