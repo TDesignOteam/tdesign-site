@@ -210,6 +210,15 @@ const siteConfig = {
             component: () => import('@tdesign/docs/contributing.md'),
           },
           {
+            name: 'contributing',
+            title: '组件开发流程',
+            path: '/about/new-component',
+            meta: {
+              documentTitle: '从构思到生产：一个组件的诞生 - TDesign',
+            },
+            component: () => import('@tdesign/docs/new-component.md'),
+          },
+          {
             name: 'contact',
             title: '联系我们',
             path: '/about/contact',
