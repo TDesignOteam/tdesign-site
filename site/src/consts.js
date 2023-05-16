@@ -70,7 +70,7 @@ export const webSourceList = [
   {
     title: 'CoDesign & TDesign',
     eventLabel: 'CoDesign x TDesign 桌面端组件库',
-    actionUrl: 'https://codesign.qq.com/?utm_source=tdesign&utm_medium=tdesign',
+    actionUrl: 'https://codesign.qq.com/s/dqN2925D7qjaBXe?active-screen=xDP39qAvLNl9wlK&menu_aside=null&minimap=close',
     lastUpdated: '08/24/2022',
     status: 0,
     icon: 'codesign',
