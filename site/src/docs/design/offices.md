@@ -1,87 +1,87 @@
 ---
-title: 中后台整体框架搭建
-description: 在明确系统功能分类和结构后，先选择合适的页面导航和布局，建立基础的中后台框架。
+title: Building the Framework for Mid-End and Back-End Systems
+description: After clarifying the categories and structure of the system, firstly select appropriate page navigation and layout to establish a basic framework for the mid-end and back-end system.
+
 isDesign: true
 ---
 
-## 什么是中后台系统
+## What is Mid-end System and Back-end System
 
-中台系统主要指：响应前后台业务，实现双端的集中管理和价值提取，支持业务创新和精细化运营的数据处理系统。
+Mid-end system refers to a data processing system that responds to front-end and back-end businesses, achieves centralized management and value extraction on both ends, and supports business innovation and refined operation.
 
-后台系统主要指：对前端网站信息和数据进行管理的系统，主要面向企业内部的运营和管理人员。
+Back-end system refers to the system that manages front-end website information and data, primarily serving enterprise internal operation and management staff.
 
-在 Web 前端设计当中，中台与后台具有同质性，可看作同一类型来思考设计方法。通过 TDesign 提供的组件能力快速搭建好用的中后台系统，通常可以分三步：选择合适的页面框架-设计页面间的任务流程-合理使用组件。
+In web design, mid-end and back-end systems exhibit homogeneity, and they can be considered as the same type when thinking about design methods. Building a useful mid-end and back-end system quickly with TDesign components can usually be done in three steps:
 
+1. choosing an appropriate page framework
+2. designing the task flow between pages
+3. using components reasonably.
 
-## 中后台页面框架的选择
+## Choice of System Page Framework
 
-页面框架由「页面导航」与「页面布局」两部分组成。同时，TDesign 提供常见的页面模版，可根据需要直接选择合适的模版。
+Page Framework consists of page navigation and page layout. Meanwhile, TDesign provides common page templates, allowing users to choose the appropriate template directly as needed.
 
+### Page Navigation
 
-### 页面导航
+Page navigation guides users to find functions and understand information hierarchy within the page, which can be divided into two major categories - site-wide navigation and regional navigation
 
-导航是指：在页面中引导用户找到功能和理解信息层级，可分为整站导航与区域导航两大类。
-
-
-| 导航分类     | 定义                                                     |相关组件                                                     |
-| :--------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 整站导航 | 对整个网站系统的最大颗粒度模块的引导，也称为全局导航或总导航。| [导航菜单](/vue/components/menu) 
-| 区域导航 | 对某一模块下的页面，进行引导和分类的导航，也称为情景导航。  | [固钉](/vue/components/affix)  、[锚点](/vue/components/anchor)、[面包屑](/vue/components/breadcrumb)、[下拉菜单](/vue/components/dropdown)、[分页](/vue/components/pagination)、[步骤条](/vue/components/steps)、[选项卡](/vue/components/tabs)
-
+| Category             | Definition                                                                                                            | Components                                                                                                                                                                                                                                                |
+| :------------------- | :-------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Site-wide Navigation | Guide users to the site's most significant modules within the entire website system, also known as global navigation. | [Menu](/vue/components/menu)                                                                                                                                                                                                                              |
+| Region Navigation    | Guide and categorize pages within a single module, also known as situational navigation.                              | [Affix](/vue/components/affix) 、[Anchor](/vue/components/anchor)、[Breadcrumb](/vue/components/breadcrumb)、[Dropdown](/vue/components/dropdown)、[Pagination](/vue/components/pagination)、[Steps](/vue/components/steps)、[Tabs](/vue/components/tabs) |
 
 <img src="https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/20211215163954.png" />
 
+### Page Layout
 
-### 页面布局
+Page layout means thereasonable arrangement and distribution of navigation and information content on a page, which consists of 「[Grid](/vue/components/grid)」 and 「[Layout](/vue/components/layout)」
 
-页面布局是指：将导航和信息内容在页面中进行合理安排和分布，由「[栅格](/vue/components/grid)」和「[布局](/vue/components/layout)」组成。
+The choice of different layouts is usually based on:
 
+1. The number of functional modules.
+2. The correlation between different functions.
 
+TDesign mainly provides 3 types of layout: top-bottom layout, left-right layout, and mixed layout.
 
-不同布局的选择依据，通常为：1 功能模块的数量。2 功能与功能之间的相关性。
+#### Top-Bottom Layout
 
-TDesign主要提供3种布局方式：上下布局、左右布局、混合布局。
+Top-Bottom Layout is the layout with navigation on top and information content below. Horizontal navigation space is limited, and left-right clicking efficiency is low.
 
+When to use:
 
-#### 上下结构的布局
+1. When the number of functional modules is small (generally less than 9).
+2. When the correlation between modules is weak, clear distinction is needed, or frequent switching is not required.
 
-主要特征：导航在上信息内容在下的布局。横向导航空间有限，左右点击效率低。
+#### Left-Right Layout
 
-何时使用：1 功能模块数量较少时（一般小于 9 个）。2 各模块间关联较弱、需要做明确区分或无需频繁切换时。
+Left-Right Layout is the layout with navigation on the left and information content on the right. Vertical space has good scalability, and up-down clicking efficiency is high.
 
+When to use:
 
-#### 左右结构的布局
+1. When the number of functional modules is large.
+2. When there is a certain correlation between the modules, or when frequent switching between modules is required.
 
-主要特征：导航在左信息内容在右的布局。纵向空间具有较好延展性，上下点击效率高。
+#### Mixed Layout
 
-何时使用：1 功能模块数量较多时。2 各模块间有一定相关性、或需要在模块间频繁切换时。
+Mixed Layout is a comprehensive layout that combines top-bottom and left-right elements. Both horizontal and vertical spaces complement each other, offering good scalability and inclusiveness in both display and operation.
 
+When to use:
 
-#### 混合结构的布局
-
-主要特征：将上下、左右相结合的综合布局。横纵空间优势互补，在展示和操作上都具有较好的延展性和包容性。
-
-何时使用：1 功能模块数量较多时。2 各模块间有父子或交叉关系、 需要按层级展示时。
-
+1. When the number of functional modules is large.
+2. When there are parent-child or cross relationships between the modules, or when hierarchical display is required.
 
 <img src="https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/20211215164005.png" />
 
+## Common Mid-end and Back-end Page Templates
 
+TDesign offers a variety of standard page templates for mid-end and back-end systems, including typical layout styles for a wide range of high-frequency tasks.
 
-
-## 常见的中后台页面
-
-TDesign提供了中后台系统常见的页面模板，涵盖多种高频任务在页面中的典型布局方式。
-
-| 典型页面模板     | 相关高频任务                                                     |
-| :--------- | :----------------------------------------------------------- |
-| [仪表盘](https://tdesign.tencent.com/starter/vue/#/dashboard/base)  | [数据筛选与查询](/design/offices-task#数据筛选与查询)、[效果预览](/design/offices-task#效果预览)、[新手指引](/design/offices-task#新手指引) |
-| [列表页](https://tdesign.tencent.com/starter/vue/#/list/base) | [数据筛选与查询](/design/offices-task#数据筛选与查询)、[表格批量操作](/design/offices-task#表格批量操作)、[数据导入](/design/offices-task#数据导入)、[效果预览](/design/offices-task#效果预览)、[状态流转](/design/offices-task#状态流转)、[任务引导](/design/offices-task#任务引导) 、[新手指引](/design/offices-task#新手指引)  |
-| [表单页](https://tdesign.tencent.com/starter/vue/#/form/base)     | [数据筛选与查询](/design/offices-task#数据筛选与查询)、[任务引导](/design/offices-task#任务引导)、[效果预览](/design/offices-task#效果预览)、[新手指引](/design/offices-task#新手指引)                    |
-| [详情页](https://tdesign.tencent.com/starter/vue/#/detail/base)      | [数据筛选与查询](/design/offices-task#数据筛选与查询)、[状态流转](/design/offices-task#状态流转)、[数据导入](/design/offices-task#数据导入)、[效果预览](/design/offices-task#效果预览)                     |
-| [结果页](https://tdesign.tencent.com/starter/vue/#/result/success)  | [状态流转](/design/offices-task#状态流转)、[新手指引](/design/offices-task#新手指引)、[任务引导](/design/offices-task#任务引导)              |
-| [个人页](https://tdesign.tencent.com/starter/vue/#/user/index)   | [新手指引](/design/offices-task#新手指引)、[效果预览](/design/offices-task#效果预览)                  |
-| [登录页](https://tdesign.tencent.com/starter/vue/#/login)    | [新手指引](/design/offices-task#新手指引)、[任务引导](/design/offices-task#任务引导)                     |
-
-
-
+| Page Templates                                                          | High-Frequency Tasks                                                                                                                                                                                                                                                                                                                                                                     |
+| :---------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Dashboard](https://tdesign.tencent.com/starter/vue/#/dashboard/base)   | [Data Filtering and Querying](/design/offices-task#数据筛选与查询)、[Preview](/design/offices-task#效果预览)、[New User Guidance](/design/offices-task#新手指引)                                                                                                                                                                                                                         |
+| [List Page](https://tdesign.tencent.com/starter/vue/#/list/base)        | [Data Filtering and Querying](/design/offices-task#数据筛选与查询)、[Table Batch Operation](/design/offices-task#表格批量操作)、[Data Import](/design/offices-task#数据导入)、[Preview](/design/offices-task#效果预览)、[Status Transitions](/design/offices-task#StatusTransition)、[Task Guidance](/design/offices-task#任务引导) 、[New User Guidance](/design/offices-task#新手指引) |
+| [Form Page](https://tdesign.tencent.com/starter/vue/#/form/base)        | [Data Filtering and Querying](/design/offices-task#数据筛选与查询)、[Task Guidance](/design/offices-task#任务引导)、[Preview](/design/offices-task#效果预览)、[New User Guidance](/design/offices-task#新手指引)                                                                                                                                                                         |
+| [Detail Page](https://tdesign.tencent.com/starter/vue/#/detail/base)    | [Data Filtering and Querying](/design/offices-task#数据筛选与查询)、[Status Transitions](/design/offices-task#StatusTransition)、[Data Import](/design/offices-task#数据导入)、[Preview](/design/offices-task#效果预览)                                                                                                                                                                  |
+| [Result Page](https://tdesign.tencent.com/starter/vue/#/result/success) | [Status Transitions](/design/offices-task#StatusTransition)、[New User Guidance](/design/offices-task#新手指引)、[Task Guidance](/design/offices-task#任务引导)                                                                                                                                                                                                                          |
+| [User Page](https://tdesign.tencent.com/starter/vue/#/user/index)       | [New User Guidance](/design/offices-task#新手指引)、[Preview](/design/offices-task#效果预览)                                                                                                                                                                                                                                                                                             |
+| [Login Page](https://tdesign.tencent.com/starter/vue/#/login)           | [New User Guidance](/design/offices-task#新手指引)、[Task Guidance](/design/offices-task#任务引导)                                                                                                                                                                                                                                                                                       |

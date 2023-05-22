@@ -2,11 +2,14 @@
   <div class="tdesign-document tdesign-source-page">
     <div class="tdesign-source-header">
       <div class="content">
-        <h1>设计资源</h1>
+        <h1>Design Resources</h1>
         <div class="description">
-          <p>这里提供 TDesign 相关的设计资源和设计工具的下载，更多设计资源正在整理和完善中。</p>
           <p>
-            你可以将反馈建议发送至 tdesign@tencent.com 或提交
+            Here are the download links for TDesign-related design resources and design tools. More design resources are
+            being sorted out and perfected.
+          </p>
+          <p>
+            If you have any suggestions or feedback, please send an email to tdesign@tencent.com or submit an
             <a href="https://github.com/Tencent/tdesign/issues" target="_blank">issue</a>
           </p>
         </div>
@@ -17,7 +20,7 @@
 
     <div class="tdesign-source-content">
       <div class="tdesign-source-content-box">
-        <h2 class="tdesign-source-content__title">资源预览</h2>
+        <h2 class="tdesign-source-content__title">Resource Preview</h2>
       </div>
       <div class="tdesign-source-content__iframe-wrap">
         <iframe
@@ -40,9 +43,9 @@
           >
             <div class="tdesign-source-content__list-item-inner">
               <div :class="['mask', [item.icon]]"></div>
-              <span class="source-tag new" v-if="item.status === 1">最新</span>
-              <span class="source-tag doing" v-else-if="item.status === 2">更新中</span>
-              <span class="source-tag todo" v-else-if="item.status === -1">待上线</span>
+              <span class="source-tag new" v-if="item.status === 1">Latest</span>
+              <span class="source-tag doing" v-else-if="item.status === 2">Updating</span>
+              <span class="source-tag todo" v-else-if="item.status === -1">In Progress</span>
               <img :src="iconMap[item.icon]" class="source-icon" width="32" />
               <h3 class="source-title">{{ item.title }}</h3>
               <div class="source-detail">
@@ -68,7 +71,7 @@
       </div>
 
       <div class="tdesign-source-content-box">
-        <h2 class="tdesign-source-content__title">贡献者</h2>
+        <h2 class="tdesign-source-content__title">Contributors</h2>
         <!-- <a class="contributor-link" href="" target="_blank">怎样参与 TDesign 设计资源开源共建？</a> -->
         <div class="contributor-list">
           <a
@@ -90,21 +93,21 @@
 </template>
 
 <script>
-import figmaIcon from './assets/source/figma-logo.svg'
-import sketchIcon from './assets/source/sketch-logo.svg'
-import xdIcon from './assets/source/xd-logo.svg'
-import axureIcon from './assets/source/axure-logo.svg'
-import codesignIcon from './assets/source/codesign-logo.svg'
-import jssjIcon from './assets/source/jssj-logo.svg'
-import pixsoIcon from './assets/source/pixso-logo.svg'
-import mdIcon from './assets/source/md-logo.svg'
-import mastergoIcon from './assets/source/mastergo-logo.svg'
+import figmaIcon from './assets/source/figma-logo.svg';
+import sketchIcon from './assets/source/sketch-logo.svg';
+import xdIcon from './assets/source/xd-logo.svg';
+import axureIcon from './assets/source/axure-logo.svg';
+import codesignIcon from './assets/source/codesign-logo.svg';
+import jssjIcon from './assets/source/jssj-logo.svg';
+import pixsoIcon from './assets/source/pixso-logo.svg';
+import mdIcon from './assets/source/md-logo.svg';
+import mastergoIcon from './assets/source/mastergo-logo.svg';
 
-import { webSourceList, mobileSourceList, sourceDownloadUrl, webChartSourceList } from '@/consts'
-import { webDesignContributor, mobileDesignContributor, webChartDesignContributor } from '@/contributor'
+import { webSourceList, mobileSourceList, sourceDownloadUrl, webChartSourceList } from '@/consts';
+import { webDesignContributor, mobileDesignContributor, webChartDesignContributor } from '@/contributor';
 
 export default {
-  data () {
+  data() {
     return {
       webSourceList,
       mobileSourceList,
@@ -121,81 +124,84 @@ export default {
         jssj: jssjIcon,
         pixso: pixsoIcon,
         md: mdIcon,
-        mastergo: mastergoIcon
+        mastergo: mastergoIcon,
       },
       previewUrl: {
         web: 'https://codesign.qq.com/s/dqN2925D7qjaBXe?active-screen=xDP39qAvLNl9wlK&menu_aside=null&minimap=close',
         mobile: 'https://codesign.qq.com/s/YDgGjYv28y9wEVQ?active-screen=GD5OjERAdXO93eA&menu_aside=null&minimap=close',
-        'web-chart': 'https://codesign.qq.com/s/kv8398d7m59nKeg?active-screen=6ym7ZRGAEOYjAYE&menu_aside=null&minimap=close'
-      }
-    }
+        'web-chart':
+          'https://codesign.qq.com/s/kv8398d7m59nKeg?active-screen=6ym7ZRGAEOYjAYE&menu_aside=null&minimap=close',
+      },
+    };
   },
   computed: {
-    designContributor () {
+    designContributor() {
       const map = {
         web: this.webDesignContributor,
         mobile: this.mobileDesignContributor,
-        'web-chart': this.webChartDesignContributor
-      }
-      return map[this.tab]
+        'web-chart': this.webChartDesignContributor,
+      };
+      return map[this.tab];
     },
-    sourceList () {
+    sourceList() {
       const map = {
         web: this.webSourceList,
         mobile: this.mobileSourceList,
-        'web-chart': this.webChartSourceList
-      }
-      return map[this.tab]
+        'web-chart': this.webChartSourceList,
+      };
+      return map[this.tab];
     },
     tab: {
-      get () {
-        return this.$route.query.tab || 'web'
+      get() {
+        return this.$route.query.tab || 'web';
       },
-      set (v) {
-        if (this.$route.query.tab !== v) this.$router.push({ query: { tab: v } })
-      }
+      set(v) {
+        if (this.$route.query.tab !== v) this.$router.push({ query: { tab: v } });
+      },
     },
-    footerStyle () {
+    footerStyle() {
       return {
         '--content-padding-right': '0',
         '--content-max-width': '1440px',
         '--content-padding-left-right': '48px',
         '--footer-inner-position': 'relative',
-        '--footer-logo-position': 'unset'
-      }
-    }
+        '--footer-logo-position': 'unset',
+      };
+    },
   },
 
-  mounted () {
+  mounted() {
     this.$refs.tabs.tabs = [
-      { tab: 'web', name: '桌面端组件库' },
-      { tab: 'mobile', name: '移动端组件库' },
-      { tab: 'web-chart', name: '桌面端图表库' }
-    ]
-    this.$refs.tabs.onchange = ({ detail: currentTab }) => (this.tab = currentTab)
-    fetch(sourceDownloadUrl).then(res => res.json()).then((res) => {
-      this.webSourceList = this.webSourceList.map(item => {
-        item.watch = res[item.id]
-        return item
-      })
-      this.mobileSourceList = this.mobileSourceList.map(item => {
-        item.watch = res[item.id]
-        return item
-      })
-    })
+      { tab: 'web', name: 'Desktop' },
+      { tab: 'mobile', name: 'Mobile' },
+      { tab: 'web-chart', name: 'Desktop Chart' },
+    ];
+    this.$refs.tabs.onchange = ({ detail: currentTab }) => (this.tab = currentTab);
+    fetch(sourceDownloadUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        this.webSourceList = this.webSourceList.map((item) => {
+          item.watch = res[item.id];
+          return item;
+        });
+        this.mobileSourceList = this.mobileSourceList.map((item) => {
+          item.watch = res[item.id];
+          return item;
+        });
+      });
   },
 
   methods: {
-    handleSourceClick (item) {
-      if (item.status === -1 || !item.actionUrl) return
+    handleSourceClick(item) {
+      if (item.status === -1 || !item.actionUrl) return;
 
       if (window._horizon) {
-        window._horizon.send('资源下载', 'click', item.eventLabel, item.actionUrl)
+        window._horizon.send('资源下载', 'click', item.eventLabel, item.actionUrl);
       }
-      window.open(item.actionUrl, '_blank')
-    }
-  }
-}
+      window.open(item.actionUrl, '_blank');
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -310,7 +316,7 @@ export default {
           z-index: -1;
           visibility: hidden;
           opacity: 0;
-          transition: all .2s linear;
+          transition: all 0.2s linear;
         }
 
         &-inner {
