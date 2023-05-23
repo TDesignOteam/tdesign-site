@@ -1,19 +1,19 @@
 <template>
-  <td-doc-layout>
-    <td-header slot="header" framework="site" />
-    <td-doc-aside ref="tdDocAside" />
-    <td-doc-content ref="tdDocContent" page-status="hidden">
-      <td-doc-header ref="tdDocHeader" slot="doc-header" key="header" />
-      <router-view />
-      <td-doc-footer slot="doc-footer" />
-    </td-doc-content>
-  </td-doc-layout>
+    <td-doc-layout>
+        <td-header slot="header" framework="site" />
+        <td-doc-aside ref="tdDocAside" />
+        <td-doc-content ref="tdDocContent" page-status="hidden">
+            <td-doc-header ref="tdDocHeader" slot="doc-header" key="header" />
+            <router-view />
+            <td-doc-footer slot="doc-footer" />
+        </td-doc-content>
+    </td-doc-layout>
 </template>
 
 <script>
-import siteEnConfig from '../../site-en.config'
+import siteConfig from '../../site.config'
 
-const { docs: designDocs } = JSON.parse(JSON.stringify(siteEnConfig.design).replace(/component:.+/g, ''))
+const { docs: designDocs } = JSON.parse(JSON.stringify(siteConfig.design).replace(/component:.+/g, ''))
 
 export default {
   data () {
@@ -24,7 +24,7 @@ export default {
 
   computed: {
     asideList () {
-      if (this.$route.path.includes('/design-en')) return designDocs
+      if (this.$route.path.includes('/design')) return designDocs
       return designDocs
     }
   },
@@ -54,7 +54,7 @@ export default {
     initDocHeader () {
       const { meta } = this.$route
 
-      if (this.$route.path.includes('/design-en/')) {
+      if (this.$route.path.includes('/design/')) {
         clearTimeout(this.timer)
         this.$refs.tdDocHeader.docInfo = meta
         this.$refs.tdDocHeader.spline = ''
