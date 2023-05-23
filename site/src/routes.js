@@ -41,7 +41,7 @@ const routes = [
     meta: {
       documentTitle: '资源 - TDesign'
     },
-    component: () => import('./pages/design/source.vue')
+    component: () => import('./pages/design/source_zh-CN.vue')
   },
   {
     path: '/about',

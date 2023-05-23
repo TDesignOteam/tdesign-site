@@ -17,7 +17,7 @@ const siteConfig = {
               spline: 'design-value',
             },
             path: '/design/values',
-            component: () => import('@/pages/design/values.vue'),
+            component: () => import('@/pages/design/values_zh-CN.vue'),
           },
         ],
       },
@@ -35,7 +35,7 @@ const siteConfig = {
               spline: 'design-color',
             },
             path: '/design/color',
-            component: () => import('@/pages/design/color.vue'),
+            component: () => import('@/pages/design/color_zh-CN.vue'),
           },
           {
             name: 'fonts',
@@ -47,7 +47,7 @@ const siteConfig = {
               desc: '字体遵循好用、好记和美观的设计原则，让内容更有规律和韵律。',
               spline: 'design-font',
             },
-            component: () => import('@/pages/design/fonts.vue'),
+            component: () => import('@/pages/design/fonts_zh-CN.vue'),
           },
           {
             name: 'motion',
@@ -59,7 +59,7 @@ const siteConfig = {
               desc: '动效可以让界面表达明确、清晰、流畅，从而增强用户感知。',
               spline: 'design-motion',
             },
-            component: () => import('@/pages/design/motion.vue'),
+            component: () => import('@/pages/design/motion_zh-CN.vue'),
           },
           {
             name: 'icon',
@@ -71,7 +71,7 @@ const siteConfig = {
               desc: 'Icon 作为UI构成中重要的元素，一定程度上影响UI界面整体呈现出的风格。',
               spline: 'design-icon',
             },
-            component: () => import('@/pages/design/icon.vue'),
+            component: () => import('@/pages/design/icon_zh-CN.vue'),
           },
           {
             name: 'layout',
@@ -83,7 +83,7 @@ const siteConfig = {
               desc: '用于组织网页的框架结构，可以影响用户的浏览顺序。清晰的的布局和数据展示可以帮助用户高效的获取信息。',
               spline: 'design-layout',
             },
-            component: () => import('@/pages/design/layout.vue'),
+            component: () => import('@/pages/design/layout_zh-CN.vue'),
           },
           {
             name: 'dark',
@@ -95,7 +95,7 @@ const siteConfig = {
               desc: '暗黑模式是一种夜间友好的颜色主题，帮助用户更沉浸式的工作。',
               spline: 'design-mode',
             },
-            component: () => import('@/pages/design/dark.vue'),
+            component: () => import('@/pages/design/dark_zh-CN.vue'),
           },
         ],
       },
@@ -113,7 +113,7 @@ const siteConfig = {
               desc: '在明确系统功能分类和结构后，先选择合适的页面导航和布局，建立基础的中后台框架。',
               spline: 'design-layout',
             },
-            component: () => import('@/docs/design/offices.md'),
+            component: () => import('@/docs/design/offices_zh-CN.md'),
           },
           {
             name: 'offices task',
@@ -125,7 +125,7 @@ const siteConfig = {
               desc: '明确整体框架和页面布局后，根据业务场景，对相关任务流程进行设计。',
               spline: 'design-layout',
             },
-            component: () => import('@/docs/design/offices-task.md'),
+            component: () => import('@/docs/design/offices-task_zh-CN.md'),
           },
         ],
       }
@@ -145,7 +145,7 @@ const siteConfig = {
             meta: {
               documentTitle: '关于我们 - TDesign',
             },
-            component: () => import('@tdesign/docs/introduce.md'),
+            component: () => import('@tdesign/docs/introduce_zh-CN.md'),
           },
           {
             name: 'tech',
@@ -154,7 +154,7 @@ const siteConfig = {
             meta: {
               documentTitle: '整体方案 - TDesign',
             },
-            component: () => import('@tdesign/docs/tech.md'),
+            component: () => import('@tdesign/docs/tech_zh-CN.md'),
           },
           {
             name: 'roadmap',
@@ -163,7 +163,7 @@ const siteConfig = {
             meta: {
               documentTitle: '后续计划 - TDesign',
             },
-            component: () => import('@tdesign/docs/roadmap.md'),
+            component: () => import('@tdesign/docs/roadmap_zh-CN.md'),
           },
           {
             name: 'faq',
@@ -172,7 +172,7 @@ const siteConfig = {
             meta: {
               documentTitle: '常见问题 - TDesign',
             },
-            component: () => import('@tdesign/docs/faq.md'),
+            component: () => import('@tdesign/docs/faq_zh-CN.md'),
           },
           {
             name: 'awesome',
@@ -182,7 +182,7 @@ const siteConfig = {
               documentTitle: '社区资源 - TDesign',
               title: '社区资源',
             },
-            component: () => import('@tdesign/docs/awesome.md'),
+            component: () => import('@tdesign/docs/awesome_zh-CN.md'),
           },
           {
             name: 'release',
@@ -207,7 +207,7 @@ const siteConfig = {
             meta: {
               documentTitle: '如何贡献 - TDesign',
             },
-            component: () => import('@tdesign/docs/contributing.md'),
+            component: () => import('@tdesign/docs/contributing_zh-CN.md'),
           },
           {
             name: 'contributing',
@@ -225,7 +225,7 @@ const siteConfig = {
             meta: {
               documentTitle: '联系我们 - TDesign',
             },
-            component: () => import('@tdesign/docs/contact.md'),
+            component: () => import('@tdesign/docs/contact_zh-CN.md'),
           },
         ],
       },
