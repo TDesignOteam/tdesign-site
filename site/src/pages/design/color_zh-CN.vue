@@ -1,7 +1,7 @@
 <template>
   <div class="doc-color-wrapper">
     <div ref="article" name="DOC" class="doc-color">
-      <nav class="tdesign-toc_container" style="position: absolute; top: 328px">
+      <nav class="tdesign-toc_container" style="position: absolute; top: 328px;">
         <ol class="tdesign-toc_list">
           <li class="tdesign-toc_list_item" v-for="anchor in catalog" :key="anchor.id">
             <a class="tdesign-toc_list_item_a" :href="'#' + anchor.id">{{ anchor.title }} </a>
@@ -14,24 +14,18 @@
         </ol>
       </nav>
 
-      <h2>Summary</h2>
+      <h2>概述</h2>
       <p>
-        TDesign's color system follows the values of inclusiveness, diversity, evolution and connectivity, taking into
-        account the application needs of color and complying with accessibility standards. TDesign also provides a
-        complete and easy-to-use set of official color palettes.
+        TDesign 的色彩体系搭建遵循了 TDesign
+        包容、多元、进化、连接的价值观，充分考虑色彩的应用需求，符合无障碍标准，提供了一套定义完整、开箱即用的官方色板。
       </p>
-      <h2>TDesign Official Palette</h2>
+      <h2>TDesign 官方色板</h2>
+      <p>TDesign 官方色板是一套广泛适用于中后台业务场景的默认配色。包含了主题色、功能色、中性色、扩展色4部分。</p>
+      <h3>主题色</h3>
       <p>
-        TDesign official palette a default palette widely applicable to mid-to-back-end business scenarios. It consists
-        of four parts: theme colors, functional colors, neutral colors, and extended colors.
-      </p>
-      <h3>Theme colors</h3>
-      <p>
-        The theme color is the most core and frequently used color in a product. It is often used to emphasize
-        information, guide operations, and largely determines the overall tone and style of a product. TDesign uses
-        Tencent Blue as the default theme color, which embodies the brand's characteristics and ecological concept of
-        technological innovation and open sharing. Its stable and neutral temperament also has broad applicability in
-        mid-to-back-end design.
+        主题色是产品中最核心、最高频使用的颜色，它常用于强调信息、引导操作，并在很大程度上决定了产品整体的基调和风格。TDesign
+        以腾讯蓝（Tencent
+        Blue）作为默认主题色，蕴含了科技创新、开放共享的品牌特质和生态理念，其稳健、中性的气质，在中后台设计中也具有广泛的普适性。
       </p>
       <div class="tdesign-color-theme">
         <p>Tencent Blue</p>
@@ -40,18 +34,12 @@
           <p>#0052d9</p>
         </div>
       </div>
-      <h3>Functional Colors</h3>
+      <h3>功能色</h3>
       <p>
-        Functional colors refer to colors used for specific scenarios and to express special semantics, such as success,
-        failure, warning, links, etc. We have defined four functional colors, selecting hues based on the general
-        meaning of colors and from a perspective of visual consistency with the brand color. They are also evaluated
-        based on comprehensive consideration of WCAG 2.0 standards to meet usability standards.
+        功能色是指用于特定场景、表达特殊语义的颜色，例如成功、失败、告警、链接等状态。我们定义了4种功能色，在遵循色彩通用含义选取色相的基础上，从视觉一致性的角度选取了与品牌色更具一致关系的色调，并结合WCAG2.0标准综合考量，使其达到可用性标准。
       </p>
       <p>
-        In TDesign's color system, each functional color extends to 10 levels, which is enough to cover various design
-        scenarios. The color levels are developed using the HCT color space, combined with the interpolation of
-        saturation and brightness under different hues to optimize the curve, ensuring a uniform change in color and
-        equal brightness among multiple colors.
+        在 TDesign 色彩系统中，每个功能色扩展10级色阶，足够覆盖界面设计中各需求场景。色阶的制定采用了 HCT 色彩空间，结合不同色相下饱和度及亮度插值拟合出优化曲线，保证色彩变化均匀，多色之间亮度均等。
       </p>
 
       <div class="tdesign-color-features">
@@ -71,11 +59,10 @@
           </div>
         </div>
       </div>
-      <h3>Neutral Colors</h3>
+      <h3>中性色</h3>
       <p>
-        Neutral colors consist of a range of gray and black colors. Considering that neutral colors are also used to
-        distinguish interface layering in dark mode, they are expanded to 14 in CIELab based on brightness. The contrast
-        between commonly used text and their color is greater than 4.5, meeting the WCAG 2.0 standard.
+        中性色包含一系列灰黑色，同时考虑到在暗黑模式下需要通过中性色来区界面分层级关系，所以在 CIELab 中根据亮度将中性色扩展至14个。并且常用文字与其色彩对比度均大于4.5，满足
+        WCAG2.0 标准。
       </p>
       <div class="tdesign-color-neutral">
         <div class="tdesign-color-neutral-l">
@@ -116,12 +103,9 @@
           </div>
         </div>
       </div>
-      <h3>Brand-color-bias Neutral colors</h3>
+      <h3>带有品牌色倾向的中性色</h3>
       <p>
-        In addition, in application scenarios such as page templates, color bias is added to the gray and black colors
-        at various levels to highlight the brand atmosphere. The RGB color mixing model is used in the process, and
-        after many attempts, the ratio of brand color blending is determined to be 8%-12%, and the same rules as
-        ordinary neutral colors are applied.
+        此外在页面模版等应用场景中，需要在各层级的灰黑色中加入颜色倾向，以突出品牌氛围。过程中使用了 RGB 混色模型，经过多次的尝试最终确定了品牌色的混合比例为 8%-12%，运用规则同普通中性色一致。
       </p>
       <div class="tdesign-color-neutral-brand">
         <div class="tdesign-color-neutral-brand-l">
@@ -171,13 +155,11 @@
           <p class="tag">Average(r,g,b) = 0.12*(r1,b1,g1) + 0.88*(r2,b2,g2)</p>
         </div>
       </div>
-      <h3>Extended Colors</h3>
+      <h3>扩展色</h3>
       <p>
-        Extended colors are a series of colors extended from functional colors. In scenarios that require more colors
-        such as data visualization and illustration scenes, the same method of HCT and interpolation fitting curves is
-        used. In addition to the functional colors of blue, red, yellow, and green, the TDesign color system is expanded
-        to 8 main colors, including purple, sky blue, yellow, and pink extended colors. Each extended color has 10
-        levels to ensure uniform color changes and equal brightness among multiple colors.
+        扩展色是一系列由功能色扩展而成的颜色。在有更多颜色需求的场景中（如数据可视化场景、插画场景）。同样采用了 HCT 及插值拟合曲线的方法，除了功能色蓝、红、黄、绿之外，TDesign 色彩体系扩展至
+        8 种主要颜色，另外有紫色，天蓝色、黄色、粉红色扩展色。每个扩展色均为 10
+        级色阶，保证色彩变化均匀，多色之间亮度均等。
       </p>
       <div class="tdesign-color-expand tdesign-color-features">
         <div class="tdesign-color-features-lists" v-for="(item, index) in listExpand" :key="index">
@@ -195,13 +177,12 @@
           </div>
         </div>
       </div>
-      <h2>Application Guidelines</h2>
-      <h3>UI Application Guidelines</h3>
+      <h2>应用指南</h2>
+      <h3>UI 应用指南</h3>
       <p>
-        In TDesign, Tencent Blue is the main interactive color, and because of the complexity of component
-        implementation, we have standardized the color usage rules using Design Tokens. For ease of management and
-        readability, we have defined global semantic tokens and component tokens. Once you understand the rules of
-        global semantic tokens, you can understand the color usage rules of components in TDesign.
+        在 TDesign 中，腾讯蓝是主要的交互颜色，并且因为组件实际情况的复杂性，我们使用 Design Token 规范了颜色运用规则。
+        为了方便进行管理和阅读，我们定义了全局语义 Token 和组件 Token，这样只需要理解了全局语义 Token
+        的规则后，就可以了解 TDesign 中组件的颜色运用规则（可参考下图）。
       </p>
       <div class="tdesign-guide-ui-box">
         <div class="tdesign-guide-ui">
@@ -220,15 +201,13 @@
         <div class="tdesign-guide-ui-arr tdesign-guide-ui-arr--position"></div>
       </div>
 
-      <h3>Data Visualization Application Guidelines</h3>
+      <h3>数据可视化应用指南</h3>
       <p>
-        In a design system, data visualization in chart form is also a common application scenario, so the TDesign color
-        system fully considers the color application in data visualization, striving to become a compatible color
-        system. TVision, as an important part of the design system library, uses the extended colors from the TDesign
-        official color palette as the basis for its coloring, ensuring the consistency and brand continuity of charts
-        and UI. The most commonly used qualitative and continuous color palettes are shown in the figure below, and the
-        recognition degrees have been verified using CIE ΔE 2000 combined with the contrast ratio. TVision will be made
-        available in the future, providing more complete visual color guidance for everyone.
+        在前端通用设计体系中，图表也是常见的应用场景，因此 TDesign
+        的色彩体系也充分考虑到数据可视化的色彩应用，力图成为一套具有兼容性的色彩体系。 前端数据可视化组件库
+        TVision，作为设计体系的重要组成部分一部分，其配色基于 TDesign 官方色板中的扩展色进行应用，保证了图表与 UI
+        的统一性和品牌延续性。其中最常用的定性色板、连续色板如下图所示，均经过 CIE ΔE 2000 结合 contrast ratio 的辨识度验证。TVision
+        未来会对外开放，届时为大家提供更完整的可视化色彩指引。
       </p>
       <img src="./assets/color/board.svg" />
       <!-- <div class="tdesign-color-data">
@@ -257,17 +236,17 @@
 </template>
 
 <script>
-import anchorMixin from '../mixins/anchor';
+import anchorMixin from '../mixins/anchor'
 
 export default {
   mixins: [anchorMixin],
-  data() {
+  data () {
     return {
       listFeatures: {
         list: [
           {
             topTitle: 'Contrast Ratio 6.54:1',
-            leftTxt: 'Blue7 Brand Color',
+            leftTxt: 'Blue7 品牌色',
             rightTxt: '#0052d9'
           },
           {
@@ -314,7 +293,7 @@ export default {
         list1: [
           {
             topTitle: 'Contrast Ratio 4.32:1',
-            leftTxt: 'Red6 Error Color',
+            leftTxt: 'Red6 错误色',
             rightTxt: '#d54941'
           },
           {
@@ -361,7 +340,7 @@ export default {
         list2: [
           {
             topTitle: 'Contrast Ratio 3.12:1',
-            leftTxt: 'Orange5 Warning Color',
+            leftTxt: 'Orange5 告警色',
             rightTxt: '#e37318'
           },
           {
@@ -408,7 +387,7 @@ export default {
         list3: [
           {
             topTitle: 'Contrast Ratio 3.16:1',
-            leftTxt: 'Green5 Success Color',
+            leftTxt: 'Green5 成功色',
             rightTxt: '#2ba471'
           },
           {
@@ -821,35 +800,35 @@ export default {
           ]
         }
       ]
-    };
+    }
   },
 
   methods: {
-    copyColor(color) {
+    copyColor (color) {
       if ('clipboard' in navigator) {
-        navigator.clipboard.writeText(color);
-        this.$message.success('复制成功');
-        return;
+        navigator.clipboard.writeText(color)
+        this.$message.success('复制成功')
+        return
       }
 
-      const textarea = document.createElement('textarea');
-      textarea.textContent = color;
-      textarea.style.width = 0;
-      textarea.style.height = 0;
-      document.body.appendChild(textarea);
+      const textarea = document.createElement('textarea')
+      textarea.textContent = color
+      textarea.style.width = 0
+      textarea.style.height = 0
+      document.body.appendChild(textarea)
 
-      const selection = document.getSelection();
-      const range = document.createRange();
-      range.selectNode(textarea);
-      selection.removeAllRanges();
-      selection.addRange(range);
+      const selection = document.getSelection()
+      const range = document.createRange()
+      range.selectNode(textarea)
+      selection.removeAllRanges()
+      selection.addRange(range)
 
-      document.execCommand('copy');
-      selection.removeAllRanges();
-      document.body.removeChild(textarea);
+      document.execCommand('copy')
+      selection.removeAllRanges()
+      document.body.removeChild(textarea)
 
-      this.$message.success('复制成功');
+      this.$message.success('复制成功')
     }
   }
-};
+}
 </script>

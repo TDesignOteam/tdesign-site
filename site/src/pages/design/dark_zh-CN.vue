@@ -13,60 +13,46 @@
       </ol>
     </nav>
 
-    <h2>Summary</h2>
+    <h2>概述</h2>
     <p>
-      Dark mode is a night-friendly color theme that focuses on minimum color contrast required for the readability of
-      each element in the UI interface, to ensure an excellent reading experience.
+      暗黑模式是一种夜间友好的颜色主题，主要侧重于UI界面中每个元素可读性所需的最小色彩对比度，以保证出色的阅读体验。
     </p>
 
     <img class="starter" src="./assets/mode/starter.png" />
 
-    <h2>Principle</h2>
-    <h3>Content First</h3>
+    <h2>原则</h2>
+    <h3>内容优先</h3>
+    <p>暗黑模式下应优先保证内容识别度。需要确保文本内容易于阅读，而不是无缘无故的花哨。</p>
+
+    <h3>阅读舒适度</h3>
     <p>
-      It is necessary to prioritize content legibility in a dark mode. Text content should be ensured to be easy to
-      read, rather than needlessly flashy.
+      尽量避免使用高饱和度的颜色，因为在较暗的表面上观看时，高饱和度颜色具有视觉“抖动”效果。相反，使用低饱和度或稍微柔和的颜色会减少人眼的视觉疲劳，保证阅读舒适性。
     </p>
 
-    <h3>Reading Comfort</h3>
+    <h3>信息层级一致性</h3>
+    <p>浅色模式和深色模式下转换时应该保持信息层级一致性。</p>
+
+    <h3>符合 WCAG2.0 标准</h3>
     <p>
-      Try to avoid using highly saturated colors, as they can cause a visual "vibration" effect when viewed on darker
-      surfaces. Instead, using low saturation or slightly softer colors can reduce visual fatigue and ensure reading
-      comfort.
+      依据 WCAG2.0 设计标准，文本的视觉呈现以及文本图像至少要有 1:4.5 的对比度，以确保所有的文字内容清晰易读，对比度足够。
     </p>
 
-    <h3>Maintain Consistency in Information</h3>
-    <p>To maintain consistency in information hierarchy when switching between light mode and dark mode</p>
-
-    <h3>Meeting WCAG2.0 Standard</h3>
+    <h2>文字</h2>
     <p>
-      According to WCAG2.0 Design Standard, visual presentation of text and the contrast ratio between text and
-      background should be at least 1:4.5 to ensure that all text content is clear and easily readable with sufficient
-      contrast.
-    </p>
-
-    <h2>Text</h2>
-    <p>
-      When light-colored text appears on a dark background, the contrast ratio between the body text and the background
-      should be at least 1:4.5 (AA standard). In TDesign, in addition to ensuring text legibility, we also hope that
-      text of different gradients will have consistent visual perception after switching between light and dark modes.
-      Therefore, the opacity has been adjusted accordingly for the transition.
+      浅色文本出现在深色背景上时，正文文字和背景的对比度至少要有 1:4.5(AA 标准）在 TDesign
+      中，除了保证文字识别度之外，希望不同梯度的文字在深浅模式切换后的视觉感知也能趋于一致。所以针对转换后的透明度进行了微调。
     </p>
 
     <t-table style="margin: 16px 0" bordered :data="dataSource" :columns="columns" rowKey="index" size="small" />
 
-    <h2>Color</h2>
+    <h2>色彩</h2>
     <p>
-      In the TDesign color system, the color palette for the dark mode is derived through calculations based on the
-      light color algorithm. The establishment of color gradients also adopts a method that combines the CIElab and HSL
-      color spaces with interpolation to ensure uniform color changes and equal brightness among multiple colors.
+      在 TDesign 色彩系统中，在亮色的色彩算法基础上，经过运算得到暗黑模式的色板。色阶的制定同样采用了 CIElab、HSL
+      色彩空间结合插值的方法，保证色彩变化均匀，多色之间亮度均等。
     </p>
-    <p>
-      TDesign provides 8 sets of commonly used basic color palettes, with each extended color having 10 levels of color
-      gradients.
-    </p>
+    <p>色彩中提供了 8 套常用的基础色板，每个扩展色均为 10 级色阶。</p>
 
-    <h3>Basic Palette</h3>
+    <h3>基础色板</h3>
 
     <div class="color-board">
       <div class="color-board-lists" v-for="(item, index) in colorList" :key="index">
@@ -100,32 +86,32 @@ export default {
         {
           index: 0,
           token: '@text-color-primary',
-          name: 'Title',
+          name: '标题',
           color: '#ffffff 90%'
         },
         {
           index: 1,
           token: '@text-color-secondary',
-          name: 'Secondary Text',
+          name: '次要文字',
           color: '#ffffff 60%'
         },
         {
           index: 2,
           token: '@text-color-placeholder',
-          name: 'Placeholder Text',
+          name: '占位符文字',
           color: '#ffffff 40%'
         },
         {
           index: 3,
           token: '@text-color-disabled',
-          name: 'Disabled Text',
+          name: '禁用状态文字',
           color: '#ffffff 26%'
         }
       ],
       columns: [
         { ellipsis: true, colKey: 'token', title: 'token' },
-        { ellipsis: true, colKey: 'name', title: 'name' },
-        { ellipsis: true, colKey: 'color', title: 'value' }
+        { ellipsis: true, colKey: 'name', title: '名称' },
+        { ellipsis: true, colKey: 'color', title: '色值' }
       ],
       colorList: {
         list: [
@@ -268,11 +254,11 @@ export default {
     }
   },
   methods: {
-    copyColor(color) {
+    copyColor (color) {
       if ('clipboard' in navigator) {
         navigator.clipboard.writeText(color)
         this.$message.success('复制成功')
-        return;
+        return
       }
 
       const textarea = document.createElement('textarea')
@@ -323,20 +309,17 @@ export default {
       margin-bottom: 24px;
       width: calc((100% - 48px) / 4);
 
-      &:last-of-type,
-      &:nth-child(4) {
+      &:last-of-type, &:nth-child(4) {
         margin-right: 0;
       }
-
       &:nth-child(n + 5) {
         margin-bottom: 0;
       }
-
       .color-board-list {
         height: 40px;
-        color: rgba(0, 0, 0, 0.9);
+        color: rgba(0,0,0,.9);
         padding: 4px 8px;
-        transition: all 0.2s var(--anim-time-fn-easing);
+        transition: all .2s var(--anim-time-fn-easing);
         cursor: pointer;
 
         &:hover {
@@ -350,36 +333,30 @@ export default {
           align-items: flex-end;
           height: 100%;
         }
-
         span {
           font-size: 12px;
           line-height: 20px;
         }
-
         &:nth-child(-n + 6) {
           color: #ffffff;
         }
-
         &:first-child {
           border-radius: 6px 6px 0 0;
           height: 56px;
-          color: rgba(0, 0, 0, 0.9);
+          color: rgba(0,0,0,.9);
           display: flex;
           flex-flow: column;
           justify-content: space-between;
-
           .color-board-bottomTxt {
             font-size: 12px;
             line-height: 20px;
-            color: rgba(0, 0, 0, 0.9);
+            color: rgba(0,0,0,0.9);
             font-weight: 500;
           }
-
           .color-board-topTxt {
             height: unset;
           }
         }
-
         &:last-child {
           border-radius: 0 0 6px 6px;
         }
