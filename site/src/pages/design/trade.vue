@@ -17,6 +17,17 @@ d<template>
       </div>
     </div>
     <div class="tdesign-source">
+      <div class="tdesign-trade-card power">
+        <div class="info">
+          <h2 class="title">创作者商业组件</h2>
+          <p class="description">
+            创作者商业组件是QQ小世界团队面向创作者领域商业化特点沉淀的一套领域组件库，在QQ小店、小店运营平台、MCN机构平台、小世界运营平台等多个业务中使用。组件库以 TDesign 为原子组件，在此基础上根据业务特点，扩展了复合组件、块级组件、模板引擎三层架构，助力业务需求快速落地。其中模板引擎抽象了表单、表格、详情页等通用场景，形成运营领域特定语言，进一步解放需求生产力。
+          </p>
+        </div>
+        <a href="https://pd.pages.woa.com" target="_blank">
+          <t-button size="large" class="action">查 看</t-button>
+        </a>
+      </div>
       <div class="tdesign-trade-card travel">
         <div class="info">
           <h2 class="title">文旅组件</h2>
@@ -224,6 +235,21 @@ export default {
     background-size: auto 100%;
     background-position: right top;
     background-repeat: no-repeat;
+  }
+
+  &.power {
+    background-color: #e3e6eb;
+    background-image: url(./assets/trade/power.png);
+    background-size: auto 100%;
+    background-position: right top;
+    background-repeat: no-repeat;
+
+    .info {
+      background-color: #e3e6eb;
+      &::before {
+        background: linear-gradient(91.32deg, #e3e6eb 1.12%, rgba(234, 236, 234, 0) 101.08%);
+      }
+    }
   }
 
   &.travel {
