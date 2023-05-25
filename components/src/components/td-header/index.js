@@ -1,6 +1,4 @@
 import { html, define } from "hybrids";
-import headerData from "@config/header.js";
-import gplHeaderData from "@config/gpl-header.js";
 import style from "./style.less";
 import portalStyle from "./portal.less";
 import githubIcon from "@images/github.svg?raw";
@@ -8,10 +6,10 @@ import gitIcon from "@images/git.svg?raw";
 import fakeArrowIcon from "@images/fake-arrow.svg?raw";
 import { isIntranet } from "@utils/index";
 import closeIcon from "@images/close.svg?raw";
+import { getHeaderConfig } from '@config/header.js';
 
-const { headerList, baseComponentsLinks, baseComponentPrefix } = isIntranet()
-  ? headerData
-  : gplHeaderData;
+const headerConfig = getHeaderConfig();
+const { headerList, baseComponentsLinks, baseComponentPrefix } = headerConfig;
 
 const allComponentsNpmUrl = [
   ...baseComponentsLinks.web.links.filter((l) => l.status).map((l) => l.npm),
