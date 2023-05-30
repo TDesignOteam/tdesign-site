@@ -711,7 +711,7 @@ div[name="DESIGN"] .header-anchor {
   width: 240px;
   padding-right: 10px;
   max-height: 480px;
-  max-height: min(calc(100vh - 550px), 480px);
+  max-height: min(calc(100vh - 152px), 480px);
   overflow: hidden auto;
   position: absolute;
   right: 24px;
