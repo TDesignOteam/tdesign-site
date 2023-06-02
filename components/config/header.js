@@ -133,10 +133,10 @@ export const getHeaderConfig = () => {
             name: 'Flutter', icon: flutterIcon, path: '/flutter/', npm: 'tdesign-flutter', status: 0,
           },
           {
-            name: isEnglish ? 'Miniprogram' : '微信小程序', icon: wxIcon, path: '/miniprogram/', npm: 'tdesign-miniprogram', status: 1,
+            name: isEnglish ? 'WeChat-Miniprogram' : '微信小程序', icon: wxIcon, path: '/miniprogram/', npm: 'tdesign-miniprogram', status: 1,
           },
           {
-            name: isEnglish ? 'Miniprogram' : 'QQ 小程序', icon: wxIcon, path: '/qq-miniprogram/', npm: 'tdesign-qq-miniprogram', status: 2,
+            name: isEnglish ? 'QQ-Miniprogram' : 'QQ 小程序', icon: wxIcon, path: '/qq-miniprogram/', npm: 'tdesign-qq-miniprogram', status: 2,
           },
           {
             name: 'Taro', icon: wxIcon, path: '/taro/', npm: 'tdesign-taro', status: 0,

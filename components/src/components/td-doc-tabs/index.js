@@ -1,5 +1,8 @@
 import { html, dispatch, define } from "hybrids";
 import style from "./style.less";
+import { getLang } from '@utils';
+
+const lang = getLang();
 
 function handleTabClick(host, e) {
   host.tabScrollMap[host.tab] = document.documentElement.scrollTop;
@@ -21,9 +24,9 @@ function handleTabClick(host, e) {
 }
 
 const defaultTabs = [
-  { tab: "demo", name: "示例" },
+  { tab: "demo", name: lang === 'zh' ? "示例" : "Demo" },
   { tab: "api", name: "API" },
-  { tab: "design", name: "指南" },
+  { tab: "design", name: lang === 'zh' ? "指南" : "Guide" },
 ];
 
 export default define({

@@ -100,3 +100,7 @@ export function watchHtmlMode(callback = () => {}) {
 
   return observer;
 }
+
+export function getLang() {
+  return localStorage.getItem('tdesign_site_lang') || 'zh';
+}

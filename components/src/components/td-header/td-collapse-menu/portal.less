@@ -4,7 +4,7 @@
   backdrop-filter: blur(6px);
   display: flex;
   padding: 8px;
-  width: 240px;
+  width: 254px;
   box-sizing: border-box;
   flex-direction: column;
   transition: all 0.2s var(--anim-time-fn-easing);
@@ -52,7 +52,8 @@
 
     .disable-tag,
     .alpha-tag,
-    .beta-tag {
+    .beta-tag,
+    .stable-tag {
       font-size: 12px;
       border-radius: var(--border-radius);
       padding: 2px 4px;
@@ -72,6 +73,12 @@
     .beta-tag {
       color: var(--success-main);
       background: var(--success-main-light);
+      font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    }
+
+    .stable-tag {
+      color: #029CD4;
+      background: rgba(2, 156, 212, .1);
       font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     }
   }

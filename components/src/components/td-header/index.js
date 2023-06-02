@@ -4,6 +4,7 @@ import portalStyle from "./portal.less";
 import githubIcon from "@images/github.svg?raw";
 import gitIcon from "@images/git.svg?raw";
 import fakeArrowIcon from "@images/fake-arrow.svg?raw";
+import translateIcon from "@images/translate.svg?raw";
 import { isIntranet } from "@utils/index";
 import closeIcon from "@images/close.svg?raw";
 import { getHeaderConfig } from '@config/header.js';
@@ -203,6 +204,25 @@ function renderLinks(host, headerList, platform, framework) {
     </a>
   `;
 
+  function handleTranslate() {
+    const lang = localStorage.getItem('tdesign_site_lang') || 'zh';
+    if (lang === 'zh') {
+      localStorage.setItem('tdesign_site_lang', 'en');
+    } else {
+      localStorage.setItem('tdesign_site_lang', 'zh');
+    }
+    location.reload();
+  }
+
+  const translateLink = html`
+    <div class="TDesign-header-nav__translate" onclick="${handleTranslate}">
+      <span
+        class="TDesign-header-nav__translate-icon"
+        innerHTML="${translateIcon}"
+      ></span>
+    </div>
+  `;
+
   const isBaseActive = () => {
     const [, basePath] = location.pathname.split("/");
     return baseComponentPrefix.includes(basePath);
@@ -231,6 +251,7 @@ function renderLinks(host, headerList, platform, framework) {
         >
       `;
     })
+    .concat(translateLink)
     .concat(gitLink);
 }
 
