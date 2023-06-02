@@ -6,7 +6,7 @@ export const figmaWebStarterUrl = 'https://www.figma.com/community/file/10532792
 
 export const sketchWebUrl = 'https://codesign.qq.com/s/Mx86jz774n9brz3?feature_aside=resource'
 
-export const sketchMobileUrl = `${CDN_BASE}/design-source/TDesign_Sketch_Library_Mobile_1.0.1.sketch`
+export const sketchMobileUrl = `${CDN_BASE}/design-source/TDesign_Sketch_Library_Mobile_1.1.0.sketch`
 
 // export const axWebUrl = `${CDN_BASE}/design-source/TDesign_Axure_Library_Web_1.1.0.rplib`
 
