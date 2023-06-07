@@ -1,5 +1,7 @@
+import { getLang } from '@utils'
+
 export const getLocale = () => {
-  const lang = localStorage.getItem('tdesign_site_lang') || 'zh';
+  const lang = getLang();
   const locale = {
     zh: {
       footer: {

@@ -102,5 +102,6 @@ export function watchHtmlMode(callback = () => {}) {
 }
 
 export function getLang() {
-  return localStorage.getItem('tdesign_site_lang') || 'zh';
+  const isEn = /-en$/.test(location.pathname);
+  return isEn ? 'en' : 'zh';
 }

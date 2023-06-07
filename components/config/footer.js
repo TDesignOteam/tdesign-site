@@ -1,7 +1,7 @@
-import { isIntranet } from '@utils';
+import { isIntranet, getLang } from '@utils';
 
 export const getFooterConfig = () => {
-  const lang = localStorage.getItem('tdesign_site_lang') || 'zh';
+  const lang = getLang();
   const isEnglish = lang === 'en';
 
   const footerLinks = [

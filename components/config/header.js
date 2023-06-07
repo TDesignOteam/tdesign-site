@@ -2,7 +2,7 @@ import vueIcon from '../src/images/vue-logo.svg?url';
 import reactIcon from '../src/images/react-logo.svg?url';
 import wxIcon from '../src/images/wx-logo.svg?url';
 import flutterIcon from '../src/images/flutter-logo.svg?url';
-import { isIntranet } from "@utils/index";
+import { isIntranet, getLang } from "@utils/index";
 
 const headerList = [
   {
@@ -93,7 +93,7 @@ export default {
 
 export const getHeaderConfig = () => {
   const intranet = isIntranet();
-  const lang = localStorage.getItem('tdesign_site_lang') || 'zh';
+  const lang = getLang();
   const isEnglish = lang === 'en';
 
   const headerList = [

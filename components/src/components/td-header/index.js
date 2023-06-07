@@ -5,7 +5,7 @@ import githubIcon from "@images/github.svg?raw";
 import gitIcon from "@images/git.svg?raw";
 import fakeArrowIcon from "@images/fake-arrow.svg?raw";
 import translateIcon from "@images/translate.svg?raw";
-import { isIntranet } from "@utils/index";
+import { isIntranet, getLang } from "@utils/index";
 import closeIcon from "@images/close.svg?raw";
 import { getHeaderConfig } from '@config/header.js';
 
@@ -205,23 +205,19 @@ function renderLinks(host, headerList, platform, framework) {
   `;
 
   function handleTranslate() {
-    const lang = localStorage.getItem('tdesign_site_lang') || 'zh';
-    if (lang === 'zh') {
-      localStorage.setItem('tdesign_site_lang', 'en');
-    } else {
-      localStorage.setItem('tdesign_site_lang', 'zh');
-    }
-    location.reload();
+    const lang = getLang();
+    const nextLang = lang === 'zh' ? 'en' : 'zh';
+    document.dispatchEvent(new CustomEvent('tdesign_site_lang', { detail: nextLang }));
   }
 
-  const translateLink = html`
+  const translateLink = host.enabledLocale ? html`
     <div class="TDesign-header-nav__translate" onclick="${handleTranslate}">
       <span
         class="TDesign-header-nav__translate-icon"
         innerHTML="${translateIcon}"
       ></span>
     </div>
-  `;
+  ` : html``;
 
   const isBaseActive = () => {
     const [, basePath] = location.pathname.split("/");
@@ -260,6 +256,7 @@ export default define({
   platform: "web",
   framework: "vue",
   disabledTheme: false,
+  enabledLocale: true,
   notice: {
     get: (_host, lastValue) => lastValue || {},
     set: (_host, value) => value,
