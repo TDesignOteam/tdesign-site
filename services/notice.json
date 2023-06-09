@@ -1,12 +1,17 @@
 {
   "all": {},
   "site": {
-    "title": "📢 TDesign 微信小程序发布 LTS 版本啦！了解更多",
+    "title": "📢 tdesign-vue 支持在 Vue 2.7 中使用啦 欢迎安装体验! 了解更多",
     "type": "primary",
-    "actionUrl": "https://tdesign.tencent.com/miniprogram/changelog",
+    "actionUrl": "https://tdesign.tencent.com/vue/getting-started",
     "closeable": true
   },
-  "vue": {},
+  "vue": {
+    "title": "📢 tdesign-vue 支持在 Vue 2.7 中使用啦 欢迎安装体验! 了解更多",
+    "type": "primary",
+    "actionUrl": "https://tdesign.tencent.com/vue/getting-started",
+    "closeable": true
+  },
   "react": {},
   "vue-next": {},
   "vue-mobile": {},
