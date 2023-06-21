@@ -779,8 +779,8 @@ export default {
       },
       listGuideUi: [
         {
-          name: '色板',
-          title: '颜色 - 色阶',
+          name: 'Palette',
+          title: 'Color - Levels',
           content: [
             { color: '#366ef4', colorTxt: 'blue-6' },
             { color: '#0052D9', colorTxt: 'blue-7' },
@@ -793,8 +793,8 @@ export default {
           ]
         },
         {
-          name: '全局语义 Token',
-          title: '主题容器文字 - 色彩 - 交互层级: @色板',
+          name: 'Global Token',
+          title: 'Container Text - Color - layout: @palette',
           content: [
             { colorN: 'brand-color-hover:', colorTxt: '@blue-color-6' },
             { colorN: 'brand-color:', colorTxt: '@blue-color-7' },

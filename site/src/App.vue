@@ -10,7 +10,7 @@ export default {
   computed: {
     headerStyle () {
       const { name } = this.$route
-      const fixedHeaderList = ['home', 'source', 'trade']
+      const fixedHeaderList = ['home', 'home-en', 'source', 'source-en', 'trade']
       if (fixedHeaderList.includes(name)) {
         return {
           position: 'fixed',
