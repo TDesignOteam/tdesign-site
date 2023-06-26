@@ -3,13 +3,16 @@ import { getLang } from '../utils';
 const callbacks = [];
 
 function defaultChangeCallBack() {
-  if (location.pathname === '/') return;
   const lang = getLang();
   if (lang === 'en') {
     const zhPathname = location.pathname.slice(0, -3);
     location.pathname = zhPathname;
   } else {
-    location.pathname = `${location.pathname}-en`;
+    if (location.pathname === '/') {
+      location.pathname = 'index-en';
+    } else {
+      location.pathname = `${location.pathname}-en`;
+    }
   }
 }
 
@@ -19,7 +22,13 @@ function registerLocaleChange(cb = defaultChangeCallBack) {
   document.addEventListener('tdesign_site_lang', cb);
 }
 
+function jumpLocation(url) {
+  const lang = getLang();
+  return lang === 'en' ? `${url}-en` : url;
+}
+
 export {
   getLang,
   registerLocaleChange,
+  jumpLocation,
 };
