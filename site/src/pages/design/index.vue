@@ -54,7 +54,7 @@ export default {
     initDocHeader () {
       const { meta } = this.$route
 
-      if (this.$route.path.includes('/design-en/')) {
+      if (this.$route.path.includes('/design/')) {
         clearTimeout(this.timer)
         this.$refs.tdDocHeader.docInfo = meta
         this.$refs.tdDocHeader.spline = ''

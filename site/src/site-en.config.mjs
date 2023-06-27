@@ -9,10 +9,10 @@ const siteConfig = {
         children: [
           {
             name: 'values-en',
-            title: 'values',
+            title: 'Values',
             meta: {
-              documentTitle: 'values - TDesign',
-              title: 'values',
+              documentTitle: 'Values - TDesign',
+              title: 'Values',
               desc: 'TDesign adheres to the values of inclusiveness, diversity, evolution, and connectivity.',
               spline: 'design-value'
             },

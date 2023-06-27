@@ -22,7 +22,7 @@
 
           <div class="module-intro__content">
             <div class="source">
-              <div class="content-name">Development Resource</div>
+              <div class="content-name">Development Resources</div>
               <div class="content-list">
                 <div
                   class="content-item"
@@ -50,7 +50,7 @@
             <div class="divider"></div>
 
             <div class="design">
-              <div class="content-name">Design Resource</div>
+              <div class="content-name">Design Resources</div>
               <div class="content-list">
                 <div
                   class="content-item"
@@ -87,7 +87,7 @@
 
           <div class="module-intro__content">
             <div class="source">
-              <div class="content-name">Development Resource</div>
+              <div class="content-name">Development Resources</div>
               <div class="content-list">
                 <div
                   class="content-item"
@@ -116,7 +116,7 @@
             <div class="divider"></div>
 
             <div class="design">
-              <div class="content-name">Design Resource</div>
+              <div class="content-name">Design Resources</div>
               <div class="content-list">
                 <div
                   class="content-item"
@@ -152,7 +152,7 @@
 
           <div class="module-intro__content">
             <div class="source">
-              <div class="content-name">Development Resource</div>
+              <div class="content-name">Development Resources</div>
               <div class="content-list">
                 <div
                   class="content-item"
@@ -180,7 +180,7 @@
             <div class="divider"></div>
 
             <div class="design">
-              <div class="content-name">Design Resource</div>
+              <div class="content-name">Design Resources</div>
               <div class="content-list">
                 <div
                   class="content-item"
@@ -217,7 +217,7 @@
           <div class="module-board__content">
             <h3 class="tencent-title">Open-Resource</h3>
             <div class="line"></div>
-            <h3 class="title">Open Source, Continuous Iteration</h3>
+            <h3 class="title">Open Resources, Continuous Iteration</h3>
             <p class="desc">
               MIT License, we always maintain an open mindset and look forward to building an open source ecosystem
               together with all parties involved.
@@ -396,7 +396,7 @@
             <ul class="desc-list">
               <li class="desc-item">
                 <icon class="desc-icon" name="tips" />
-                <h3 class="desc-title">Scalable design style</h3>
+                <h3 class="desc-title">Scalable Design Style</h3>
                 <p class="desc-text">
                   Abstracted design styles into Design Tokens to meet the brand customization needs of different
                   products.
@@ -404,14 +404,14 @@
               </li>
               <li class="desc-item">
                 <icon class="desc-icon" name="chart-bubble" />
-                <h3 class="desc-title">Variety of design resources</h3>
+                <h3 class="desc-title">Variety of Design Resources</h3>
                 <p class="desc-text">
                   Provide variety of design resources for desktop and mobile application such as Sketch/Figma
                 </p>
               </li>
               <li class="desc-item">
                 <icon class="desc-icon" name="file-image" />
-                <h3 class="desc-title">Professional Design Guideline</h3>
+                <h3 class="desc-title">Professional Design Guidelines</h3>
                 <p class="desc-text">
                   Summarize design experience into guidelines to assist users in properly using components.
                 </p>
@@ -472,7 +472,7 @@
         <div class="image-rope"></div>
 
         <div class="content">
-          <h3 class="module-title">Low-cost incubation</h3>
+          <h3 class="module-title">Low-cost Incubation</h3>
           <h3 class="module-title">
             <span class="tag">
               500
