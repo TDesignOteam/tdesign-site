@@ -103,7 +103,7 @@ export const getHeaderConfig = () => {
     intranet ? { name: isEnglish ? 'Industry component' : '行业组件', path: '/trade', type: 'main', target: '_self' } : null,
     { name: isEnglish ? 'Templates' : '页面模板', path: 'https://tdesign.tencent.com/starter/', type: 'main', target: '_self' },
     { name: isEnglish ? 'Resources' : '资源', path: jumpLocation('/source'), type: 'main', target: '_self' },
-    { name: isEnglish ? 'About' : '关于', path: jumpLocation('/about'), type: 'main', target: '_self' },
+    { name: isEnglish ? 'About' : '关于', path: jumpLocation('/about/introduce'), type: 'main', target: '_self' },
   ].filter(item => item);
 
   const baseComponentsLinks = {
