@@ -2,7 +2,8 @@ import vueIcon from '../src/images/vue-logo.svg?url';
 import reactIcon from '../src/images/react-logo.svg?url';
 import wxIcon from '../src/images/wx-logo.svg?url';
 import flutterIcon from '../src/images/flutter-logo.svg?url';
-import { isIntranet, getLang, jumpLocation } from "@utils/index";
+import { isIntranet, getLang } from "@utils/index";
+import { jumpLocation } from '@utils/locale';
 
 const headerList = [
   {

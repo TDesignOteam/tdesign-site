@@ -1,4 +1,5 @@
-import { isIntranet, getLang, jumpLocation } from '@utils';
+import { isIntranet, getLang } from '@utils';
+import { jumpLocation } from '@utils/locale';
 
 export const getFooterConfig = () => {
   const lang = getLang();
