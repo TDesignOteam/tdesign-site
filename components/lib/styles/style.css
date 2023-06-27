@@ -89,6 +89,13 @@
   --success-main: #2ba471;
   --success-main-disabled: rgba(43, 164, 113, 0.25);
   --success-main-light: rgba(43, 164, 113, 0.1);
+  --bg-color-theme-transparent: rgba(238, 238, 238, 0.6);
+  --bg-color-theme-secondary: #f3f3f3;
+  --bg-color-theme-surface: #fff;
+  --bg-color-theme-tertiary: #e7e7e7;
+  --theme-component-border: rgba(0, 0, 0, 0.06);
+  --bg-color-theme-radio: #e7e7e7;
+  --bg-color-theme-radio-active: #fff;
 }
 @media screen and (max-width: 960px) {
   :root,
@@ -186,6 +193,13 @@
   --success-main-hover: #0d7a55;
   --success-main-disabled: rgba(0, 168, 112, 0.25);
   --success-main-light: rgba(0, 168, 112, 0.1);
+  --bg-color-theme-transparent: rgba(44, 44, 44, 0.6);
+  --bg-color-theme-secondary: #424242;
+  --bg-color-theme-surface: #4d4d4d;
+  --bg-color-theme-tertiary: #5e5e5e;
+  --theme-component-border: rgba(255, 255, 255, 0.06);
+  --bg-color-theme-radio: #424242;
+  --bg-color-theme-radio-active: #5e5e5e;
 }
 :root[theme-mode="dark"] img {
   filter: brightness(0.85);

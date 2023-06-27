@@ -31,3 +31,5 @@ import './components/td-message/index.js';
 import './components/td-portal/index.js';
 import './components/td-select/index.js';
 import './components/td-switch/index.js';
+
+export { getLang, registerLocaleChange } from './utils/locale';

@@ -100,3 +100,8 @@ export function watchHtmlMode(callback = () => {}) {
 
   return observer;
 }
+
+export function getLang() {
+  const isEn = /-en$/.test(location.pathname);
+  return isEn ? 'en' : 'zh';
+}

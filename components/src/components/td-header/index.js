@@ -1,17 +1,16 @@
 import { html, define } from "hybrids";
-import headerData from "@config/header.js";
-import gplHeaderData from "@config/gpl-header.js";
 import style from "./style.less";
 import portalStyle from "./portal.less";
 import githubIcon from "@images/github.svg?raw";
 import gitIcon from "@images/git.svg?raw";
 import fakeArrowIcon from "@images/fake-arrow.svg?raw";
-import { isIntranet } from "@utils/index";
+import translateIcon from "@images/translate.svg?raw";
+import { isIntranet, getLang } from "@utils/index";
 import closeIcon from "@images/close.svg?raw";
+import { getHeaderConfig } from '@config/header.js';
 
-const { headerList, baseComponentsLinks, baseComponentPrefix } = isIntranet()
-  ? headerData
-  : gplHeaderData;
+const headerConfig = getHeaderConfig();
+const { headerList, baseComponentsLinks, baseComponentPrefix } = headerConfig;
 
 const allComponentsNpmUrl = [
   ...baseComponentsLinks.web.links.filter((l) => l.status).map((l) => l.npm),
@@ -205,6 +204,21 @@ function renderLinks(host, headerList, platform, framework) {
     </a>
   `;
 
+  function handleTranslate() {
+    const lang = getLang();
+    const nextLang = lang === 'zh' ? 'en' : 'zh';
+    document.dispatchEvent(new CustomEvent('tdesign_site_lang', { detail: nextLang }));
+  }
+
+  const translateLink = host.enabledLocale ? html`
+    <div class="TDesign-header-nav__translate" onclick="${handleTranslate}">
+      <span
+        class="TDesign-header-nav__translate-icon"
+        innerHTML="${translateIcon}"
+      ></span>
+    </div>
+  ` : html``;
+
   const isBaseActive = () => {
     const [, basePath] = location.pathname.split("/");
     return baseComponentPrefix.includes(basePath);
@@ -233,6 +247,7 @@ function renderLinks(host, headerList, platform, framework) {
         >
       `;
     })
+    .concat(translateLink)
     .concat(gitLink);
 }
 
@@ -241,6 +256,7 @@ export default define({
   platform: "web",
   framework: "vue",
   disabledTheme: false,
+  enabledLocale: true,
   notice: {
     get: (_host, lastValue) => lastValue || {},
     set: (_host, value) => value,
