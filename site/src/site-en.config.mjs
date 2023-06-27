@@ -133,7 +133,7 @@ const siteConfig = {
   },
   about: {
     title: 'About',
-    url: 'about',
+    url: 'about-en',
     docs: [
       {
         title: 'Introduce',
@@ -149,10 +149,10 @@ const siteConfig = {
           },
           {
             name: 'tech-en',
-            title: '整体方案',
+            title: 'Overall',
             path: '/about/tech-en',
             meta: {
-              documentTitle: '整体方案 - TDesign'
+              documentTitle: 'Overall - TDesign'
             },
             component: () => import('@tdesign/docs/tech.md')
           },
@@ -170,7 +170,7 @@ const siteConfig = {
             title: 'FAQ',
             path: '/about/faq-en',
             meta: {
-              documentTitle: '常见问题 - TDesign'
+              documentTitle: 'FAQ - TDesign'
             },
             component: () => import('@tdesign/docs/faq.md')
           },
@@ -191,7 +191,7 @@ const siteConfig = {
             meta: {
               documentTitle: 'weekly release - TDesign',
               title: 'Weekly release',
-              desc: 'TDesign 每周发布，为你带来每周最新的动态'
+              desc: 'TDesign Weekly release'
             },
             component: () => import('@/pages/about/release.vue')
           }
@@ -211,7 +211,7 @@ const siteConfig = {
           },
           {
             name: 'contributing-en',
-            title: '组件开发流程',
+            title: 'New Component',
             path: '/about/new-component-en',
             meta: {
               documentTitle: '从构思到生产：一个组件的诞生 - TDesign'

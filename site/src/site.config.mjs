@@ -216,7 +216,7 @@ const siteConfig = {
             meta: {
               documentTitle: '从构思到生产：一个组件的诞生 - TDesign'
             },
-            component: () => import('@tdesign/docs/new-component.md')
+            component: () => import('@tdesign/docs/new-component_zh-CN.md')
           },
           {
             name: 'contact',

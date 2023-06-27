@@ -90,7 +90,7 @@ const enRoutes = [
   },
   {
     path: '/about-en',
-    redirect: '/about/introduce',
+    redirect: '/about/introduce-en',
     component: () => import('./pages/about/index.vue'),
     children: getDocsRoutes(siteEnConfig.about.docs)
   },
