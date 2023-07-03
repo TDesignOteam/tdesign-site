@@ -48,6 +48,16 @@ export const webSourceList = [
     id: 'axure_web_down'
   },
   {
+    title: '如意设计助手 & TDesign',
+    eventLabel: '如意设计助手 x TDesign 组件库',
+    actionUrl: 'https://www.figma.com/community/plugin/1192146318523533547',
+    lastUpdated: '07/03/2023',
+    status: 1,
+    icon: 'ry',
+    actionType: 'jump',
+    id: 'ry_tdesign_down'
+  },
+  {
     title: 'Mastergo 设计资源',
     eventLabel: 'Mastergo 桌面端组件库',
     actionUrl: 'https://mastergo.com/community/resource/85006181962555?from=card',
@@ -114,7 +124,7 @@ export const mobileSourceList = [
     title: 'Figma 设计资源',
     eventLabel: 'Figma 移动端组件库',
     actionUrl: figmaMobileUrl,
-    lastUpdated: '04/21/2023',
+    lastUpdated: '05/25/2023',
     status: 1,
     icon: 'figma',
     actionType: 'jump',
@@ -124,8 +134,8 @@ export const mobileSourceList = [
     title: 'Sketch 设计资源',
     eventLabel: 'Sketch 移动端组件库',
     actionUrl: sketchMobileUrl,
-    lastUpdated: '03/01/2022',
-    status: 2,
+    lastUpdated: '06/02/2023',
+    status: 1,
     icon: 'sketch',
     actionType: 'download',
     id: 'sketch_mobile_down'
@@ -157,7 +167,7 @@ export const webChartSourceList = [
     title: 'Figma 设计资源',
     eventLabel: 'TVision Charts for Figma',
     actionUrl: 'https://www.figma.com/community/file/1202507505468414219',
-    lastUpdated: '02/01/2023',
+    lastUpdated: '06/13/2023',
     status: 1,
     icon: 'figma',
     actionType: 'jump',
