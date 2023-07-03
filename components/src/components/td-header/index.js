@@ -179,6 +179,9 @@ export function gitPath(platform, framework) {
       ? "https://git.woa.com/groups/TDesign/-/projects/list"
       : "https://github.com/Tencent/tdesign";
   } else if (platform === "mobile") {
+    return 'https://github.com/TDesignOteam/tdesign-flutter';
+  } else if (platform === "flutter") {
+    // 等待 flutter 仓库迁移到 Tencent Group 下后可以删除
     return isIntranet()
       ? `https://git.woa.com/Tdesign/Tdesign-${platform}-${framework}`
       : `https://github.com/Tencent/tdesign-${platform}-${framework}`;
