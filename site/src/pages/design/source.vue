@@ -102,6 +102,7 @@ import jssjIcon from './assets/source/jssj-logo.svg';
 import pixsoIcon from './assets/source/pixso-logo.svg';
 import mdIcon from './assets/source/md-logo.svg';
 import mastergoIcon from './assets/source/mastergo-logo.svg';
+import ryIcon from './assets/source/ry-logo.svg';
 
 import { webSourceList, mobileSourceList, sourceDownloadUrl, webChartSourceList } from '@/consts';
 import { webDesignContributor, mobileDesignContributor, webChartDesignContributor } from '@/contributor';
@@ -125,6 +126,7 @@ export default {
         pixso: pixsoIcon,
         md: mdIcon,
         mastergo: mastergoIcon,
+        ry: ryIcon
       },
       previewUrl: {
         web: 'https://codesign.qq.com/s/dqN2925D7qjaBXe?active-screen=xDP39qAvLNl9wlK&menu_aside=null&minimap=close',
