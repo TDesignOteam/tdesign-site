@@ -1,17 +1,7 @@
 {
   "all": {},
-  "site": {
-    "title": "📢 tdesign-vue 支持在 Vue 2.7 中使用啦 欢迎安装体验! 了解更多",
-    "type": "primary",
-    "actionUrl": "https://tdesign.tencent.com/vue/getting-started",
-    "closeable": true
-  },
-  "vue": {
-    "title": "📢 tdesign-vue 支持在 Vue 2.7 中使用啦 欢迎安装体验! 了解更多",
-    "type": "primary",
-    "actionUrl": "https://tdesign.tencent.com/vue/getting-started",
-    "closeable": true
-  },
+  "site": {},
+  "vue": {},
   "react": {},
   "vue-next": {},
   "vue-mobile": {},
