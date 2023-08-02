@@ -69,7 +69,7 @@ const baseComponentsLinks = {
         name: 'React', icon: reactIcon, path: jumpLocation('/mobile-react/overview'), npm: 'tdesign-mobile-react', status: 2,
       },
       {
-        name: 'Flutter', icon: flutterIcon, path: jumpLocation('/flutter/overview'), npm: 'tdesign-flutter', status: 0,
+        name: 'Flutter', icon: flutterIcon, path: jumpLocation('/flutter/overview'), npm: 'tdesign-flutter', status: 2,
       },
       {
         name: '微信小程序', icon: wxIcon, path: jumpLocation('/miniprogram/overview'), npm: 'tdesign-miniprogram', status: 1,
@@ -131,7 +131,7 @@ export const getHeaderConfig = () => {
             name: 'React', icon: reactIcon, path: jumpLocation('/mobile-react/overview'), npm: 'tdesign-mobile-react', status: 2,
           },
           {
-            name: 'Flutter', icon: flutterIcon, path: jumpLocation('/flutter/overview'), npm: 'tdesign-flutter', status: 0,
+            name: 'Flutter', icon: flutterIcon, path: jumpLocation('/flutter/overview'), npm: 'tdesign-flutter', status: 2,
           },
           {
             name: isEnglish ? 'WeChat-Miniprogram' : '微信小程序', icon: wxIcon, path: jumpLocation('/miniprogram/overview'), npm: 'tdesign-miniprogram', status: 1,

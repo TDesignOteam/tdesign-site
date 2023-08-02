@@ -150,7 +150,7 @@ function renderLinksPopup(host, trigger) {
                     </span>
                     <span class="version">
                       ${item.status
-                        ? `Version：${host.npmVersions[item.npm]}`
+                        ? `Version：${host.npmVersions[item.npm] || 'alpha'}`
                         : "敬请期待"}
                     </span>
                   </div>

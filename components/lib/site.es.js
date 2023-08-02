@@ -185,11 +185,7 @@ function observe(target, key2, getter, fn2) {
       entry.lastValue = value2;
     }
   };
-  try {
-    entry.observe();
-  } catch (e) {
-    console.error(e);
-  }
+  add(entry.observe);
   return () => {
     clear(entry.observe);
     entry.observe = void 0;
@@ -262,85 +258,107 @@ function render(fn2, useShadow) {
     }
   };
 }
-const setters = {
-  string: (host, value2, attrName) => {
-    const nextValue = value2 ? String(value2) : "";
-    if (nextValue) {
-      host.setAttribute(attrName, nextValue);
-    } else {
-      host.removeAttribute(attrName);
-    }
-    return nextValue;
-  },
-  number: (host, value2, attrName) => {
-    const nextValue = Number(value2);
-    host.setAttribute(attrName, nextValue);
-    return nextValue;
-  },
-  boolean: (host, value2, attrName) => {
-    const nextValue = Boolean(value2);
-    if (nextValue) {
-      host.setAttribute(attrName, "");
-    } else {
-      host.removeAttribute(attrName);
-    }
-    return nextValue;
-  },
-  undefined: (host, value2, attrName) => {
-    const type = typeof value2;
-    const set2 = type !== "undefined" && setters[type];
-    if (set2) {
-      return set2(host, value2, attrName);
-    } else if (host.hasAttribute(attrName)) {
-      host.removeAttribute(attrName);
-    }
-    return value2;
-  }
-};
-const getters = {
-  string: (host, attrName) => host.getAttribute(attrName),
-  number: (host, attrName) => Number(host.getAttribute(attrName)) || 0,
-  boolean: (host, attrName) => host.hasAttribute(attrName),
-  undefined: (host, attrName) => host.getAttribute(attrName)
-};
-function value(key2, desc) {
-  const type = typeof desc.value;
-  const set2 = setters[type];
-  const get2 = getters[type];
-  if (!set2) {
-    throw TypeError(
-      `Invalid default value for '${key2}' property - it must be a string, number, boolean or undefined: ${type}`
-    );
-  }
-  const attrName = camelToDash(key2);
+function string(desc, attrName) {
+  const defaultValue = desc.value;
   return {
-    get: (host, value2) => value2 === void 0 ? get2(host, attrName) || desc.value : value2,
-    set: (host, value2) => set2(host, value2, attrName),
-    connect: type !== "undefined" ? (host, key3, invalidate2) => {
-      if (!host.hasAttribute(attrName) && host[key3] === desc.value) {
-        host[key3] = set2(host, desc.value, attrName);
+    get: (host, value2) => value2 === void 0 ? host.getAttribute(attrName) || defaultValue : value2,
+    set: (host, value2) => {
+      value2 = String(value2);
+      if (value2) {
+        host.setAttribute(attrName, value2);
+      } else {
+        host.removeAttribute(attrName);
       }
-      return desc.connect && desc.connect(host, key3, invalidate2);
+      return value2;
+    },
+    connect: defaultValue !== "" ? (host, key2, invalidate2) => {
+      if (!host.hasAttribute(attrName) && host[key2] === defaultValue) {
+        host.setAttribute(attrName, defaultValue);
+      }
+      return desc.connect && desc.connect(host, key2, invalidate2);
     } : desc.connect,
     observe: desc.observe
   };
 }
-const constructors = /* @__PURE__ */ new WeakMap();
+function number(desc, attrName) {
+  const defaultValue = desc.value;
+  return {
+    get: (host, value2) => value2 === void 0 ? Number(host.getAttribute(attrName) || defaultValue) : value2,
+    set: (host, value2) => {
+      value2 = Number(value2);
+      host.setAttribute(attrName, value2);
+      return value2;
+    },
+    connect: (host, key2, invalidate2) => {
+      if (!host.hasAttribute(attrName) && host[key2] === defaultValue) {
+        host.setAttribute(attrName, defaultValue);
+      }
+      return desc.connect && desc.connect(host, key2, invalidate2);
+    },
+    observe: desc.observe
+  };
+}
+function boolean(desc, attrName) {
+  const defaultValue = desc.value;
+  return {
+    get: (host, value2) => value2 === void 0 ? host.hasAttribute(attrName) || defaultValue : value2,
+    set: (host, value2) => {
+      value2 = Boolean(value2);
+      if (value2) {
+        host.setAttribute(attrName, "");
+      } else {
+        host.removeAttribute(attrName);
+      }
+      return value2;
+    },
+    connect: defaultValue === true ? (host, key2, invalidate2) => {
+      if (!host.hasAttribute(attrName) && host[key2] === defaultValue) {
+        host.setAttribute(attrName, "");
+      }
+      return desc.connect && desc.connect(host, key2, invalidate2);
+    } : desc.connect,
+    observe: desc.observe
+  };
+}
+function undef(desc, attrName) {
+  const defaultValue = desc.value;
+  return {
+    get: (host, value2) => value2 === void 0 ? host.getAttribute(attrName) || defaultValue : value2,
+    set: (host, value2) => value2,
+    connect: desc.connect,
+    observe: desc.observe
+  };
+}
+function value(key2, desc) {
+  const type = typeof desc.value;
+  const attrName = camelToDash(key2);
+  switch (type) {
+    case "string":
+      return string(desc, attrName);
+    case "number":
+      return number(desc, attrName);
+    case "boolean":
+      return boolean(desc, attrName);
+    case "undefined":
+      return undef(desc, attrName);
+    default:
+      throw TypeError(
+        `Invalid default value for '${key2}' property - it must be a string, number, boolean or undefined: ${type}`
+      );
+  }
+}
 const disconnects = /* @__PURE__ */ new WeakMap();
 function compile$1(hybrids, HybridsElement) {
   if (HybridsElement) {
-    const prevHybrids = constructors.get(HybridsElement);
-    if (hybrids === prevHybrids)
+    if (hybrids === HybridsElement.hybrids)
       return HybridsElement;
-    for (const key2 of Object.keys(prevHybrids)) {
+    for (const key2 of Object.keys(HybridsElement.hybrids)) {
       delete HybridsElement.prototype[key2];
     }
   } else {
     HybridsElement = class extends global$1.HTMLElement {
       connectedCallback() {
-        for (const key2 of HybridsElement.settable) {
-          if (!hasOwnProperty.call(this, key2))
-            continue;
+        for (const key2 of Object.keys(this)) {
           const value2 = this[key2];
           delete this[key2];
           this[key2] = value2;
@@ -349,9 +367,9 @@ function compile$1(hybrids, HybridsElement) {
         disconnects.set(this, set2);
         add(() => {
           if (set2 === disconnects.get(this)) {
-            for (const fn2 of HybridsElement.connects)
+            for (const fn2 of this.constructor.connects)
               set2.add(fn2(this));
-            for (const fn2 of HybridsElement.observers)
+            for (const fn2 of this.constructor.observers)
               set2.add(fn2(this));
           }
         });
@@ -367,10 +385,9 @@ function compile$1(hybrids, HybridsElement) {
       }
     };
   }
-  constructors.set(HybridsElement, Object.freeze(hybrids));
+  HybridsElement.hybrids = hybrids;
   const connects = /* @__PURE__ */ new Set();
   const observers = /* @__PURE__ */ new Set();
-  const settable = /* @__PURE__ */ new Set();
   for (const key2 of Object.keys(hybrids)) {
     if (key2 === "tag")
       continue;
@@ -408,8 +425,6 @@ function compile$1(hybrids, HybridsElement) {
         `Invalid descriptor for '${key2}' property - it must contain 'value' or 'get' option`
       );
     }
-    if (desc.set)
-      settable.add(key2);
     Object.defineProperty(HybridsElement.prototype, key2, {
       get: function get2() {
         return get$1(this, key2, desc.get);
@@ -433,7 +448,6 @@ function compile$1(hybrids, HybridsElement) {
   }
   HybridsElement.connects = connects;
   HybridsElement.observers = observers;
-  HybridsElement.settable = settable;
   return HybridsElement;
 }
 const updateQueue = /* @__PURE__ */ new Map();
@@ -443,13 +457,11 @@ function update(HybridsElement) {
       walkInShadow(global$1.document.body, (node) => {
         if (updateQueue.has(node.constructor)) {
           const prevHybrids = updateQueue.get(node.constructor);
-          const hybrids = constructors.get(node.constructor);
+          const hybrids = node.constructor.hybrids;
           node.disconnectedCallback();
           for (const key2 of Object.keys(hybrids)) {
             const type = typeof hybrids[key2];
             const clearValue = type !== "object" && type !== "function" && hybrids[key2] !== prevHybrids[key2];
-            if (clearValue)
-              node.removeAttribute(camelToDash(key2));
             invalidate(node, key2, { clearValue });
           }
           node.connectedCallback();
@@ -458,7 +470,7 @@ function update(HybridsElement) {
       updateQueue.clear();
     });
   }
-  updateQueue.set(HybridsElement, constructors.get(HybridsElement));
+  updateQueue.set(HybridsElement, HybridsElement.hybrids);
 }
 function define$1(hybrids) {
   if (!hybrids.tag) {
@@ -468,17 +480,17 @@ function define$1(hybrids) {
   }
   const HybridsElement = global$1.customElements.get(hybrids.tag);
   if (HybridsElement) {
-    if (constructors.get(HybridsElement)) {
+    if (HybridsElement.hybrids) {
       update(HybridsElement);
       compile$1(hybrids, HybridsElement);
-      return hybrids;
+      return Object.freeze(hybrids);
     }
     throw TypeError(
       `Custom element with '${hybrids.tag}' tag name already defined outside of the hybrids context`
     );
   }
   global$1.customElements.define(hybrids.tag, compile$1(hybrids));
-  return hybrids;
+  return Object.freeze(hybrids);
 }
 function from(components, options = {}) {
   const { root = "", prefix } = options;
@@ -519,9 +531,11 @@ function getTemplateEnd(node) {
   return node;
 }
 function removeTemplate(target) {
+  const data = getMeta(target);
+  if (data.styles)
+    data.styles();
   if (target.nodeType === global$1.Node.TEXT_NODE) {
-    const data = metaMap.get(target);
-    if (data && data.startNode) {
+    if (data.startNode) {
       const endNode = getTemplateEnd(data.endNode);
       let node = data.startNode;
       const lastNextSibling = endNode.nextSibling;
@@ -530,7 +544,6 @@ function removeTemplate(target) {
         node.parentNode.removeChild(node);
         node = nextSibling !== lastNextSibling && nextSibling;
       }
-      metaMap.set(target, {});
     }
   } else {
     let child = target.childNodes[0];
@@ -538,12 +551,12 @@ function removeTemplate(target) {
       target.removeChild(child);
       child = target.childNodes[0];
     }
-    metaMap.set(target, {});
   }
+  metaMap.delete(target);
 }
 const TIMESTAMP = Date.now();
 const getPlaceholder = (id = 0) => `H-${TIMESTAMP}-${id}`;
-const hasAdoptedStylesheets = !!(global$1.document && global$1.document.adoptedStyleSheets);
+const hasAdoptedStylesheets = !!global$1.document.adoptedStyleSheets;
 const NUMBER_REGEXP = /^\d+$/;
 const rules = {
   block: (props, align) => ({
@@ -663,18 +676,7 @@ const rules = {
   bottom: (props, value2 = 0) => ({ bottom: dimension(value2) }),
   left: (props, value2 = 0) => ({ left: dimension(value2) }),
   right: (props, value2 = 0) => ({ right: dimension(value2) }),
-  layer: (props, value2 = 1) => ({ "z-index": value2 }),
-  "": (props, _, ...args) => {
-    if (args.length < 2) {
-      throw new Error(
-        "Generic rule '::' requires at least two arguments, eg.: ::[property]:[name]"
-      );
-    }
-    return {
-      [args[args.length - 2]]: `var(--${args.join("-")})`
-    };
-  },
-  view: (props, value2) => ({ "view-transition-name": value2 })
+  layer: (props, value2 = 1) => ({ "z-index": value2 })
 };
 const dimensions = {
   min: "min-content",
@@ -772,14 +774,14 @@ function insertRule(node, query, tokens, hostMode) {
     [shadowSelector, contentSelector].forEach((selector) => {
       sheet.insertRule(
         mediaQueries ? `${mediaSelector} { ${selector} { ${cssRules} } }` : `${selector} { ${cssRules} }`,
-        sheet.cssRules.length - 1
+        sheet.cssRules.length
       );
     });
   } else {
     const selector = `.${className}${selectors}`;
     sheet.insertRule(
       mediaQueries ? `${mediaSelector} { ${selector} { ${cssRules} } }` : `${selector} { ${cssRules} }`,
-      sheet.cssRules.length - 1
+      sheet.cssRules.length
     );
   }
   return className;
@@ -925,11 +927,13 @@ function resolveEventListener(eventType) {
   return (host, target, value2, lastValue) => {
     if (lastValue) {
       const eventMap = targets.get(target);
-      target.removeEventListener(
-        eventType,
-        eventMap.get(lastValue),
-        lastValue.options !== void 0 ? lastValue.options : false
-      );
+      if (eventMap) {
+        target.removeEventListener(
+          eventType,
+          eventMap.get(lastValue),
+          lastValue.options !== void 0 ? lastValue.options : false
+        );
+      }
     }
     if (value2) {
       if (typeof value2 !== "function") {
@@ -1048,8 +1052,8 @@ function createSignature(parts) {
   }
   return signature;
 }
-function getPropertyName(string) {
-  return string.replace(/\s*=\s*['"]*$/g, "").split(/\s+/).pop();
+function getPropertyName(string2) {
+  return string2.replace(/\s*=\s*['"]*$/g, "").split(/\s+/).pop();
 }
 function createWalker(context2) {
   return global$1.document.createTreeWalker(
@@ -1087,69 +1091,58 @@ function beautifyTemplateLog(input, index) {
   return `${output}`;
 }
 const styleSheetsMap = /* @__PURE__ */ new Map();
-const prevStyleSheetsMap = /* @__PURE__ */ new WeakMap();
-function updateAdoptedStylesheets(target, styles) {
-  const prevStyleSheets = prevStyleSheetsMap.get(target);
-  if (!prevStyleSheets && !styles)
-    return;
-  const styleSheets = styles && styles.map((style2) => {
-    let styleSheet = style2;
-    if (!(styleSheet instanceof global$1.CSSStyleSheet)) {
-      styleSheet = styleSheetsMap.get(style2);
-      if (!styleSheet) {
-        styleSheet = new global$1.CSSStyleSheet();
-        styleSheet.replaceSync(style2);
-        styleSheetsMap.set(style2, styleSheet);
+function setupStyleUpdater(target) {
+  if (target.adoptedStyleSheets) {
+    let prevStyleSheets;
+    return (styleSheets) => {
+      const adoptedStyleSheets = target.adoptedStyleSheets;
+      if (styleSheets) {
+        styleSheets = styleSheets.map((style2) => {
+          let styleSheet = style2;
+          if (!(styleSheet instanceof global$1.CSSStyleSheet)) {
+            styleSheet = styleSheetsMap.get(style2);
+            if (!styleSheet) {
+              styleSheet = new global$1.CSSStyleSheet();
+              styleSheet.replaceSync(style2);
+              styleSheetsMap.set(style2, styleSheet);
+            }
+          }
+          return styleSheet;
+        });
+        if (!prevStyleSheets || prevStyleSheets.some((styleSheet, i) => styleSheet !== styleSheets[i])) {
+          target.adoptedStyleSheets = (prevStyleSheets ? adoptedStyleSheets.filter(
+            (styleSheet) => !prevStyleSheets.includes(styleSheet)
+          ) : adoptedStyleSheets).concat(styleSheets);
+        }
+      } else if (prevStyleSheets) {
+        target.adoptedStyleSheets = adoptedStyleSheets.filter(
+          (styleSheet) => !prevStyleSheets.includes(styleSheet)
+        );
       }
-    }
-    return styleSheet;
-  });
-  let adoptedStyleSheets;
-  if (prevStyleSheets) {
-    if (styleSheets && styleSheets.length === prevStyleSheets.length && styleSheets.every((s, i) => s === prevStyleSheets[i])) {
-      return;
-    }
-    adoptedStyleSheets = target.adoptedStyleSheets.filter(
-      (s) => !prevStyleSheets.includes(s)
-    );
+      prevStyleSheets = styleSheets;
+    };
   }
-  if (styleSheets) {
-    adoptedStyleSheets = (adoptedStyleSheets || target.adoptedStyleSheets).concat(styleSheets);
-  }
-  target.adoptedStyleSheets = adoptedStyleSheets;
-  prevStyleSheetsMap.set(target, styleSheets);
-}
-const styleElementMap = /* @__PURE__ */ new WeakMap();
-function updateStyleElement(target, styles) {
-  let styleEl = styleElementMap.get(target);
-  if (styles) {
-    if (!styleEl || styleEl.parentNode !== target) {
-      styleEl = global$1.document.createElement("style");
-      styleElementMap.set(target, styleEl);
-      target = getTemplateEnd(target);
-      if (target.nodeType === global$1.Node.TEXT_NODE) {
-        target.parentNode.insertBefore(styleEl, target.nextSibling);
-      } else {
-        target.appendChild(styleEl);
+  let styleEl;
+  return (styleSheets) => {
+    if (styleSheets) {
+      if (!styleEl) {
+        styleEl = global$1.document.createElement("style");
+        target = getTemplateEnd(target);
+        if (target.nodeType === global$1.Node.TEXT_NODE) {
+          target.parentNode.insertBefore(styleEl, target.nextSibling);
+        } else {
+          target.appendChild(styleEl);
+        }
       }
+      const result = [...styleSheets].join("\n/*------*/\n");
+      if (styleEl.textContent !== result) {
+        styleEl.textContent = result;
+      }
+    } else if (styleEl) {
+      styleEl.parentNode.removeChild(styleEl);
+      styleEl = null;
     }
-    const result = [...styles].join("\n/*------*/\n");
-    if (styleEl.textContent !== result) {
-      styleEl.textContent = result;
-    }
-  } else if (styleEl) {
-    styleEl.parentNode.removeChild(styleEl);
-    styleElementMap.set(target, null);
-  }
-}
-const updateStyleFns = /* @__PURE__ */ new WeakMap();
-function updateStyles(target, styles) {
-  let fn2 = updateStyleFns.get(target);
-  if (!fn2) {
-    fn2 = target.adoptedStyleSheets ? updateAdoptedStylesheets : updateStyleElement;
-    updateStyleFns.set(target, fn2);
-  }
-  fn2(target, styles);
+  };
 }
 function compileTemplate(rawParts, isSVG, isMsg, useLayout) {
   let template = global$1.document.createElement("template");
@@ -1168,7 +1161,7 @@ function compileTemplate(rawParts, isSVG, isMsg, useLayout) {
   if (layoutTemplate instanceof global$1.HTMLTemplateElement) {
     for (const attr of Array.from(layoutTemplate.attributes)) {
       const value2 = attr.value.trim();
-      if (value2 && attr.name.startsWith("layout")) {
+      if (attr.name.startsWith("layout") && value2) {
         if (value2.match(PLACEHOLDER_REGEXP_ALL)) {
           throw Error("Layout attribute cannot contain expressions");
         }
@@ -1185,7 +1178,7 @@ function compileTemplate(rawParts, isSVG, isMsg, useLayout) {
         "Template, which uses layout system must have only the '<template>' root element"
       );
     }
-    useLayout = hostLayout || layoutTemplate.hasAttribute("layout");
+    useLayout = true;
     template = layoutTemplate;
   }
   const compileWalker = createWalker(template.content);
@@ -1347,7 +1340,7 @@ ${beautifyTemplateLog(signature, -1)}`
     );
   }
   const partsKeys = Object.keys(parts);
-  return function updateTemplateInstance(host, target, args, { styleSheets }) {
+  return function updateTemplateInstance(host, target, args, styles) {
     let meta = getMeta(target);
     if (template !== meta.template) {
       const fragment = global$1.document.importNode(template.content, true);
@@ -1376,8 +1369,8 @@ ${beautifyTemplateLog(signature, -1)}`
       meta = getMeta(target);
       meta.template = template;
       meta.markers = markers;
+      meta.styles = setupStyleUpdater(target);
       if (target.nodeType === global$1.Node.TEXT_NODE) {
-        updateStyleElement(target);
         meta.startNode = fragment.childNodes[0];
         meta.endNode = fragment.childNodes[fragment.childNodes.length - 1];
         let previousChild = target;
@@ -1398,7 +1391,7 @@ ${beautifyTemplateLog(signature, -1)}`
       if (useLayout)
         inject(target);
     }
-    updateStyles(target, styleSheets);
+    meta.styles(styles);
     for (const marker of meta.markers) {
       const value2 = args[marker.index];
       const prevValue = meta.prevArgs && meta.prevArgs[marker.index];
@@ -1408,43 +1401,15 @@ ${beautifyTemplateLog(signature, -1)}`
         marker.fn(host, marker.node, value2, prevValue, useLayout);
       } catch (error) {
         console.error(
-          `Error while updating template expression in ${stringifyElement(
+          `Following error was thrown when updating a template expression in ${stringifyElement(
             host
-          )}:
+          )}
 ${beautifyTemplateLog(signature, marker.index)}`
         );
         throw error;
       }
     }
     meta.prevArgs = args;
-  };
-}
-const promiseMap = /* @__PURE__ */ new WeakMap();
-function resolve(promise, placeholder, delay = 200) {
-  return function fn2(host, target) {
-    const useLayout = fn2.useLayout;
-    let timeout;
-    if (placeholder) {
-      timeout = setTimeout(() => {
-        timeout = void 0;
-        resolveValue$1(host, target, placeholder, void 0, useLayout);
-      }, delay);
-    }
-    promiseMap.set(target, promise);
-    promise.then((value2) => {
-      if (timeout)
-        clearTimeout(timeout);
-      if (promiseMap.get(target) === promise) {
-        resolveValue$1(
-          host,
-          target,
-          value2,
-          placeholder && !timeout ? placeholder : void 0,
-          useLayout
-        );
-        promiseMap.set(target, null);
-      }
-    });
   };
 }
 function resolveValue({ target, detail }, setter) {
@@ -1513,68 +1478,63 @@ function set(property, valueOrPath) {
   }
   return fn2;
 }
-let instance;
-var transition = global$1.document && global$1.document.startViewTransition !== void 0 && function transition2(template) {
+const promiseMap = /* @__PURE__ */ new WeakMap();
+function resolve(promise, placeholder, delay = 200) {
   return function fn2(host, target) {
-    if (instance) {
-      console.warn(
-        `${stringifyElement(
-          host
-        )}: view transition already started in ${stringifyElement(instance)}`
-      );
-      template(host, target);
-      return;
+    const useLayout = fn2.useLayout;
+    let timeout;
+    if (placeholder) {
+      timeout = setTimeout(() => {
+        timeout = void 0;
+        resolveValue$1(host, target, placeholder, void 0, useLayout);
+      }, delay);
     }
-    template.useLayout = fn2.useLayout;
-    instance = host;
-    global$1.document.startViewTransition(() => {
-      template(host, target);
-      return deferred.then(() => {
-        instance = void 0;
-      });
+    promiseMap.set(target, promise);
+    promise.then((value2) => {
+      if (timeout)
+        clearTimeout(timeout);
+      if (promiseMap.get(target) === promise) {
+        resolveValue$1(
+          host,
+          target,
+          value2,
+          placeholder && !timeout ? placeholder : void 0,
+          useLayout
+        );
+        promiseMap.set(target, null);
+      }
     });
   };
-} || ((fn2) => fn2);
+}
 var helpers = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  resolve,
   set,
-  transition
-}, Symbol.toStringTag, { value: "Module" }));
-function key$1(id) {
-  this.id = id;
-  return this;
-}
-function style$u(...styles) {
-  this.styleSheets = this.styleSheets || [];
-  this.styleSheets.push(...styles);
-  return this;
-}
-function css(parts, ...args) {
-  this.styleSheets = this.styleSheets || [];
-  let result = parts[0];
-  for (let index = 1; index < parts.length; index++) {
-    result += (args[index - 1] !== void 0 ? args[index - 1] : "") + parts[index];
-  }
-  this.styleSheets.push(result);
-  return this;
-}
-function use(plugin) {
-  this.plugins = this.plugins || [];
-  this.plugins.push(plugin);
-  return this;
-}
-var methods = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  key: key$1,
-  style: style$u,
-  css,
-  use
+  resolve
 }, Symbol.toStringTag, { value: "Module" }));
 const PLACEHOLDER = getPlaceholder();
 const PLACEHOLDER_SVG = getPlaceholder("svg");
 const PLACEHOLDER_MSG = getPlaceholder("msg");
 const PLACEHOLDER_LAYOUT = getPlaceholder("layout");
+const methods = {
+  key(id) {
+    this.id = id;
+    return this;
+  },
+  style(...styles) {
+    this.styleSheets = this.styleSheets || [];
+    this.styleSheets.push(...styles);
+    return this;
+  },
+  css(parts, ...args) {
+    this.styleSheets = this.styleSheets || [];
+    let result = parts[0];
+    for (let index = 1; index < parts.length; index++) {
+      result += (args[index - 1] !== void 0 ? args[index - 1] : "") + parts[index];
+    }
+    this.styleSheets.push(result);
+    return this;
+  }
+};
 const templates = /* @__PURE__ */ new Map();
 function compile(parts, args, isSVG, isMsg) {
   function template(host, target = host) {
@@ -1589,14 +1549,7 @@ function compile(parts, args, isSVG, isMsg) {
       render3 = compileTemplate(parts, isSVG, isMsg, useLayout);
       templates.set(id, render3);
     }
-    if (template.plugins) {
-      template.plugins.reduce(
-        (acc, plugin) => plugin(acc),
-        () => render3(host, target, args, template)
-      )(host, target);
-    } else {
-      render3(host, target, args, template);
-    }
+    render3(host, target, args, template.styleSheets);
   }
   return Object.assign(template, methods);
 }
@@ -1646,7 +1599,7 @@ function get(key2, context2, args = []) {
                 pluralRules.set(lang2, rules2);
               }
               const pluralForms = msg;
-              msg = (number) => number === 0 && pluralForms.zero || pluralForms[rules2.select(number)] || pluralForms.other || "";
+              msg = (number2) => number2 === 0 && pluralForms.zero || pluralForms[rules2.select(number2)] || pluralForms.other || "";
             }
             break;
           }
@@ -1742,17 +1695,153 @@ var vueIcon = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZ
 var reactIcon = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOC4xMTc1IDUuOTE4OTVDMjguNTIxIDYuMTUxOTIgMjguOTAxOCA2LjY1MjE3IDI5LjEwOTIgNy42MjE2QzI5LjMxNjUgOC41OTA4NyAyOS4zMTYgOS44OTcwNiAyOS4wNjIxIDExLjQ4MThDMjguOTgzMSAxMS45NzQ5IDI4Ljg4MDUgMTIuNDg4OCAyOC43NTQ4IDEzLjAyMDVDMjcuMzk1MSAxMi43Mjk1IDI1LjkzNCAxMi41MDUyIDI0LjQwMDUgMTIuMzU2OUMyMy41MDUzIDExLjEwMyAyMi41ODA1IDkuOTQ5ODcgMjEuNjQ4NyA4LjkxNzc4QzIyLjA0NjIgOC41NDMwNyAyMi40NCA4LjE5NzMzIDIyLjgyNzYgNy44ODIzM0MyNC4wNzMxIDYuODcwMDcgMjUuMjA0IDYuMjE2NTQgMjYuMTQ3MSA1LjkxMTQ1QzI3LjA5MDMgNS42MDYzMSAyNy43MTM5IDUuNjg1OTcgMjguMTE3NSA1LjkxODk1Wk0xOC4zMjcyIDguOTE3NzhDMTcuOTI5NyA4LjU0MzA3IDE3LjUzNTkgOC4xOTczNCAxNy4xNDgzIDcuODgyMzVDMTUuOTAyOSA2Ljg3MDA5IDE0Ljc3MTkgNi4yMTY1NiAxMy44Mjg4IDUuOTExNDdDMTIuODg1NiA1LjYwNjMzIDEyLjI2MiA1LjY4NTk5IDExLjg1ODUgNS45MTg5NkMxMS40NTQ5IDYuMTUxOTQgMTEuMDc0MSA2LjY1MjE5IDEwLjg2NjggNy42MjE2MkMxMC42NTk1IDguNTkwODggMTAuNjYgOS44OTcwOCAxMC45MTM4IDExLjQ4MThDMTAuOTkyOSAxMS45NzUgMTEuMDk1NCAxMi40ODg4IDExLjIyMTEgMTMuMDIwNUMxMi41ODA5IDEyLjcyOTUgMTQuMDQxOSAxMi41MDUyIDE1LjU3NTUgMTIuMzU2OUMxNi40NzA2IDExLjEwMyAxNy4zOTU0IDkuOTQ5ODcgMTguMzI3MiA4LjkxNzc4Wk0xOS45ODggNy4yMTM0NUMxOS41Mzk0IDYuNzg5MzggMTkuMDkyMiA2LjM5NjEyIDE4LjY0OSA2LjAzNTkxQzE3LjI3MTYgNC45MTY0MiAxNS44ODE2IDQuMDc0NzkgMTQuNTYxMiAzLjY0NzYyQzEzLjI0MDkgMy4yMjA1IDExLjg1ODUgMy4xNzE0OCAxMC42Njg4IDMuODU4MzdDOS40NzkwNSA0LjU0NTI2IDguODMwMjcgNS43NjcwMSA4LjU0MDAzIDcuMTIzOTVDOC4yNDk3NiA4LjQ4MTA2IDguMjgzNjUgMTAuMTA1NiA4LjU2NDQ0IDExLjg1ODJDOC42NTQ3OSAxMi40MjIyIDguNzcxOCAxMy4wMDYgOC45MTQ3NSAxMy42MDY1QzguMzIzMjIgMTMuNzgzIDcuNzU5MDggMTMuOTczNiA3LjIyNTU0IDE0LjE3NzNDNS41NjczMiAxNC44MTA0IDQuMTQzNDcgMTUuNTkzNCAzLjExMzMyIDE2LjUyMzNDMi4wODMyOSAxNy40NTMxIDEuMzQ5NjEgMTguNjI1OSAxLjM0OTYxIDE5Ljk5OTZDMS4zNDk2MSAyMS4zNzM0IDIuMDgzMjkgMjIuNTQ2MSAzLjExMzMyIDIzLjQ3NkM0LjE0MzQ3IDI0LjQwNTkgNS41NjczMiAyNS4xODg4IDcuMjI1NTQgMjUuODIyQzcuNzU5MDkgMjYuMDI1NyA4LjMyMzI0IDI2LjIxNjMgOC45MTQ3OCAyNi4zOTI3QzguNzcxODIgMjYuOTkzMyA4LjY1NDgxIDI3LjU3NzIgOC41NjQ0NSAyOC4xNDExQzguMjgzNjYgMjkuODkzNyA4LjI0OTc2IDMxLjUxODMgOC41NDAwNCAzMi44NzU0QzguODMwMjggMzQuMjMyMyA5LjQ3OTA1IDM1LjQ1NDEgMTAuNjY4OCAzNi4xNDFDMTEuODU4NSAzNi44Mjc5IDEzLjI0MSAzNi43Nzg4IDE0LjU2MTIgMzYuMzUxN0MxNS44ODE2IDM1LjkyNDYgMTcuMjcxNiAzNS4wODI5IDE4LjY0OSAzMy45NjM0QzE5LjA5MjIgMzMuNjAzMiAxOS41Mzk0IDMzLjIxIDE5Ljk4OCAzMi43ODU5QzIwLjQzNjUgMzMuMjEgMjAuODgzNyAzMy42MDMyIDIxLjMyNjkgMzMuOTYzNUMyMi43MDQzIDM1LjA4MjkgMjQuMDk0MyAzNS45MjQ2IDI1LjQxNDcgMzYuMzUxN0MyNi43MzUgMzYuNzc4OSAyOC4xMTc0IDM2LjgyNzkgMjkuMzA3MSAzNi4xNDFDMzAuNDk2OSAzNS40NTQxIDMxLjE0NTYgMzQuMjMyNCAzMS40MzU5IDMyLjg3NTRDMzEuNzI2MiAzMS41MTgzIDMxLjY5MjMgMjkuODkzNyAzMS40MTE1IDI4LjE0MTFDMzEuMzIxMSAyNy41NzcyIDMxLjIwNDEgMjYuOTkzMyAzMS4wNjExIDI2LjM5MjhDMzEuNjUyNyAyNi4yMTYzIDMyLjIxNjkgMjYuMDI1NyAzMi43NTA0IDI1LjgyMkMzNC40MDg3IDI1LjE4ODggMzUuODMyNSAyNC40MDU5IDM2Ljg2MjcgMjMuNDc2QzM3Ljg5MjcgMjIuNTQ2MSAzOC42MjY0IDIxLjM3MzQgMzguNjI2NCAxOS45OTk2QzM4LjYyNjQgMTguNjI1OSAzNy44OTI3IDE3LjQ1MzEgMzYuODYyNyAxNi41MjMzQzM1LjgzMjUgMTUuNTkzNCAzNC40MDg3IDE0LjgxMDQgMzIuNzUwNCAxNC4xNzczQzMyLjIxNjkgMTMuOTczNiAzMS42NTI3IDEzLjc4MyAzMS4wNjEyIDEzLjYwNjVDMzEuMjA0MSAxMy4wMDYgMzEuMzIxMSAxMi40MjIxIDMxLjQxMTUgMTEuODU4MkMzMS42OTIzIDEwLjEwNTYgMzEuNzI2MiA4LjQ4MTA0IDMxLjQzNTkgNy4xMjM5M0MzMS4xNDU3IDUuNzY2OTkgMzAuNDk2OSA0LjU0NTI0IDI5LjMwNzIgMy44NTgzNUMyOC4xMTc0IDMuMTcxNDcgMjYuNzM1IDMuMjIwNDkgMjUuNDE0NyAzLjY0NzZDMjQuMDk0MyA0LjA3NDc3IDIyLjcwNDMgNC45MTY0IDIxLjMyNjkgNi4wMzU4OUMyMC44ODM3IDYuMzk2MSAyMC40MzY1IDYuNzg5MzggMTkuOTg4IDcuMjEzNDVaTTI4LjEwMjcgMTUuMzE0NkMyNy40Njk1IDE1LjE4MjQgMjYuODA5NyAxNS4wNjQ5IDI2LjEyNjggMTQuOTYzN0MyNi4zNTA0IDE1LjMyNzcgMjYuNTcwOSAxNS42OTc5IDI2Ljc4NzkgMTYuMDczN0MyNy4wMDQ5IDE2LjQ0OTYgMjcuMjE1MiAxNi44MjU2IDI3LjQxODYgMTcuMjAxM0MyNy42NzI0IDE2LjU1OTIgMjcuOTAwNiAxNS45MjkxIDI4LjEwMjcgMTUuMzE0NlpNMjguODEzIDE5Ljk5OTdDMjkuNDUxNCAxOC41OTc0IDI5Ljk4NzYgMTcuMjIgMzAuNDE1NSAxNS44OTY5QzMwLjkzODggMTYuMDUzOCAzMS40MzUxIDE2LjIyMiAzMS45MDE3IDE2LjQwMDFDMzMuNDAxMSAxNi45NzI2IDM0LjUzMjYgMTcuNjI1MyAzNS4yNjgzIDE4LjI4OTVDMzYuMDA0MiAxOC45NTM4IDM2LjI0NyAxOS41MzM3IDM2LjI0NyAxOS45OTk2QzM2LjI0NyAyMC40NjU2IDM2LjAwNDIgMjEuMDQ1NSAzNS4yNjgzIDIxLjcwOThDMzQuNTMyNiAyMi4zNzQgMzMuNDAxMSAyMy4wMjY2IDMxLjkwMTcgMjMuNTk5MUMzMS40MzUxIDIzLjc3NzMgMzAuOTM4OCAyMy45NDU0IDMwLjQxNTUgMjQuMTAyNEMyOS45ODc2IDIyLjc3OTMgMjkuNDUxMyAyMS40MDE5IDI4LjgxMyAxOS45OTk3Wk0yNi4xODMgMTkuOTk5N0MyNS43NDMxIDE5LjA5NyAyNS4yNTc2IDE4LjE4MTkgMjQuNzI3MyAxNy4yNjM0QzI0LjE5NyAxNi4zNDQ5IDIzLjY0NzMgMTUuNDY2OSAyMy4wODU0IDE0LjYzNDZDMjIuMDgzNyAxNC41NjQxIDIxLjA0ODUgMTQuNTI3MSAxOS45ODggMTQuNTI3MUMxOC45Mjc0IDE0LjUyNzEgMTcuODkyMiAxNC41NjQxIDE2Ljg5MDUgMTQuNjM0NkMxNi4zMjg2IDE1LjQ2NjkgMTUuNzc4OSAxNi4zNDQ5IDE1LjI0ODYgMTcuMjYzNEMxNC43MTgzIDE4LjE4MTkgMTQuMjMyOCAxOS4wOTY5IDEzLjc5MjkgMTkuOTk5N0MxNC4yMzI4IDIwLjkwMjQgMTQuNzE4MyAyMS44MTc1IDE1LjI0ODYgMjIuNzM2QzE1Ljc3ODkgMjMuNjU0NCAxNi4zMjg2IDI0LjUzMjQgMTYuODkwNCAyNS4zNjQ3QzE3Ljg5MjEgMjUuNDM1MSAxOC45Mjc0IDI1LjQ3MjIgMTkuOTg4IDI1LjQ3MjJDMjEuMDQ4NSAyNS40NzIyIDIyLjA4MzggMjUuNDM1MSAyMy4wODU1IDI1LjM2NDdDMjMuNjQ3NCAyNC41MzI0IDI0LjE5NzEgMjMuNjU0NCAyNC43MjczIDIyLjczNTlDMjUuMjU3NiAyMS44MTc1IDI1Ljc0MzEgMjAuOTAyNCAyNi4xODMgMTkuOTk5N1pNMjYuMTI2OCAyNS4wMzU2QzI2LjM1MDQgMjQuNjcxNiAyNi41NzA5IDI0LjMwMTUgMjYuNzg3OSAyMy45MjU2QzI3LjAwNDkgMjMuNTQ5OCAyNy4yMTUyIDIzLjE3MzggMjcuNDE4NiAyMi43OTgxQzI3LjY3MjQgMjMuNDQwMSAyNy45MDA2IDI0LjA3MDIgMjguMTAyNyAyNC42ODQ3QzI3LjQ2OTUgMjQuODE2OSAyNi44MDk3IDI0LjkzNDMgMjYuMTI2OCAyNS4wMzU2Wk0yMS4yNzk4IDI3LjgzNEMyMC44NTI4IDI3Ljg0NTYgMjAuNDIyIDI3Ljg1MTUgMTkuOTg4IDI3Ljg1MTVDMTkuNTU0IDI3Ljg1MTUgMTkuMTIzMiAyNy44NDU2IDE4LjY5NjEgMjcuODM0QzE5LjEyNTIgMjguMzc0OCAxOS41NTY4IDI4Ljg4NzUgMTkuOTg4IDI5LjM2OThDMjAuNDE5MSAyOC44ODc1IDIwLjg1MDcgMjguMzc0OCAyMS4yNzk4IDI3LjgzNFpNMjEuNjQ4NyAzMS4wODE2QzIyLjU4MDUgMzAuMDQ5NSAyMy41MDUzIDI4Ljg5NjMgMjQuNDAwNSAyNy42NDI0QzI1LjkzNCAyNy40OTQxIDI3LjM5NTEgMjcuMjY5OCAyOC43NTQ4IDI2Ljk3ODhDMjguODgwNSAyNy41MTA1IDI4Ljk4MzEgMjguMDI0NCAyOS4wNjIxIDI4LjUxNzVDMjkuMzE2IDMwLjEwMjMgMjkuMzE2NSAzMS40MDg1IDI5LjEwOTEgMzIuMzc3N0MyOC45MDE4IDMzLjM0NzIgMjguNTIxIDMzLjg0NzQgMjguMTE3NSAzNC4wODA0QzI3LjcxMzkgMzQuMzEzNCAyNy4wOTAzIDM0LjM5MyAyNi4xNDcxIDM0LjA4NzlDMjUuMjA0IDMzLjc4MjggMjQuMDczMSAzMy4xMjkzIDIyLjgyNzYgMzIuMTE3QzIyLjQ0IDMxLjgwMiAyMi4wNDYyIDMxLjQ1NjMgMjEuNjQ4NyAzMS4wODE2Wk0xOC4zMjcyIDMxLjA4MTZDMTcuMzk1NCAzMC4wNDk1IDE2LjQ3MDYgMjguODk2MyAxNS41NzU0IDI3LjY0MjRDMTQuMDQxOSAyNy40OTQgMTIuNTgwOSAyNy4yNjk4IDExLjIyMTEgMjYuOTc4OEMxMS4wOTU0IDI3LjUxMDUgMTAuOTkyOSAyOC4wMjQ0IDEwLjkxMzkgMjguNTE3NUMxMC42NiAzMC4xMDIzIDEwLjY1OTUgMzEuNDA4NSAxMC44NjY4IDMyLjM3NzdDMTEuMDc0MSAzMy4zNDcyIDExLjQ1NDkgMzMuODQ3NCAxMS44NTg1IDM0LjA4MDRDMTIuMjYyIDM0LjMxMzQgMTIuODg1NiAzNC4zOTMgMTMuODI4OCAzNC4wODc5QzE0Ljc3MTkgMzMuNzgyOCAxNS45MDI5IDMzLjEyOTMgMTcuMTQ4MyAzMi4xMTdDMTcuNTM1OSAzMS44MDIgMTcuOTI5NyAzMS40NTYzIDE4LjMyNzIgMzEuMDgxNlpNMTEuODczMiAyNC42ODQ3QzEyLjUwNjQgMjQuODE2OSAxMy4xNjYyIDI0LjkzNDMgMTMuODQ5MSAyNS4wMzU2QzEzLjYyNTUgMjQuNjcxNiAxMy40MDUgMjQuMzAxNSAxMy4xODggMjMuOTI1NkMxMi45NzEgMjMuNTQ5OCAxMi43NjA3IDIzLjE3MzggMTIuNTU3MyAyMi43OTgxQzEyLjMwMzUgMjMuNDQwMSAxMi4wNzU0IDI0LjA3MDIgMTEuODczMiAyNC42ODQ3Wk0xMi41NTczIDE3LjIwMTJDMTIuNzYwNyAxNi44MjU2IDEyLjk3MSAxNi40NDk2IDEzLjE4OCAxNi4wNzM3QzEzLjQwNSAxNS42OTc4IDEzLjYyNTUgMTUuMzI3NyAxMy44NDkxIDE0Ljk2MzdDMTMuMTY2MiAxNS4wNjQ5IDEyLjUwNjQgMTUuMTgyNCAxMS44NzMyIDE1LjMxNDZDMTIuMDc1MyAxNS45MjkxIDEyLjMwMzUgMTYuNTU5MiAxMi41NTczIDE3LjIwMTJaTTExLjE2MjkgMTkuOTk5N0MxMC41MjQ2IDIxLjQwMTkgOS45ODgzMSAyMi43NzkzIDkuNTYwNDIgMjQuMTAyM0M5LjAzNzEzIDIzLjk0NTQgOC41NDA4MyAyMy43NzczIDguMDc0MjYgMjMuNTk5MUM2LjU3NDg4IDIzLjAyNjYgNS40NDM0MyAyMi4zNzQgNC43MDc2OCAyMS43MDk4QzMuOTcxOCAyMS4wNDU1IDMuNzI4OTggMjAuNDY1NiAzLjcyODk4IDE5Ljk5OTZDMy43Mjg5OCAxOS41MzM3IDMuOTcxOCAxOC45NTM4IDQuNzA3NjggMTguMjg5NUM1LjQ0MzQzIDE3LjYyNTMgNi41NzQ4OCAxNi45NzI2IDguMDc0MjYgMTYuNDAwMUM4LjU0MDgyIDE2LjIyMiA5LjAzNzExIDE2LjA1MzkgOS41NjAzOCAxNS44OTY5QzkuOTg4MjggMTcuMjIgMTAuNTI0NiAxOC41OTc0IDExLjE2MjkgMTkuOTk5N1pNMTguNjk2MiAxMi4xNjUzQzE5LjEyMzIgMTIuMTUzNiAxOS41NTQgMTIuMTQ3NyAxOS45ODggMTIuMTQ3N0MyMC40MjIgMTIuMTQ3NyAyMC44NTI3IDEyLjE1MzYgMjEuMjc5NyAxMi4xNjUyQzIwLjg1MDYgMTEuNjI0NSAyMC40MTkgMTEuMTExOSAxOS45ODggMTAuNjI5NUMxOS41NTY5IDExLjExMTkgMTkuMTI1MyAxMS42MjQ1IDE4LjY5NjIgMTIuMTY1M1pNMjMuMjM5MyAxOS45OTk3QzIzLjIzOTMgMjEuNzk1NiAyMS43ODM0IDIzLjI1MTUgMTkuOTg3NSAyMy4yNTE1QzE4LjE5MTYgMjMuMjUxNSAxNi43MzU3IDIxLjc5NTYgMTYuNzM1NyAxOS45OTk3QzE2LjczNTcgMTguMjAzOCAxOC4xOTE2IDE2Ljc0NzkgMTkuOTg3NSAxNi43NDc5QzIxLjc4MzQgMTYuNzQ3OSAyMy4yMzkzIDE4LjIwMzggMjMuMjM5MyAxOS45OTk3WiIgZmlsbD0iIzYxREFGQiIvPgo8L3N2Zz4K";
 var wxIcon = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPG1hc2sgaWQ9Im1hc2swXzIyNTM5XzEzOTYzNyIgc3R5bGU9Im1hc2stdHlwZTphbHBoYSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSJ3aGl0ZSIvPgo8L21hc2s+CjxnIG1hc2s9InVybCgjbWFzazBfMjI1MzlfMTM5NjM3KSI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMzIuNDk3MiA0Ljk1NDM0QzM1LjE0ODYgNi4yNTMwNiAzNi43OTUxIDguODE0NzUgMzcuMzc3NyAxMi4xOTM0QzM3Ljk0MzIgMTUuNDczIDM2LjQ3ODIgMTguMDg5NyAzNC44MTU3IDE5LjgxNzFDMzMuMTkwNyAyMS41MDU1IDMxLjE0MDEgMjIuNjE4OCAyOS43MDQgMjMuMDUwNkMyOC4zODE4IDIzLjQ0ODIgMjYuOTg3NiAyMi42OTg3IDI2LjU5IDIxLjM3NjRDMjYuMTkyNCAyMC4wNTQyIDI2Ljk0MiAxOC42NiAyOC4yNjQyIDE4LjI2MjRDMjguODk2NyAxOC4wNzIyIDMwLjE5NzEgMTcuNDA1NiAzMS4yMTMxIDE2LjM0OTlDMzIuMTkxNSAxNS4zMzMzIDMyLjY1NzIgMTQuMjQxOSAzMi40NTA0IDEzLjA0M0MzMi4wNjc3IDEwLjgyMzUgMzEuMTYyOSA5Ljg2ODM5IDMwLjI5NzggOS40NDQ2QzI5LjMyOTggOC45NzA0NyAyNy44MTUxIDguODY4MTEgMjUuNzYyMiA5LjUzOTY3QzIzLjIwMjkgMTAuMzc2OSAyMi43MjYyIDEyLjEwNzQgMjIuNjU4NSAxMi43MjYzVjI4LjMyNzFMMjIuNjI0NiAyOC41MzA4QzIyLjMwOTYgMzAuNDI1NiAyMS4wMDYyIDMyLjc5MDUgMTguOTE0NSAzNC40MzUzQzE2LjY4ODMgMzYuMTg1NyAxMy41Mjg5IDM3LjE0NjEgOS43NTU0NCAzNS45NjAzQzUuOTY0IDM0Ljc2ODkgMy45ODAwNyAzMi4xNjY2IDMuMjM0NzggMjkuNDQwOEMyLjUzNzEzIDI2Ljg4OTIgMi45MjU1NyAyNC4yNjkxIDMuNjg0MDcgMjIuNjI0MUM0LjE0MzYzIDIxLjYyNzQgNS4xMzcxNiAyMC4zMzQxIDYuMzk4NDggMTkuMjcxOEM3LjY3NDk0IDE4LjE5NjggOS41MzY2OCAxNy4wOTY4IDExLjc4NzYgMTcuMDEwMUMxMy4xNjczIDE2Ljk1NjkgMTQuMzI4OSAxOC4wMzIyIDE0LjM4MjEgMTkuNDExOUMxNC40MzUzIDIwLjc5MTYgMTMuMzU5OSAyMS45NTMyIDExLjk4MDIgMjIuMDA2M0MxMS4yNTIzIDIyLjAzNDQgMTAuNDI1MSAyMi40MTc3IDkuNjE5MzUgMjMuMDk2MkM4Ljc5ODQ5IDIzLjc4NzYgOC4zMTY2NCAyNC41MTgyIDguMjI0NjQgMjQuNzE3N0M3Ljk0MTI2IDI1LjMzMjMgNy42ODE0NCAyNi43NDU4IDguMDU3NzYgMjguMTIyMUM4LjM4NjQ0IDI5LjMyNDMgOS4xOTg3MSAzMC41NDQzIDExLjI1NDMgMzEuMTkwM0MxMy4zMjc5IDMxLjg0MTkgMTQuNzg4NSAzMS4zMTkgMTUuODIzOSAzMC41MDQ4QzE2Ljg5OTEgMjkuNjU5NCAxNy40OTI4IDI4LjUwOSAxNy42NTg1IDI3Ljg2NzdWMTIuNTI5M0wxNy42NjQ4IDEyLjQ0MDdDMTcuODA5NyAxMC40MDQyIDE5LjE0NzYgNi40NDI4MSAyNC4yMDc2IDQuNzg3NUMyNi45ODE0IDMuODgwMSAyOS45NDg2IDMuNzA1OTYgMzIuNDk3MiA0Ljk1NDM0WiIgZmlsbD0iIzAwQTg3MCIvPgo8L2c+Cjwvc3ZnPgo=";
 var flutterIcon = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIzLjE4NjEgMy4zMzMwMUw2LjUgMTkuOTk5N0wxMS42Mzg5IDI1LjEzODZMMzMuNDIyMiAzLjM0OTY3SDIzLjIwNDJMMjMuMTg2MSAzLjMzMzAxWk0yMy4yMDU2IDE4LjcxMDhMMTQuMjE4MSAyNy42Nzg4TDIzLjIwNDIgMzYuNjY1SDMzLjQ0NDRMMjQuNDcyMiAyNy42ODE2TDMzLjQ0NDQgMTguNzA5NEwyMy4yMDU2IDE4LjcxMDhaIiBmaWxsPSIjNDREMUZEIi8+Cjwvc3ZnPgo=";
+const callbacks = [];
+function defaultChangeCallBack() {
+  const lang2 = getLang();
+  if (lang2 === "en") {
+    const zhPathname = location.pathname.slice(0, -3);
+    location.pathname = zhPathname;
+  } else {
+    if (location.pathname === "/") {
+      location.pathname = "index-en";
+    } else {
+      location.pathname = `${location.pathname}-en`;
+    }
+  }
+}
+function registerLocaleChange(cb = defaultChangeCallBack) {
+  if (callbacks.includes(cb))
+    return;
+  callbacks.push(cb);
+  document.addEventListener("tdesign_site_lang", cb);
+}
+function jumpLocation(url) {
+  const lang2 = getLang();
+  return lang2 === "en" ? `${url}-en` : url;
+}
+[
+  {
+    name: "\u8BBE\u8BA1",
+    path: jumpLocation("/design"),
+    type: "main",
+    target: "_self"
+  },
+  {
+    name: "\u57FA\u7840\u7EC4\u4EF6",
+    type: "base",
+    target: "_self"
+  },
+  {
+    name: "\u884C\u4E1A\u7EC4\u4EF6",
+    path: "/trade",
+    type: "main",
+    target: "_self"
+  },
+  {
+    name: "\u9875\u9762\u6A21\u677F",
+    path: "https://tdesign.tencent.com/starter/",
+    type: "main",
+    target: "_self"
+  },
+  {
+    name: "\u8D44\u6E90",
+    path: jumpLocation("/source"),
+    type: "main",
+    target: "_self"
+  },
+  {
+    name: "\u5173\u4E8E",
+    path: jumpLocation("/about"),
+    type: "main",
+    target: "_self"
+  }
+];
+({
+  web: {
+    name: "Web \u684C\u9762\u7AEF",
+    links: [
+      {
+        name: "Vue",
+        icon: vueIcon,
+        path: jumpLocation("/vue/overview"),
+        npm: "tdesign-vue",
+        status: 1
+      },
+      {
+        name: "Vue Next",
+        icon: vueIcon,
+        path: jumpLocation("/vue-next/overview"),
+        npm: "tdesign-vue-next",
+        status: 1
+      },
+      {
+        name: "React",
+        icon: reactIcon,
+        path: jumpLocation("/react/overview"),
+        npm: "tdesign-react",
+        status: 1
+      }
+    ]
+  },
+  mobile: {
+    name: "Mobile \u79FB\u52A8\u7AEF",
+    links: [
+      {
+        name: "Vue Next",
+        icon: vueIcon,
+        path: jumpLocation("/mobile-vue/overview"),
+        npm: "tdesign-mobile-vue",
+        status: 3
+      },
+      {
+        name: "React",
+        icon: reactIcon,
+        path: jumpLocation("/mobile-react/overview"),
+        npm: "tdesign-mobile-react",
+        status: 2
+      },
+      {
+        name: "Flutter",
+        icon: flutterIcon,
+        path: jumpLocation("/flutter/overview"),
+        npm: "tdesign-flutter",
+        status: 2
+      },
+      {
+        name: "\u5FAE\u4FE1\u5C0F\u7A0B\u5E8F",
+        icon: wxIcon,
+        path: jumpLocation("/miniprogram/overview"),
+        npm: "tdesign-miniprogram",
+        status: 1
+      },
+      {
+        name: "QQ \u5C0F\u7A0B\u5E8F",
+        icon: wxIcon,
+        path: jumpLocation("/qq-miniprogram/overview"),
+        npm: "tdesign-qq-miniprogram",
+        status: 2
+      },
+      {
+        name: "Taro",
+        icon: wxIcon,
+        path: jumpLocation("/taro/overview"),
+        npm: "tdesign-taro",
+        status: 0
+      }
+    ]
+  }
+});
 const getHeaderConfig = () => {
   const intranet = isIntranet();
   const lang2 = getLang();
   const isEnglish = lang2 === "en";
   const headerList2 = [
-    { name: isEnglish ? "Design" : "\u8BBE\u8BA1", path: isEnglish ? "/design-en" : "/design", type: "main", target: "_self" },
-    { name: isEnglish ? "Components" : "\u57FA\u7840\u7EC4\u4EF6", path: "/vue/", type: "base", target: "_self" },
+    { name: isEnglish ? "Design" : "\u8BBE\u8BA1", path: jumpLocation("/design"), type: "main", target: "_self" },
+    { name: isEnglish ? "Components" : "\u57FA\u7840\u7EC4\u4EF6", path: jumpLocation("/vue/overview"), type: "base", target: "_self" },
     intranet ? { name: isEnglish ? "Industry component" : "\u884C\u4E1A\u7EC4\u4EF6", path: "/trade", type: "main", target: "_self" } : null,
     { name: isEnglish ? "Templates" : "\u9875\u9762\u6A21\u677F", path: "https://tdesign.tencent.com/starter/", type: "main", target: "_self" },
-    { name: isEnglish ? "Resource" : "\u8D44\u6E90", path: isEnglish ? "/source-en" : "/source", type: "main", target: "_self" },
-    { name: isEnglish ? "About" : "\u5173\u4E8E", path: isEnglish ? "/about-en" : "/about", type: "main", target: "_self" }
+    { name: isEnglish ? "Resources" : "\u8D44\u6E90", path: jumpLocation("/source"), type: "main", target: "_self" },
+    { name: isEnglish ? "About" : "\u5173\u4E8E", path: jumpLocation("/about/introduce"), type: "main", target: "_self" }
   ].filter((item) => item);
   const baseComponentsLinks2 = {
     web: {
@@ -1761,21 +1850,21 @@ const getHeaderConfig = () => {
         {
           name: "Vue",
           icon: vueIcon,
-          path: "/vue/",
+          path: jumpLocation("/vue/overview"),
           npm: "tdesign-vue",
           status: 1
         },
         {
           name: "Vue Next",
           icon: vueIcon,
-          path: "/vue-next/",
+          path: jumpLocation("/vue-next/overview"),
           npm: "tdesign-vue-next",
           status: 1
         },
         {
           name: "React",
           icon: reactIcon,
-          path: "/react/",
+          path: jumpLocation("/react/overview"),
           npm: "tdesign-react",
           status: 1
         }
@@ -1787,42 +1876,42 @@ const getHeaderConfig = () => {
         {
           name: "Vue Next",
           icon: vueIcon,
-          path: "/mobile-vue/",
+          path: jumpLocation("/mobile-vue/overview"),
           npm: "tdesign-mobile-vue",
           status: 3
         },
         {
           name: "React",
           icon: reactIcon,
-          path: "/mobile-react/",
+          path: jumpLocation("/mobile-react/overview"),
           npm: "tdesign-mobile-react",
           status: 2
         },
         {
           name: "Flutter",
           icon: flutterIcon,
-          path: "/flutter/",
+          path: jumpLocation("/flutter/overview"),
           npm: "tdesign-flutter",
-          status: 0
+          status: 2
         },
         {
           name: isEnglish ? "WeChat-Miniprogram" : "\u5FAE\u4FE1\u5C0F\u7A0B\u5E8F",
           icon: wxIcon,
-          path: "/miniprogram/",
+          path: jumpLocation("/miniprogram/overview"),
           npm: "tdesign-miniprogram",
           status: 1
         },
         {
           name: isEnglish ? "QQ-Miniprogram" : "QQ \u5C0F\u7A0B\u5E8F",
           icon: wxIcon,
-          path: "/qq-miniprogram/",
+          path: jumpLocation("/qq-miniprogram/overview"),
           npm: "tdesign-qq-miniprogram",
           status: 2
         },
         {
           name: "Taro",
           icon: wxIcon,
-          path: "/taro/",
+          path: jumpLocation("/taro/overview"),
           npm: "tdesign-taro",
           status: 0
         }
@@ -1961,7 +2050,7 @@ function renderLinksPopup(host, trigger) {
                       ${item.name} ${renderTag(item.status)}
                     </span>
                     <span class="version">
-                      ${item.status ? `Version\uFF1A${host.npmVersions[item.npm]}` : "\u656C\u8BF7\u671F\u5F85"}
+                      ${item.status ? `Version\uFF1A${host.npmVersions[item.npm] || "alpha"}` : "\u656C\u8BF7\u671F\u5F85"}
                     </span>
                   </div>
                 </a>
@@ -1985,6 +2074,8 @@ function gitPath(platform, framework) {
     return isIntranet() ? "https://git.woa.com/groups/TDesign/-/projects/list" : "https://github.com/Tencent/tdesign";
   } else if (platform === "mobile") {
     return isIntranet() ? `https://git.woa.com/Tdesign/Tdesign-${platform}-${framework}` : `https://github.com/Tencent/tdesign-${platform}-${framework}`;
+  } else if (framework === "flutter") {
+    return "https://github.com/TDesignOteam/tdesign-flutter";
   } else {
     return isIntranet() ? `https://git.woa.com/Tdesign/Tdesign-${platform}-${framework}` : `https://github.com/Tencent/tdesign-${framework}`;
   }
@@ -2550,15 +2641,15 @@ var nprogress = { exports: {} };
       queue2(function(next) {
         if (Settings.positionUsing === "")
           Settings.positionUsing = NProgress2.getPositioningCSS();
-        css2(bar, barPositionCSS(n, speed, ease));
+        css(bar, barPositionCSS(n, speed, ease));
         if (n === 1) {
-          css2(progress, {
+          css(progress, {
             transition: "none",
             opacity: 1
           });
           progress.offsetWidth;
           setTimeout(function() {
-            css2(progress, {
+            css(progress, {
               transition: "all " + speed + "ms linear",
               opacity: 0
             });
@@ -2642,7 +2733,7 @@ var nprogress = { exports: {} };
       progress.id = "nprogress";
       progress.innerHTML = Settings.template;
       var bar = progress.querySelector(Settings.barSelector), perc = fromStart ? "-100" : toBarPerc(NProgress2.status || 0), parent = document.querySelector(Settings.parent), spinner;
-      css2(bar, {
+      css(bar, {
         transition: "all 0 linear",
         transform: "translate3d(" + perc + "%,0,0)"
       });
@@ -2712,10 +2803,10 @@ var nprogress = { exports: {} };
           next();
       };
     }();
-    var css2 = function() {
+    var css = function() {
       var cssPrefixes = ["Webkit", "O", "Moz", "ms"], cssProps = {};
-      function camelCase(string) {
-        return string.replace(/^-ms-/, "ms-").replace(/-([\da-z])/gi, function(match, letter) {
+      function camelCase(string2) {
+        return string2.replace(/^-ms-/, "ms-").replace(/-([\da-z])/gi, function(match, letter) {
           return letter.toUpperCase();
         });
       }
@@ -3604,7 +3695,7 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
     },
     function(module2, exports2, __webpack_require__) {
       var _ = __webpack_require__(0);
-      var css2 = {
+      var css = {
         wrapper: { position: "relative", display: "inline-block" },
         hint: {
           position: "absolute",
@@ -3653,14 +3744,14 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
         }
       };
       if (_.isMsie()) {
-        _.mixin(css2.input, {
+        _.mixin(css.input, {
           backgroundImage: "url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)"
         });
       }
       if (_.isMsie() && _.isMsie() <= 7) {
-        _.mixin(css2.input, { marginTop: "-1px" });
+        _.mixin(css.input, { marginTop: "-1px" });
       }
-      module2.exports = css2;
+      module2.exports = css;
     },
     function(module2, exports2) {
       if (typeof Object.create === "function") {
@@ -4427,14 +4518,14 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
                   return props;
                 }
               }
-              var css2 = "";
+              var css = "";
               if (type(property) == "string") {
                 if (!value2 && value2 !== 0)
                   this.each(function() {
                     this.style.removeProperty(dasherize(property));
                   });
                 else
-                  css2 = dasherize(property) + ":" + maybeAddPx(property, value2);
+                  css = dasherize(property) + ":" + maybeAddPx(property, value2);
               } else {
                 for (key2 in property)
                   if (!property[key2] && property[key2] !== 0)
@@ -4442,10 +4533,10 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
                       this.style.removeProperty(dasherize(key2));
                     });
                   else
-                    css2 += dasherize(key2) + ":" + maybeAddPx(key2, property[key2]) + ";";
+                    css += dasherize(key2) + ":" + maybeAddPx(key2, property[key2]) + ";";
               }
               return this.each(function() {
-                this.style.cssText += ";" + css2;
+                this.style.cssText += ";" + css;
               });
             },
             index: function(element) {
@@ -5131,8 +5222,8 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
       function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : { default: obj };
       }
-      function _classCallCheck(instance2, Constructor) {
-        if (!(instance2 instanceof Constructor)) {
+      function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
           throw new TypeError("Cannot call a class as a function");
         }
       }
@@ -6015,13 +6106,13 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
           }
           return val;
         }
-        function createSpecializedPartial(instance2, subs, partials, stackSubs, stackPartials, stackText) {
+        function createSpecializedPartial(instance, subs, partials, stackSubs, stackPartials, stackText) {
           function PartialTemplate() {
           }
-          PartialTemplate.prototype = instance2;
+          PartialTemplate.prototype = instance;
           function Substitutions() {
           }
-          Substitutions.prototype = instance2.subs;
+          Substitutions.prototype = instance.subs;
           var key2;
           var partial = new PartialTemplate();
           partial.subs = new Substitutions();
@@ -8344,7 +8435,7 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
       var Input = __webpack_require__(52);
       var Dropdown = __webpack_require__(59);
       var html2 = __webpack_require__(17);
-      var css2 = __webpack_require__(11);
+      var css = __webpack_require__(11);
       function Typeahead(o) {
         var $menu;
         var $hint;
@@ -8367,10 +8458,10 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
             "[autocomplete.js] hint and appendTo options can't be used at the same time"
           );
         }
-        this.css = o.css = _.mixin({}, css2, o.appendTo ? css2.appendTo : {});
+        this.css = o.css = _.mixin({}, css, o.appendTo ? css.appendTo : {});
         this.cssClasses = o.cssClasses = _.mixin(
           {},
-          css2.defaultClasses,
+          css.defaultClasses,
           o.cssClasses || {}
         );
         this.cssClasses.prefix = o.cssClasses.formattedPrefix = _.formatPrefix(
@@ -9239,7 +9330,7 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
       var DOM = __webpack_require__(1);
       var EventEmitter = __webpack_require__(10);
       var Dataset = __webpack_require__(60);
-      var css2 = __webpack_require__(11);
+      var css = __webpack_require__(11);
       function Dropdown(o) {
         var that = this;
         var onSuggestionClick;
@@ -9260,10 +9351,10 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
         this.minLength = o.minLength || 0;
         this.templates = {};
         this.appendTo = o.appendTo || false;
-        this.css = _.mixin({}, css2, o.appendTo ? css2.appendTo : {});
+        this.css = _.mixin({}, css, o.appendTo ? css.appendTo : {});
         this.cssClasses = o.cssClasses = _.mixin(
           {},
-          css2.defaultClasses,
+          css.defaultClasses,
           o.cssClasses || {}
         );
         this.cssClasses.prefix = o.cssClasses.formattedPrefix || _.formatPrefix(this.cssClasses.prefix, this.cssClasses.noPrefix);
@@ -9543,7 +9634,7 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
       var _ = __webpack_require__(0);
       var DOM = __webpack_require__(1);
       var html2 = __webpack_require__(17);
-      var css2 = __webpack_require__(11);
+      var css = __webpack_require__(11);
       var EventEmitter = __webpack_require__(10);
       function Dataset(o) {
         o = o || {};
@@ -9563,10 +9654,10 @@ var searchIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
         this.debounce = o.debounce;
         this.cache = o.cache !== false;
         this.templates = getTemplates(o.templates, this.displayFn);
-        this.css = _.mixin({}, css2, o.appendTo ? css2.appendTo : {});
+        this.css = _.mixin({}, css, o.appendTo ? css.appendTo : {});
         this.cssClasses = o.cssClasses = _.mixin(
           {},
-          css2.defaultClasses,
+          css.defaultClasses,
           o.cssClasses || {}
         );
         this.cssClasses.prefix = o.cssClasses.formattedPrefix || _.formatPrefix(this.cssClasses.prefix, this.cssClasses.noPrefix);
@@ -10458,8 +10549,8 @@ const getFooterConfig = () => {
     {
       title: isEnglish ? "Resource" : "\u8D44\u6E90",
       links: [
-        { name: isEnglish ? "Design Resource" : "\u8BBE\u8BA1\u8D44\u6E90", url: isEnglish ? "/source-en" : "/source", target: "_self" },
-        { name: "TDesign Starter", url: "https://tdesign.tencent.com/starter/", target: "_self" }
+        { name: isEnglish ? "Design Resource" : "\u8BBE\u8BA1\u8D44\u6E90", url: jumpLocation("/source"), target: "_self" },
+        { name: "TDesign Starter", url: jumpLocation("https://tdesign.tencent.com/starter/"), target: "_self" }
       ]
     },
     {
@@ -10474,8 +10565,8 @@ const getFooterConfig = () => {
     {
       title: isEnglish ? "About" : "\u5173\u4E8E",
       links: [
-        { name: isEnglish ? "About us" : "\u5173\u4E8E\u6211\u4EEC", url: isEnglish ? "/about/introduce-en" : "/about/introduce", target: "_self" },
-        { name: isEnglish ? "Contact us" : "\u8054\u7CFB\u6211\u4EEC", url: isEnglish ? "/about/contact-en" : "/about/contact", target: "_self" },
+        { name: isEnglish ? "About us" : "\u5173\u4E8E\u6211\u4EEC", url: jumpLocation("/about/introduce"), target: "_self" },
+        { name: isEnglish ? "Contact us" : "\u8054\u7CFB\u6211\u4EEC", url: jumpLocation("/about/contact"), target: "_self" },
         { name: isEnglish ? "Feedback" : "\u610F\u89C1\u53CD\u9988", url: "//support.qq.com/products/293854", target: "_blank" }
       ]
     }
@@ -10793,8 +10884,8 @@ function getContainingBlock(element) {
     currentNode = currentNode.host;
   }
   while (isHTMLElement(currentNode) && ["html", "body"].indexOf(getNodeName(currentNode)) < 0) {
-    var css2 = getComputedStyle$1(currentNode);
-    if (css2.transform !== "none" || css2.perspective !== "none" || css2.contain === "paint" || ["transform", "perspective"].indexOf(css2.willChange) !== -1 || isFirefox && css2.willChange === "filter" || isFirefox && css2.filter && css2.filter !== "none") {
+    var css = getComputedStyle$1(currentNode);
+    if (css.transform !== "none" || css.perspective !== "none" || css.contain === "paint" || ["transform", "perspective"].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === "filter" || isFirefox && css.filter && css.filter !== "none") {
       return currentNode;
     } else {
       currentNode = currentNode.parentNode;
@@ -11021,26 +11112,26 @@ var passive = {
   passive: true
 };
 function effect(_ref) {
-  var state = _ref.state, instance2 = _ref.instance, options = _ref.options;
+  var state = _ref.state, instance = _ref.instance, options = _ref.options;
   var _options$scroll = options.scroll, scroll = _options$scroll === void 0 ? true : _options$scroll, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize;
   var window2 = getWindow(state.elements.popper);
   var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
   if (scroll) {
     scrollParents.forEach(function(scrollParent) {
-      scrollParent.addEventListener("scroll", instance2.update, passive);
+      scrollParent.addEventListener("scroll", instance.update, passive);
     });
   }
   if (resize) {
-    window2.addEventListener("resize", instance2.update, passive);
+    window2.addEventListener("resize", instance.update, passive);
   }
   return function() {
     if (scroll) {
       scrollParents.forEach(function(scrollParent) {
-        scrollParent.removeEventListener("scroll", instance2.update, passive);
+        scrollParent.removeEventListener("scroll", instance.update, passive);
       });
     }
     if (resize) {
-      window2.removeEventListener("resize", instance2.update, passive);
+      window2.removeEventListener("resize", instance.update, passive);
     }
   };
 }
@@ -11776,7 +11867,7 @@ function popperGenerator(generatorOptions) {
     };
     var effectCleanupFns = [];
     var isDestroyed = false;
-    var instance2 = {
+    var instance = {
       state,
       setOptions: function setOptions(setOptionsAction) {
         var options2 = typeof setOptionsAction === "function" ? setOptionsAction(state.options) : setOptionsAction;
@@ -11791,7 +11882,7 @@ function popperGenerator(generatorOptions) {
           return m.enabled;
         });
         runModifierEffects();
-        return instance2.update();
+        return instance.update();
       },
       forceUpdate: function forceUpdate() {
         if (isDestroyed) {
@@ -11822,14 +11913,14 @@ function popperGenerator(generatorOptions) {
               state,
               options: _options,
               name,
-              instance: instance2
+              instance
             }) || state;
           }
         }
       },
       update: debounce(function() {
         return new Promise(function(resolve2) {
-          instance2.forceUpdate();
+          instance.forceUpdate();
           resolve2(state);
         });
       }),
@@ -11839,9 +11930,9 @@ function popperGenerator(generatorOptions) {
       }
     };
     if (!areValidElements(reference2, popper2)) {
-      return instance2;
+      return instance;
     }
-    instance2.setOptions(options).then(function(state2) {
+    instance.setOptions(options).then(function(state2) {
       if (!isDestroyed && options.onFirstUpdate) {
         options.onFirstUpdate(state2);
       }
@@ -11853,7 +11944,7 @@ function popperGenerator(generatorOptions) {
           var cleanupFn = effect2({
             state,
             name,
-            instance: instance2,
+            instance,
             options: options2
           });
           var noopFn = function noopFn2() {
@@ -11868,7 +11959,7 @@ function popperGenerator(generatorOptions) {
       });
       effectCleanupFns = [];
     }
-    return instance2;
+    return instance;
   };
 }
 var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
@@ -12083,11 +12174,11 @@ var errorCorrectionLevel = {};
   exports2.M = { bit: 0 };
   exports2.Q = { bit: 3 };
   exports2.H = { bit: 2 };
-  function fromString(string) {
-    if (typeof string !== "string") {
+  function fromString(string2) {
+    if (typeof string2 !== "string") {
       throw new Error("Param is not a string");
     }
-    const lcStr = string.toLowerCase();
+    const lcStr = string2.toLowerCase();
     switch (lcStr) {
       case "l":
       case "low":
@@ -12102,7 +12193,7 @@ var errorCorrectionLevel = {};
       case "high":
         return exports2.H;
       default:
-        throw new Error("Unknown EC Level: " + string);
+        throw new Error("Unknown EC Level: " + string2);
     }
   }
   exports2.isValid = function isValid2(level) {
@@ -12892,11 +12983,11 @@ regex.testAlphanumeric = function testAlphanumeric(str) {
   exports2.isValid = function isValid2(mode2) {
     return mode2 && mode2.bit && mode2.ccBits;
   };
-  function fromString(string) {
-    if (typeof string !== "string") {
+  function fromString(string2) {
+    if (typeof string2 !== "string") {
       throw new Error("Param is not a string");
     }
-    const lcStr = string.toLowerCase();
+    const lcStr = string2.toLowerCase();
     switch (lcStr) {
       case "numeric":
         return exports2.NUMERIC;
@@ -12907,7 +12998,7 @@ regex.testAlphanumeric = function testAlphanumeric(str) {
       case "byte":
         return exports2.BYTE;
       default:
-        throw new Error("Unknown mode: " + string);
+        throw new Error("Unknown mode: " + string2);
     }
   }
   exports2.from = function from2(value2, defaultValue) {
@@ -14908,11 +14999,11 @@ var prism = { exports: {} };
   Prism2.languages.atom = Prism2.languages.xml;
   Prism2.languages.rss = Prism2.languages.xml;
   (function(Prism3) {
-    var string = /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
+    var string2 = /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
     Prism3.languages.css = {
       "comment": /\/\*[\s\S]*?\*\//,
       "atrule": {
-        pattern: RegExp("@[\\w-](?:" + /[^;{\s"']|\s+(?!\s)/.source + "|" + string.source + ")*?" + /(?:;|(?=\s*\{))/.source),
+        pattern: RegExp("@[\\w-](?:" + /[^;{\s"']|\s+(?!\s)/.source + "|" + string2.source + ")*?" + /(?:;|(?=\s*\{))/.source),
         inside: {
           "rule": /^@[\w-]+/,
           "selector-function-argument": {
@@ -14927,23 +15018,23 @@ var prism = { exports: {} };
         }
       },
       "url": {
-        pattern: RegExp("\\burl\\((?:" + string.source + "|" + /(?:[^\\\r\n()"']|\\[\s\S])*/.source + ")\\)", "i"),
+        pattern: RegExp("\\burl\\((?:" + string2.source + "|" + /(?:[^\\\r\n()"']|\\[\s\S])*/.source + ")\\)", "i"),
         greedy: true,
         inside: {
           "function": /^url/i,
           "punctuation": /^\(|\)$/,
           "string": {
-            pattern: RegExp("^" + string.source + "$"),
+            pattern: RegExp("^" + string2.source + "$"),
             alias: "url"
           }
         }
       },
       "selector": {
-        pattern: RegExp(`(^|[{}\\s])[^{}\\s](?:[^{};"'\\s]|\\s+(?![\\s{])|` + string.source + ")*(?=\\s*\\{)"),
+        pattern: RegExp(`(^|[{}\\s])[^{}\\s](?:[^{};"'\\s]|\\s+(?![\\s{])|` + string2.source + ")*(?=\\s*\\{)"),
         lookbehind: true
       },
       "string": {
-        pattern: string,
+        pattern: string2,
         greedy: true
       },
       "property": {
@@ -15410,11 +15501,11 @@ Prism.languages.ssml = Prism.languages.xml;
 Prism.languages.atom = Prism.languages.xml;
 Prism.languages.rss = Prism.languages.xml;
 (function(Prism2) {
-  var string = /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
+  var string2 = /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
   Prism2.languages.css = {
     "comment": /\/\*[\s\S]*?\*\//,
     "atrule": {
-      pattern: RegExp("@[\\w-](?:" + /[^;{\s"']|\s+(?!\s)/.source + "|" + string.source + ")*?" + /(?:;|(?=\s*\{))/.source),
+      pattern: RegExp("@[\\w-](?:" + /[^;{\s"']|\s+(?!\s)/.source + "|" + string2.source + ")*?" + /(?:;|(?=\s*\{))/.source),
       inside: {
         "rule": /^@[\w-]+/,
         "selector-function-argument": {
@@ -15429,23 +15520,23 @@ Prism.languages.rss = Prism.languages.xml;
       }
     },
     "url": {
-      pattern: RegExp("\\burl\\((?:" + string.source + "|" + /(?:[^\\\r\n()"']|\\[\s\S])*/.source + ")\\)", "i"),
+      pattern: RegExp("\\burl\\((?:" + string2.source + "|" + /(?:[^\\\r\n()"']|\\[\s\S])*/.source + ")\\)", "i"),
       greedy: true,
       inside: {
         "function": /^url/i,
         "punctuation": /^\(|\)$/,
         "string": {
-          pattern: RegExp("^" + string.source + "$"),
+          pattern: RegExp("^" + string2.source + "$"),
           alias: "url"
         }
       }
     },
     "selector": {
-      pattern: RegExp(`(^|[{}\\s])[^{}\\s](?:[^{};"'\\s]|\\s+(?![\\s{])|` + string.source + ")*(?=\\s*\\{)"),
+      pattern: RegExp(`(^|[{}\\s])[^{}\\s](?:[^{};"'\\s]|\\s+(?![\\s{])|` + string2.source + ")*(?=\\s*\\{)"),
       lookbehind: true
     },
     "string": {
-      pattern: string,
+      pattern: string2,
       greedy: true
     },
     "property": {
@@ -16345,22 +16436,4 @@ define$2({
     `.css`${style}`;
   }
 });
-const callbacks = [];
-function defaultChangeCallBack() {
-  if (location.pathname === "/")
-    return;
-  const lang2 = getLang();
-  if (lang2 === "en") {
-    const zhPathname = location.pathname.slice(0, -3);
-    location.pathname = zhPathname;
-  } else {
-    location.pathname = `${location.pathname}-en`;
-  }
-}
-function registerLocaleChange(cb = defaultChangeCallBack) {
-  if (callbacks.includes(cb))
-    return;
-  callbacks.push(cb);
-  document.addEventListener("tdesign_site_lang", cb);
-}
 export { getLang, registerLocaleChange };
