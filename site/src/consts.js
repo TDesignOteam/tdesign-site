@@ -6,7 +6,7 @@ export const figmaWebStarterUrl = 'https://www.figma.com/community/file/10532792
 
 export const sketchWebUrl = 'https://codesign.qq.com/s/Mx86jz774n9brz3?feature_aside=resource'
 
-export const sketchMobileUrl = `${CDN_BASE}/design-source/TDesign_Sketch_Library_Mobile_1.1.0.sketch`
+export const sketchMobileUrl = `${CDN_BASE}/design-source/TDesign_Sketch_Library_Mobile_1.1.1.sketch`
 
 // export const axWebUrl = `${CDN_BASE}/design-source/TDesign_Axure_Library_Web_1.1.0.rplib`
 
@@ -134,7 +134,7 @@ export const mobileSourceList = [
     title: 'Sketch 设计资源',
     eventLabel: 'Sketch 移动端组件库',
     actionUrl: sketchMobileUrl,
-    lastUpdated: '06/02/2023',
+    lastUpdated: '08/17/2023',
     status: 1,
     icon: 'sketch',
     actionType: 'download',
