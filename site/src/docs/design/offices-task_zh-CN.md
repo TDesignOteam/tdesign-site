@@ -164,7 +164,7 @@ isDesign: true
 
 核心流程：触发导入 - 选择上传文件的方式 - 批量上传文件 - 确认批量文件的上传结果 - 导入文件
 
-相关组件：[按钮](/vue/components/button)、[上传](/vue/components/upload)、[全局提示](/vue/components/message)、[表格](/vue/components/table)、[列表](/vue/components/list))、[对话框](/vue/components/dialog) 等
+相关组件：[按钮](/vue/components/button)、[上传](/vue/components/upload)、[全局提示](/vue/components/message)、[表格](/vue/components/table)、[列表](/vue/components/list)、[对话框](/vue/components/dialog) 等
 
 <img src="https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Data%20import%20c.png" />
 
